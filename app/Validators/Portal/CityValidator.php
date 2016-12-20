@@ -1,0 +1,15 @@
+<?php
+
+namespace CentralCondo\Validators\Portal;
+
+use \Prettus\Validator\Contracts\ValidatorInterface;
+use \Prettus\Validator\LaravelValidator;
+
+class CityValidator extends LaravelValidator
+{
+
+    protected $rules = [
+        'state_id' => 'required',
+        'name' => 'required|min:3'
+   ];
+}
