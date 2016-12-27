@@ -15,7 +15,7 @@
             <div data-role="content">
                 @if($notification->toArray())
                 @foreach($notification as $row)
-                <a class="list-group-item" href="{{ $row->route }}" role="menuitem">
+                <a class="list-group-item href="{{ $row->route }}" role="menuitem">
                     <div class="media">
                         <div class="media-left padding-right-10">
                             <i class="icon md-order bg-red-600 white icon-circle"

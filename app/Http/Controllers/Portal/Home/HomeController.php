@@ -4,8 +4,10 @@ namespace CentralCondo\Http\Controllers\Portal\Home;
 
 use CentralCondo\Http\Controllers\Controller;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
+use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Services\Portal\User\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,10 +16,15 @@ class HomeController extends Controller
 
     protected $condominiumRepository;
 
-    public function __construct(UserService $userService, CondominiumRepository $condominiumRepository)
+    protected $userCondominiumRepository;
+
+    public function __construct(UserService $userService,
+                                CondominiumRepository $condominiumRepository,
+                                UserCondominiumRepository $userCondominiumRepository)
     {
         $this->userService = $userService;
         $this->condominiumRepository = $condominiumRepository;
+        $this->userCondominiumRepository = $userCondominiumRepository;
     }
 
     public function index()
@@ -26,17 +33,20 @@ class HomeController extends Controller
 
         $condominium_id = session()->get('condominium_id');
         $userCondominiumId = session()->get('user_condominium_id');
-        $userRoleCondominiumId = session()->get('user_role_condominium_id');
-
+        $userRoleCondominiumId = session()->get('user_role_condominium');
 
         if(!isset($condominium_id)) {
-            $this->userService->userSessionCondominion();
+
+            $dados = $this->userCondominiumRepository->getUserCondominiums();
+            if($dados->toArray()){
+                $this->userService->userSessionCondominion();
+            }else{
+                return redirect()->route('portal.condominium.create');
+            }
+
         }
 
-        //dd(session()->get('condominium_id'));
-
         $condominium = $this->condominiumRepository->find(session()->get('condominium_id'));
-        //dd(session()->get('condominium_id'));
 
         return view('portal.home.index', compact('config', 'condominium', 'userCondominiumId', 'userRoleCondominiumId'));
     }

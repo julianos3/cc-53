@@ -50,8 +50,17 @@
                 <li class="dropdown">
                     <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                        data-animation="scale-up" role="button">
-                      <span class="avatar avatar-online">
+                        <span class="avatar avatar-online">
+                            <?php
+                            if(session()->get('image')){
+                                $imgAvatar = session()->get('image');
+                            }else{
+                                $imgAvatar = asset('portal/assets/images/user-not-image.jpg');
+                            }
+                            ?>
+                        <?php if($imgAvatar): ?>
                         <img src="<?php echo e(session()->get('image')); ?>" alt="<?php echo e(Auth::user()->name); ?>" title="<?php echo e(Auth::user()->name); ?>">
+                        <?php endif; ?>
                         <i></i>
                       </span>
                     </a>
@@ -66,6 +75,12 @@
                             <a href="javascript:void(0)" role="menuitem">
                                 <i class="icon wb-calendar" aria-hidden="true"></i>
                                 Assinatura
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="<?php echo e(route('portal.condominium.user.password')); ?>" role="menuitem">
+                                <i class="icon md-key" aria-hidden="true"></i>
+                                Alterar Senha
                             </a>
                         </li>
                         <li role="presentation">

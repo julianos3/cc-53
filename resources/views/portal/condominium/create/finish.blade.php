@@ -128,6 +128,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
+                                                    @if(session()->get('finish') != 'y')
                                                     <div class="col-xs-6 text-left">
                                                         <a href="{{ route('portal.condominium.create.config') }}"
                                                            class="btn btn-success"
@@ -137,7 +138,8 @@
                                                             Voltar
                                                         </a>
                                                     </div>
-                                                    <div class="col-xs-6 text-right">
+                                                    @endif
+                                                    <div class="@if(session()->get('finish') != 'y') col-xs-6 @else col-xs-12 @endif text-right">
                                                         <button type="submit" class="btn btn-success"
                                                                 data-toggle="tooltip"
                                                                 data-original-title="Finalizar">

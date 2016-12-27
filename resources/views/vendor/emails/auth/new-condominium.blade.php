@@ -36,7 +36,7 @@
                             <tr>
                                 <td style="padding:20px" class="center">
                                     <a href="http://www.centralcondo.com.br" title="Central Condo">
-                                        <img src="http://localhost:8000/portal/assets/images/email/logo.png" style="display: block;" alt="Central Condo" title="Central Condo" border="0" />
+                                        <img src="http://www.centralcondo.com.br/portal/assets/images/email/logo.png" style="display: block;" alt="Central Condo" title="Central Condo" border="0" />
                                     </a>
                                 </td>
                             </tr>
@@ -78,7 +78,7 @@
                             <tr>
                                 <td>
                                     <p style="mso-table-lspace:0;mso-table-rspace:0; margin:0; padding-left: 15px;">
-                                        <img src="http://localhost:8000/portal/assets/images/email/desejamos.png" alt="" border="0" style="border-radius: 4px; width: 267px" class="deviceWidth" />
+                                        <img src="http://www.centralcondo.com.br/portal/assets/images/email/desejamos.png" alt="" border="0" style="border-radius: 4px; width: 267px" class="deviceWidth" />
                                     </p>
                                 </td>
                             </tr>
@@ -87,7 +87,7 @@
                         <table width="29%"  border="0" cellpadding="0" cellspacing="0" align="left" class="">
                             <tr>
                                 <td >
-                                    <img width="100%" style="display: block;" src="http://localhost:8000/portal/assets/images/email/celular.png" alt="" border="0" />
+                                    <img width="100%" style="display: block;" src="http://www.centralcondo.com.br/portal/assets/images/email/celular.png" alt="" border="0" />
                                 </td>
                             </tr>
                         </table>
@@ -110,7 +110,7 @@
                             <tr>
                                 <td valign="middle" align="left" class="center" style="padding:20px 10px 0 20px">
                                     <a href="http://www.centralcondo.com.br" title="Central Condo">
-                                        <img src="http://localhost:8000/portal/assets/images/email/logo-2.png" alt="Central Condo" title="Central Condo" border="0" class="deviceWidth" />
+                                        <img src="http://www.centralcondo.com.br/portal/assets/images/email/logo-2.png" alt="Central Condo" title="Central Condo" border="0" class="deviceWidth" />
                                     </a>
                                 </td>
                             </tr>

@@ -6,6 +6,7 @@ use CentralCondo\Http\Controllers\Controller;
 use CentralCondo\Http\Requests;
 use CentralCondo\Http\Requests\Portal\Condominium\Group\GroupCondominiumRequest;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
+use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Repositories\Portal\Condominium\Group\GroupCondominiumRepository;
 use CentralCondo\Services\Portal\Condominium\Group\GroupCondominiumService;
 use CentralCondo\Services\Util\UtilObjeto;
@@ -33,6 +34,8 @@ class GroupCondominiumController extends Controller
      */
     private $utilObjeto;
 
+    private $userCondominiumRepository;
+
     /**
      * GroupCondominiumController constructor.
      * @param GroupCondominiumRepository $repository
@@ -43,20 +46,26 @@ class GroupCondominiumController extends Controller
     public function __construct(GroupCondominiumRepository $repository,
                                 GroupCondominiumService $service,
                                 CondominiumRepository $condominiumRepository,
-                                UtilObjeto $utilObjeto)
+                                UtilObjeto $utilObjeto, UserCondominiumRepository $userCondominiumRepository)
     {
         $this->repository = $repository;
         $this->service = $service;
         $this->condominiumRepository = $condominiumRepository;
         $this->utilObjeto = $utilObjeto;
-        $this->condominium_id = session()->get('condominium_id');   
+        $this->userCondominiumRepository = $userCondominiumRepository;
     }
 
     public function index()
     {
         $config['title'] = 'Grupos';
-        
-        $dados = $this->repository->getAllCondominium();
+
+        if($this->userCondominiumRepository->checkAdm(session()->get('user_role_condominium'))){
+            $dados = $this->repository->getAllCondominium();
+        }else{
+            $dados = $this->repository->getAllCondominiumUser();
+        }
+
+        //$dados = $this->repository->getAllUser();
         $dados = $this->utilObjeto->paginate($dados);
 
         return view('portal.condominium.group.index', compact('config', 'dados'));

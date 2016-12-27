@@ -22,11 +22,18 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
     Route::post('user/store', ['as' => 'user.store', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@store']);
     Route::get('user/edit/{id}', ['as' => 'user.edit', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@edit']);
     Route::post('user/update/{id}', ['as' => 'user.update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@update']);
+    Route::post('user/password/update', ['as' => 'user.password.update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@updatePassword']);
+    Route::get('user/password', ['as' => 'user.password', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@password']);
     Route::get('user/destroy/{id}', ['as' => 'user.destroy', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@destroy']);
+    Route::get('user/destroy-active/{id}', ['as' => 'user.destroy-active', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@destroyActive']);
     Route::get('user/show/{id}', ['as' => 'user.show', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@show']);
     Route::get('user/unit/{id}', ['as' => 'user.unit', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@unit']);
     Route::post('user/unit/create', ['as' => 'user.unit.create', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@userUnitCreate']);
     Route::get('user/image/{id}/{image}', ['as' => 'user.image', 'uses' => 'Portal\User\UsersController@showImage']);
+    Route::get('user/approval/{id}', ['as' => 'user.approval', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@showUserNotActive']);
+    Route::get('user/approval/{id}', ['as' => 'user.approval.show', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@showUserNotActive']);
+    Route::get('user/approval/confirm/{id}', ['as' => 'user.approval.confirm', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@confirmNotActive']);
+    Route::get('user/approval', ['as' => 'user.approval.all', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@approvalAll']);
 
     //UNIT
     Route::group(['prefix' => 'unit', 'as' => 'unit.'], function () {

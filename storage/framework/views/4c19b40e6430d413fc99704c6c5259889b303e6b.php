@@ -19,7 +19,7 @@
                         <div class="widget-header">
                             <div class="widget-header-content">
                                 <a class="avatar avatar-lg" href="javascript:void(0)">
-                                    <img src="<?php echo e(asset('portal/global/portraits/5.jpg')); ?>" alt="<?php echo e($row->condominium->name); ?>">
+                                    <img src="<?php echo e(asset('portal/assets/images/condominium-not-image.png')); ?>" alt="<?php echo e($row->condominium->name); ?>">
                                 </a>
                                 <h5 class="profile-user"><?php echo e($row->condominium->name); ?></h5>
                                 <p class="profile-job"><?php echo e($row->condominium->finality->name); ?></p>
@@ -45,20 +45,29 @@
 
                                     <?php endif; ?>
                                 </p>
-                                <a href="<?php echo e(route('portal.condominium.access', ['id' => $row->condominium->id])); ?>"
-                                   title="Acessar"
-                                   class="btn btn-icon bg-success waves-effect waves-light">
-                                    <i class="icon wb-zoom-in" aria-hidden="true"></i>
-                                    Acessar
-                                </a>
-                                <a href="<?php echo e(route('portal.condominium.edit', ['id' => $row->condominium->id])); ?>"
-                                   title="Editar"
-                                   class="btn btn-icon bg-warning waves-effect waves-light">
-                                    <i class="icon wb-edit" aria-hidden="true"></i>
-                                    Editar
-                                </a>
+                                <?php if($row->active == 'n'): ?>
+                                    <p class="alert-danger">Aguardando aprovação do condomínio!</p>
+                                <?php else: ?>
+                                    <?php if(count($dados) > 1): ?>
+                                    <a href="<?php echo e(route('portal.condominium.access', ['id' => $row->condominium->id])); ?>"
+                                       title="Acessar"
+                                       class="btn btn-icon bg-success waves-effect waves-light">
+                                        <i class="icon wb-zoom-in" aria-hidden="true"></i>
+                                        Acessar
+                                    </a>
+                                    <?php endif; ?>
+                                    <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('updateAdmin', $row)): ?>
+                                    <a href="<?php echo e(route('portal.condominium.edit', ['id' => $row->condominium->id])); ?>"
+                                       title="Editar"
+                                       class="btn btn-icon bg-warning waves-effect waves-light">
+                                        <i class="icon wb-edit" aria-hidden="true"></i>
+                                        Editar
+                                    </a>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
+                        <!--
                         <div class="widget-footer">
                             <div class="row no-space">
                                 <div class="col-xs-12">
@@ -67,6 +76,7 @@
                                 </div>
                             </div>
                         </div>
+                        -->
                     </div>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>

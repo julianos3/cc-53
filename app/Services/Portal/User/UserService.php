@@ -8,7 +8,6 @@ use CentralCondo\Validators\Portal\User\UserValidator;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -37,7 +36,7 @@ class UserService
         $this->filesystem = $filesystem;
         $this->storage = $storage;
         $this->condominium_id = session()->get('condominium_id');
-        $this->path = 'user/' . session()->get('user_id') . '/';
+        $this->path = 'user' . session()->get('user_id') . '/';
     }
 
     public function create(array $data)
@@ -125,16 +124,6 @@ class UserService
         return $user['imagem'];
     }
 
-    public function userSessionImage($image)
-    {
-        session([
-            'image' => route('portal.condominium.user.image', [
-                'id' => Auth::user()->id,
-                'image' => $image
-            ]),
-        ]);
-    }
-
     public function userSessionCondominion()
     {
 
@@ -155,11 +144,18 @@ class UserService
             $cont = 0;
             foreach ($usersCondominium as $row) {
                 $cont++;
-                //dd('revisar User Service -> userSessionCondominion()');
+                $image = '';
                 if ($this->storage->exists($this->path . $row->user->image)) {
                     $image = $row->user->imagem;
+                }
+
+                if (isset($row->user->imagem)) {
+                    $image = route('portal.condominium.user.image', [
+                        'id' => Auth::user()->id,
+                        'image' => $image
+                    ]);
                 } else {
-                    $image = 'avatar.jpg';
+                    $image = asset('portal/assets/images/user-not-image.jpg');
                 }
 
                 session([
@@ -169,20 +165,112 @@ class UserService
                     'condominium_id' => $row->condominium_id,
                     'name' => $row->condominium->name,
                     'active' => $row->active,
-                    'image' => route('portal.condominium.user.image', [
-                        'id' => Auth::user()->id,
-                        'image' => $image
-                    ]),
+                    'image' => $image
                 ]);
             }
 
         } elseif (count($usersCondominium) == 1) {
 
             $usersCondominium = $usersCondominium[0];
+            $image = '';
             if ($this->storage->exists($this->path . $usersCondominium->user->image)) {
                 $image = $usersCondominium->user->imagem;
+            }
+
+            if (isset($usersCondominium->user->imagem)) {
+                $image = route('portal.condominium.user.image', [
+                    'id' => Auth::user()->id,
+                    'image' => $image
+                ]);
             } else {
-                $image = 'avatar.jpg';
+                $image = asset('portal/assets/images/user-not-image.jpg');
+            }
+
+            session([
+                'user_id' => $usersCondominium->user->id,
+                'user_condominium_id' => $usersCondominium->id,
+                'user_role_condominium' => $usersCondominium->user_role_condominium_id,
+                'condominium_id' => $usersCondominium->condominium_id,
+                'name' => $usersCondominium->condominium->name,
+                'active' => $usersCondominium->active,
+                'image' => $image
+            ]);
+        }
+
+        return true;
+    }
+
+    public function updatePassword(array $data)
+    {
+        $error = [];
+
+        if (crypt($data['password'], Auth::user()->password) === Auth::user()->password) {
+
+        } else {
+            $error[] = 'Senha atual incorreta!';
+        }
+
+        if ($data['new_password'] != $data['repeat_new_password']) {
+            $error[] .= 'A confirmação de senha está incorreta.';
+        }
+
+        if (count($error) == 0) {
+            try {
+
+                $data['user_role_id'] = Auth::user()->user_role_id;
+                $data['name'] = Auth::user()->name;
+                $data['email'] = Auth::user()->email;
+                $data['sex'] = Auth::user()->sex;
+                $data['password'] = bcrypt($data['new_password']);
+                $dados = $this->repository->update($data, Auth::user()->id);
+
+                if ($dados) {
+                    $this->userSessionCondominion();
+
+                    $response = trans("Senha alterada com sucesso!");
+                    return redirect()->back()->with('status', trans($response));
+                }
+
+            } catch (ValidatorException $e) {
+                $response = trans("Erro ao alterar sua senha");
+                return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            }
+        } else {
+            return redirect()->back()->withErrors($error)->withInput();
+        }
+
+    }
+
+    public function userSessionImage($image)
+    {
+        session([
+            'image' => route('portal.condominium.user.image', [
+                'id' => Auth::user()->id,
+                'image' => $image
+            ]),
+        ]);
+    }
+
+    public function addSession($condominiumId)
+    {
+        $usersCondominium = $this->usersCondominiumRepository
+            ->with(['user', 'condominium'])
+            ->findWhere([
+                'user_id' => Auth::user()->id,
+                'condominium_id' => $condominiumId
+            ]);
+        $usersCondominium = $usersCondominium[0];
+
+        if ($usersCondominium->toArray()) {
+
+            $image = '';
+            if (isset($usersCondominium->user->imagem)) {
+                $image = route('portal.condominium.user.image', [
+                    'id' => Auth::user()->id,
+                    'image' => $image
+                ]);
+            } else {
+                $image = asset('portal/assets/images/user-not-image.jpg');
             }
 
             session([
@@ -197,48 +285,8 @@ class UserService
                     'image' => $image
                 ]),
             ]);
-        }
 
-        return true;
-    }
-
-    public function addSession($condominiumId)
-    {
-
-        //dd(Session::getId());
-        //dd(session()->all());
-        //dd('adicionar id na session para poder apagar e adicionar outra para as consultas');
-        //dd(session()->get());
-        $usersCondominium = $this->usersCondominiumRepository
-            ->with(['user', 'condominium'])
-            ->findWhere([
-                'user_id' => Auth::user()->id,
-                'condominium_id' => $condominiumId
-            ]);
-        $usersCondominium = $usersCondominium[0];
-
-        if($usersCondominium->toArray()){
-
-            if ($this->storage->exists($this->path . $usersCondominium->user->imagem)) {
-                $image = $usersCondominium->user->imagem;
-            } else {
-                $image = 'avatar.jpg';
-            }
-
-            session([
-                'user_id' => $usersCondominium->user->id,
-                'user_condominium_id' => $usersCondominium->id,
-                'user_role_condominium' => $usersCondominium->user_role_condominium,
-                'condominium_id' => $usersCondominium->condominium_id,
-                'name' => $usersCondominium->condominium->name,
-                'active' => $usersCondominium->active,
-                'image' => route('portal.condominium.user.image', [
-                    'id' => Auth::user()->id,
-                    'image' => $image
-                ]),
-            ]);
-
-            ////dd(session()->get('condominium_id'));
+            // dd(session()->get('user_role_condominium'));
 
             return true;
         }
@@ -257,7 +305,7 @@ class UserService
         switch ($this->storage->getDefaultDriver()) {
             case 'local':
                 return $this->storage->getDriver()->getAdapter()->getPathPrefix()
-                . '/' . $this->getFileName($user['id']);
+                    . '/' . $this->getFileName($user['id']);
         }
     }
 

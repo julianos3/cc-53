@@ -40,7 +40,9 @@ class NotificationService
                     'data' => $dados->toArray(),
                 ];
 
-                return redirect()->back()->with('status', $response['message']);
+                //return redirect()->back()->with('status', $response['message']);
+
+                return true;
             }
         } catch (ValidatorException $e) {
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
@@ -79,16 +81,28 @@ class NotificationService
 
     }
 
+    public function deleteAllToUser($id)
+    {
+        $dados = $this->repository->findWhere(['user_condominium_id' => $id]);
+        if($dados->toArray()){
+            foreach($dados as $row){
+                $this->destroy($row->id);
+            }
+        }
+    }
+
     public function clickAll($userCondominiumId)
     {
-        if($userCondominiumId){
-            $dados = $this->repository->scopeQuery(function($query) use ($userCondominiumId){
-                return $query->where('user_condominium_id', $userCondominiumId)
-                    ->update(['click' => 'y']);
+        if ($userCondominiumId) {
+            return $this->repository->scopeQuery(function ($query) use ($userCondominiumId) {
+               $query->where([
+                        'user_condominium_id' => $userCondominiumId,
+                        'click' => 'n'
+                    ])->update(['click' => 'y']);
+               return $query->where(['user_condominium_id' => $userCondominiumId, 'click' => 'n']);
             })->all();
-
-            return $dados;
         }
+
         return false;
     }
 

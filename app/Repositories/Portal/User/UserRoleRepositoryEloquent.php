@@ -6,7 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\User\UserRoleRepository;
 use CentralCondo\Entities\Portal\User\UserRole;
-use CentralCondo\Validators\Portal\UserUserRoleValidator;
+use CentralCondo\Validators\Portal\User\UserRoleValidator;
 
 /**
  * Class UserRoleRepositoryEloquent

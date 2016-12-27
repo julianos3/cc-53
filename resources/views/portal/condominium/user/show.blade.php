@@ -24,15 +24,17 @@
                     <div class="widget widget-shadow text-center">
                         <div class="widget-header">
                             <div class="widget-header-content">
-                                @if($dados->user->imagem)
+
+                                <?php
+                                if($dados->user->imagem){
+                                    $imgAvatar = route('portal.condominium.user.image', ['id' => $dados->user->id, 'image' => $dados->user->imagem]);
+                                }else{
+                                    $imgAvatar = asset('portal/assets/images/user-not-image.jpg');
+                                }
+                                ?>
+                                @if($imgAvatar)
                                     <a class="avatar avatar-lg" href="javascript:void(0);">
-                                        <img src="{{ route('portal.condominium.user.image', ['id' => $dados->user->id, 'image' => $dados->user->imagem]) }}"
-                                             alt="{{ $dados->user->name }}" title="{{ $dados->user->name }}">
-                                    </a>
-                                @else
-                                    <a class="avatar avatar-lg" href="javascript:void(0);">
-                                        <img src="{{ asset('portal/global/portraits/5.jpg') }}"
-                                             alt="{{ $dados->user->name }}" title="{{ $dados->user->name }}">
+                                        <img src="{{ $imgAvatar }}" alt="{{ $dados->user->name }}">
                                     </a>
                                 @endif
                                 <h4 class="profile-user">{{$dados->user->name}}</h4>

@@ -3,6 +3,7 @@
 namespace CentralCondo\Services\Portal\Condominium\Group;
 
 use CentralCondo\Repositories\Portal\Condominium\Group\GroupCondominiumRepository;
+use CentralCondo\Repositories\Portal\Condominium\Group\UserGroupCondominiumRepository;
 use CentralCondo\Validators\Portal\Condominium\Group\GroupCondominiumValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -13,13 +14,15 @@ class GroupCondominiumService
 
     protected $validator;
 
-    protected $usersGroupCondominiumRepository;
+    protected $userGroupCondominiumRepository;
 
     public function __construct(GroupCondominiumRepository $repository,
-                                GroupCondominiumValidator $validator)
+                                GroupCondominiumValidator $validator,
+                                UserGroupCondominiumRepository $userGroupCondominiumRepository)
     {
         $this->repository = $repository;
         $this->validator = $validator;
+        $this->userGroupCondominiumRepository = $userGroupCondominiumRepository;
     }
 
     public function create(array $data)
@@ -56,7 +59,7 @@ class GroupCondominiumService
     public function destroy($id)
     {
         //excluir integrantes do grupo
-        $usersGroup = $this->usersGroupCondominiumRepository->findWhere(['group_id' => $id]);
+        $usersGroup = $this->userGroupCondominiumRepository->findWhere(['group_id' => $id]);
         if ($usersGroup->toArray()) {
             $response = trans("Não é possivel excluir o grupo, existem integrantes vinculados no mesmo!");
             return redirect()->back()->withErrors($response)->withInput();

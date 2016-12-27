@@ -15,7 +15,7 @@
             <div data-role="content">
                 <?php if($notification->toArray()): ?>
                 <?php $__currentLoopData = $notification; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                <a class="list-group-item" href="<?php echo e($row->route); ?>" role="menuitem">
+                <a class="list-group-item href="<?php echo e($row->route); ?>" role="menuitem">
                     <div class="media">
                         <div class="media-left padding-right-10">
                             <i class="icon md-order bg-red-600 white icon-circle"

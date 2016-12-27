@@ -315,6 +315,25 @@
         });
     });
 
+    $('.btnShowModal').bind('click', function(){
+        var route = $(this).attr('data-route');
+        var routebtn = $(this).attr('data-route-btn');
+        $.get(route, function (result) {
+            if(routebtn != ''){
+                $('.btnShowConfirm').attr("data-route", routebtn);
+            }
+            $('.showModal').html(result);
+        });
+    });
+
+    $('.btnShowConfirm').bind('click', function(){
+        $('.close').click();
+        var route = $(this).attr('data-route');
+        var msg = $(this).attr('data-msg');
+        $('.page-title').html(msg);
+        $('.btnConfirm').prop("href", route);
+    });
+
     $('.communicationDestination').bind('click', function () {
         var value = $(this).val();
         if (value == 'group') {
@@ -336,13 +355,19 @@
     });
 
     $(window).load(function () {
-        $.get('/portal/communication/notification/show', function (result) {
-            $('.showNotification').html(result);
-        });
+        showNotification();
     });
 
     $('.showNotification').bind('click', function () {
-        $.get('/portal/communication/notification/click', function () {});
+        $.get('/portal/communication/notification/click', function (result) {
+            showNotification();
+        });
     });
 
 })(document, window, jQuery);
+
+function showNotification(){
+    $.get('/portal/communication/notification/show', function (result) {
+        $('.showNotification').html(result);
+    });
+}

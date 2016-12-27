@@ -48,7 +48,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label class="control-label" for="cep">CEP</label>
+                                                            <label class="control-label" for="cep">CEP *</label>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" data-plugin="formatter" data-pattern="[[99999]]-[[999]]" placeholder="CEP" id="cep" name="zip_code" required="required">
                                                                 <span class="input-group-btn">
@@ -64,29 +64,37 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label class="control-label" for="address">Logradouro</label>
-                                                            <input type="text" class="form-control" id="address" name="address" required="required">
+                                                            <label class="control-label" for="address">Logradouro *</label>
+                                                            <input type="text" class="form-control" id="address" placeholder="Rua, Av.." name="address" required="required" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="control-label" for="number">Número</label>
-                                                            <input type="text" class="form-control" id="number" name="number" required="required">
+                                                            <label class="control-label" for="number">Número *</label>
+                                                            <input type="text" class="form-control" id="number" name="number" required="required" />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="control-label" for="district">Bairro</label>
-                                                            <input type="text" class="form-control" id="district" name="district" required="required">
+                                                            <label class="control-label" for="district">Bairro *</label>
+                                                            <input type="text" class="form-control" id="district" name="district" required="required" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label" for="complement">Complemento</label>
+                                                            <input type="text" class="form-control" id="complement" name="complement" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="control-label" for="uf">Estado</label>
+                                                            <label class="control-label" for="uf">Estado *</label>
                                                             <select class="form-control" name="state_id" id="uf" required="required">
                                                                 <option value="">Selecione</option>
                                                                 @foreach($state as $row)
@@ -97,7 +105,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="control-label" for="city">Cidade</label>
+                                                            <label class="control-label" for="city">Cidade *</label>
                                                             <select class="form-control" name="city_id" id="city" required="required">
                                                                 <option value="">Selecione</option>
                                                             </select>

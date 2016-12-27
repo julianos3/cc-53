@@ -19,7 +19,7 @@
                         <div class="widget-header">
                             <div class="widget-header-content">
                                 <a class="avatar avatar-lg" href="javascript:void(0)">
-                                    <img src="{{ asset('portal/global/portraits/5.jpg') }}" alt="{{ $row->condominium->name }}">
+                                    <img src="{{ asset('portal/assets/images/condominium-not-image.png') }}" alt="{{ $row->condominium->name }}">
                                 </a>
                                 <h5 class="profile-user">{{ $row->condominium->name }}</h5>
                                 <p class="profile-job">{{ $row->condominium->finality->name }}</p>
@@ -40,20 +40,29 @@
                                         {{ ', '.$row->condominium->zip_code }}
                                     @endif
                                 </p>
-                                <a href="{{ route('portal.condominium.access', ['id' => $row->condominium->id]) }}"
-                                   title="Acessar"
-                                   class="btn btn-icon bg-success waves-effect waves-light">
-                                    <i class="icon wb-zoom-in" aria-hidden="true"></i>
-                                    Acessar
-                                </a>
-                                <a href="{{ route('portal.condominium.edit', ['id' => $row->condominium->id]) }}"
-                                   title="Editar"
-                                   class="btn btn-icon bg-warning waves-effect waves-light">
-                                    <i class="icon wb-edit" aria-hidden="true"></i>
-                                    Editar
-                                </a>
+                                @if($row->active == 'n')
+                                    <p class="alert-danger">Aguardando aprovação do condomínio!</p>
+                                @else
+                                    @if (count($dados) > 1)
+                                    <a href="{{ route('portal.condominium.access', ['id' => $row->condominium->id]) }}"
+                                       title="Acessar"
+                                       class="btn btn-icon bg-success waves-effect waves-light">
+                                        <i class="icon wb-zoom-in" aria-hidden="true"></i>
+                                        Acessar
+                                    </a>
+                                    @endif
+                                    @can('updateAdmin', $row)
+                                    <a href="{{ route('portal.condominium.edit', ['id' => $row->condominium->id]) }}"
+                                       title="Editar"
+                                       class="btn btn-icon bg-warning waves-effect waves-light">
+                                        <i class="icon wb-edit" aria-hidden="true"></i>
+                                        Editar
+                                    </a>
+                                    @endcan
+                                @endif
                             </div>
                         </div>
+                        <!--
                         <div class="widget-footer">
                             <div class="row no-space">
                                 <div class="col-xs-12">
@@ -62,6 +71,7 @@
                                 </div>
                             </div>
                         </div>
+                        -->
                     </div>
                 </div>
                 @endforeach

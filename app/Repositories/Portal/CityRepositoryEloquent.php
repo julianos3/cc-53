@@ -14,6 +14,14 @@ use CentralCondo\Validators\Portal\CityValidator;
  */
 class CityRepositoryEloquent extends BaseRepository implements CityRepository
 {
+
+    public function listCityState($id)
+    {
+        $dados = $this->orderBy('name', 'asc')->findWhere(['state_id' => $id]);
+
+        return $dados;
+    }
+
     /**
      * Specify Model class name
      *

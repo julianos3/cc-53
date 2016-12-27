@@ -24,15 +24,17 @@
                     <div class="widget widget-shadow text-center">
                         <div class="widget-header">
                             <div class="widget-header-content">
-                                <?php if($dados->user->imagem): ?>
+
+                                <?php
+                                if($dados->user->imagem){
+                                    $imgAvatar = route('portal.condominium.user.image', ['id' => $dados->user->id, 'image' => $dados->user->imagem]);
+                                }else{
+                                    $imgAvatar = asset('portal/assets/images/user-not-image.jpg');
+                                }
+                                ?>
+                                <?php if($imgAvatar): ?>
                                     <a class="avatar avatar-lg" href="javascript:void(0);">
-                                        <img src="<?php echo e(route('portal.condominium.user.image', ['id' => $dados->user->id, 'image' => $dados->user->imagem])); ?>"
-                                             alt="<?php echo e($dados->user->name); ?>" title="<?php echo e($dados->user->name); ?>">
-                                    </a>
-                                <?php else: ?>
-                                    <a class="avatar avatar-lg" href="javascript:void(0);">
-                                        <img src="<?php echo e(asset('portal/global/portraits/5.jpg')); ?>"
-                                             alt="<?php echo e($dados->user->name); ?>" title="<?php echo e($dados->user->name); ?>">
+                                        <img src="<?php echo e($imgAvatar); ?>" alt="<?php echo e($dados->user->name); ?>">
                                     </a>
                                 <?php endif; ?>
                                 <h4 class="profile-user"><?php echo e($dados->user->name); ?></h4>

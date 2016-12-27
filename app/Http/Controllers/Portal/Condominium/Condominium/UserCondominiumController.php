@@ -143,6 +143,7 @@ class UserCondominiumController extends Controller
         $config['title'] = "Alterar Integrante";
         $dados  = $this->repository->getUserCondominiumIdUser($id);
         $userRoleCondominium = $dados['user_role_condominium_id'];
+        $userCondominium = $dados;
         $dados = $dados['user'];
         if($dados['birth'] == '0000-00-00'){
             $dados['birth'] = '';
@@ -152,7 +153,7 @@ class UserCondominiumController extends Controller
 
         $role = $this->userRoleCondominiumRepository->orderBy('name','asc')->findWhere(['active' => 'y']);
 
-        return view('portal.condominium.user.edit', compact('config', 'dados', 'id', 'role', 'userRoleCondominium'));
+        return view('portal.condominium.user.edit', compact('config', 'dados', 'id', 'role', 'userRoleCondominium', 'userCondominium'));
     }
 
     public function update(UserCondominiumRequest $request, $id)
@@ -166,15 +167,9 @@ class UserCondominiumController extends Controller
 
         //$dados  = $this->repository->getUserCondominiumId($id);
 
-        $dados = $this->repository
-            ->with(['userUnit', 'user'])
-            ->findWhere([
-                'user_id' => $id,
-                'condominium_id' => session()->get('condominium_id')
-            ]);
-        $dados = $dados[0];
+        $dados  = $this->repository->getUserCondominiumIdUser($id);
 
-        $block = $this->blockRepository->findWhere(['condominium_id' => session()->get('condominium_id')]);
+        $block = $this->blockRepository->getAllCondominium();
         $userRole = $this->usersUnitRoleRepository->findWhere(['active' => 'y']);
         $userCondominiumId = $dados->id;
 
@@ -189,6 +184,44 @@ class UserCondominiumController extends Controller
     public function destroy($id)
     {
         return $this->service->destroy($id);
+    }
+
+    public function destroyActive($id)
+    {
+        return $this->service->destroyActive($id);
+    }
+
+    public function password()
+    {
+        $config['title'] = 'Alterar Senha';
+
+        return view('portal.condominium.user.password', compact('config'));
+    }
+
+    public function updatePassword(UserCondominiumRequest $request)
+    {
+        return $this->userService->updatePassword($request->all());
+    }
+
+    public function approvalAll()
+    {
+        $config['title'] = 'Usuários para aprovação';
+        $dados = $this->repository->getUserCondominiumsNotActive();
+
+        //dd($dados);
+
+        return view('portal.condominium.user.approval', compact('config', 'dados'));
+    }
+
+    public function showUserNotActive($id)
+    {
+        $dados  = $this->repository->getUserCondominiumId($id);
+        return view('portal.condominium.user.show.not-active', compact('config', 'dados'));
+    }
+
+    public function confirmNotActive($id)
+    {
+        return $this->service->activeUserCondominium($id);
     }
 
 }

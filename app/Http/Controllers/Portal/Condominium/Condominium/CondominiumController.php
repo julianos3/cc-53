@@ -4,8 +4,8 @@ namespace CentralCondo\Http\Controllers\Portal\Condominium\Condominium;
 
 use CentralCondo\Events\Portal\User\SendMailWellcome;
 use CentralCondo\Http\Controllers\Controller;
-use CentralCondo\Http\Requests;
 use CentralCondo\Http\Requests\Portal\Condominium\Condominium\CondominiumRequest;
+use CentralCondo\Repositories\Portal\CityRepository;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockNomemclatureRepository;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
@@ -54,6 +54,8 @@ class CondominiumController extends Controller
 
     protected $userService;
 
+    protected $cityRepository;
+
     public function __construct(CondominiumRepository $repository,
                                 CondominiumService $service,
                                 StateRepository $stateRepository,
@@ -67,7 +69,8 @@ class CondominiumController extends Controller
                                 UserCondominiumRepository $userCondominiumRepository,
                                 UserCondominiumService $userCondominiumService,
                                 UserUnitService $userUnitService,
-                                UserService $userService)
+                                UserService $userService,
+                                CityRepository $cityRepository)
     {
         $this->repository = $repository;
         $this->stateRepository = $stateRepository;
@@ -83,6 +86,7 @@ class CondominiumController extends Controller
         $this->userCondominiumService = $userCondominiumService;
         $this->userUnitService = $userUnitService;
         $this->userService = $userService;
+        $this->cityRepository = $cityRepository;
     }
 
     public function index()
@@ -209,7 +213,14 @@ class CondominiumController extends Controller
 
     public function edit($id)
     {
-        return $id;
+        $config['title'] = 'Editar condomínio';
+
+        $dados = $this->repository->getCondominiumId($id);
+        $state = $this->stateRepository->orderBy('name', 'asc')->all();
+        $city = $this->cityRepository->listCityState($dados->city->state_id);
+        $finality = $this->finalityRepository->getAll();
+
+        return view('portal.condominium.edit.edit', compact('config', 'dados', 'state', 'city', 'finality'));
     }
 
 }

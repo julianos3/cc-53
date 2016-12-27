@@ -5,9 +5,12 @@ namespace CentralCondo\Services\Portal\Condominium\Condominium;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockNomemclatureRepository;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
+use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Repositories\Portal\Condominium\Unit\UnitRepository;
 use CentralCondo\Repositories\Portal\Condominium\Unit\UnitTypeRepository;
+use CentralCondo\Services\Portal\Communication\Notification\NotificationService;
 use CentralCondo\Services\Portal\User\UserService;
+use CentralCondo\Services\Util\UtilObjeto;
 use CentralCondo\Validators\Portal\Condominium\Condominium\CondominiumValidator;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -30,7 +33,11 @@ class CondominiumService
 
     protected $userService;
 
-    protected $usersCondominiumRepository;
+    protected $userCondominiumRepository;
+
+    protected $utilObjeto;
+
+    protected $notificationService;
 
     public function __construct(CondominiumRepository $repository,
                                 CondominiumValidator $validator,
@@ -39,7 +46,9 @@ class CondominiumService
                                 BlockRepository $blockRepository,
                                 BlockNomemclatureRepository $blockNomemclatureRepository,
                                 UnitRepository $unitRepository,
-                                UnitTypeRepository $unitTypeRepository)
+                                UnitTypeRepository $unitTypeRepository,
+                                UtilObjeto $utilObjeto,
+                                NotificationService $notificationService, UserCondominiumRepository $userCondominiumRepository)
     {
         $this->repository = $repository;
         $this->validator = $validator;
@@ -49,6 +58,9 @@ class CondominiumService
         $this->unitRepository = $unitRepository;
         $this->unitTypeRepository = $unitTypeRepository;
         $this->userService = $userService;
+        $this->utilObjeto = $utilObjeto;
+        $this->notificationService = $notificationService;
+        $this->userCondominiumRepository = $userCondominiumRepository;
     }
 
     public function update(array $data, $id)
@@ -141,9 +153,11 @@ class CondominiumService
                 'zip_code' => $data['zip_code'],
                 'address' => $data['address'],
                 'number' => $data['number'],
-                'district' => $data['district'],
+                //  'district' => $data['district'],
                 'city_id' => $data['city_id']
             ]);
+
+            //dd($condominium);
 
             if ($condominium->toArray()) {
                 //cadastra usuario no condominio
@@ -156,6 +170,11 @@ class CondominiumService
                 $this->userService->userSessionCondominion();
 
                 //notificar sindico que existe novo condomino aguardando aprovação de acesso
+                $this->notificationNewUser();
+
+                session([
+                    'finish' => 'y'
+                ]);
 
                 return redirect(route('portal.condominium.create.finish'));
             } else {
@@ -193,18 +212,57 @@ class CondominiumService
         }
     }
 
+    public function notificationNewUser()
+    {
+        //busca todos os adm e envia notificação para aprovacao
+        $users = $this->userCondominiumRepository->getUserAdm();
+        if ($users->toArray()) {
+
+            $communication['name'] = 'Novo usuário para aprovação no condomínio ' . session()->get('name');
+            $communication['route'] = route('portal.condominium.user.approval.all');
+            foreach ($users as $row) {
+
+                if ($row->id != session()->get('user_condominium_id')) {
+
+                    $communication['condominium_id'] = session()->get('condominium_id');
+                    $communication['user_condominium_id'] = $row->id;
+
+                    $this->notificationService->create($communication);
+                }
+            }
+
+        }
+
+        return true;
+    }
+
     public function updateInfo(array $data)
     {
+        if ($data['cnpj'] != '  .   .   /    -  ') {
+            if (!$this->utilObjeto->valida_cnpj($data['cnpj'])) {
+                $response = trans('CNPJ informado é inválido.');
+                return redirect()->back()->withErrors($response)->withInput();
+            }
+        }
+
         try {
             $id = session()->get('condominium_id');
-            if ($data['cnpj'] != '  .   .   /    -  ') {
-                dd('valida cnpj');
-            }
+
 
             $this->validator->with($data)->passesOrFail();
             $dados = $this->repository->update($data, $id);
 
             if ($dados) {
+                if ($data['route'] == 'edit') {
+
+                    $response = [
+                        'message' => 'Informações alteradas com sucesso!',
+                        'data' => $dados->toArray(),
+                    ];
+
+                    return redirect()->back()->with('status', $response['message']);
+                }
+
                 return redirect(route('portal.condominium.create.config'));
             }
         } catch (ValidatorException $e) {

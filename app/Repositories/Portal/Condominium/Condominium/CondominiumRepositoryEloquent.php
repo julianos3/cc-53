@@ -15,6 +15,13 @@ use CentralCondo\Validators\Portal\Condominium\Condominium\CondominiumValidator;
 class CondominiumRepositoryEloquent extends BaseRepository implements CondominiumRepository
 {
 
+    public function getCondominiumId($id)
+    {
+        $dados = $this->with(['city'])->find($id);
+
+        return $dados;
+    }
+
     public function getCondominium()
     {
         $condominiumId = session()->get('condominium_id');

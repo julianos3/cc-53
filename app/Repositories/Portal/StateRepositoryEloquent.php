@@ -14,6 +14,7 @@ use CentralCondo\Validators\Portal\StateValidator;
  */
 class StateRepositoryEloquent extends BaseRepository implements StateRepository
 {
+
     /**
      * Specify Model class name
      *

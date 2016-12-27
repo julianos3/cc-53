@@ -3,10 +3,12 @@
 namespace CentralCondo\Services\Portal\Condominium\Condominium;
 
 use CentralCondo\Events\Portal\Condominium\User\SendMailAddCondominium;
+use CentralCondo\Events\Portal\Condominium\User\SendMailConfirmedUser;
 use CentralCondo\Events\Portal\User\SendMailNewUserWellcome;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Repositories\Portal\Condominium\Unit\UserUnitRepository;
 use CentralCondo\Repositories\Portal\User\UserRepository;
+use CentralCondo\Services\Portal\Communication\Notification\NotificationService;
 use CentralCondo\Services\Portal\Condominium\Unit\UserUnitService;
 use CentralCondo\Services\Portal\User\UserService;
 use CentralCondo\Validators\Portal\Condominium\Condominium\UserCondominiumValidator;
@@ -29,12 +31,15 @@ class UserCondominiumService
 
     protected $userService;
 
+    protected $notificationService;
+
     public function __construct(UserCondominiumRepository $repository,
                                 UserCondominiumValidator $validator,
                                 UserRepository $userRepository,
                                 UserUnitRepository $usersUnitRepository,
                                 UserUnitService $usersUnitService,
-                                UserService $userService)
+                                UserService $userService,
+                                NotificationService $notificationService)
     {
         $this->repository = $repository;
         $this->validator = $validator;
@@ -42,6 +47,7 @@ class UserCondominiumService
         $this->usersUnitRepository = $usersUnitRepository;
         $this->usersUnitService = $usersUnitService;
         $this->userService = $userService;
+        $this->notificationService = $notificationService;
         $this->condominium_id = session()->get('condominium_id');
     }
 
@@ -75,10 +81,10 @@ class UserCondominiumService
 
     public function update(array $data, $id)
     {
-        $usersCondominium = $this->repository->getUserCondominiumId($id);
+        $usersCondominium = $this->repository->find($id);
         //dd($usersCondominium);
         if ($usersCondominium->toArray()) {
-            if ($this->updateRoleCondominium($usersCondominium->id, $usersCondominium->user_id, $data['user_role_condominium_id'])) {
+            if ($this->updateRoleCondominium($usersCondominium->id, $usersCondominium->user_id, $data['user_role_condominium_id'], $usersCondominium->active)) {
                 return $this->userService->update($data, $usersCondominium->user_id);
             } else {
                 return false;
@@ -88,12 +94,12 @@ class UserCondominiumService
         }
     }
 
-    public function updateRoleCondominium($id, $userId, $roleCondominiumId)
+    public function updateRoleCondominium($id, $userId, $roleCondominiumId, $active)
     {
         $data['user_id'] = $userId;
         $data['user_role_condominium_id'] = $roleCondominiumId;
         $data['condominium_id'] = session()->get('condominium_id');
-        $data['active'] = 'y';
+        $data['active'] = $active;
         try {
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
             $dados = $this->repository->update($data, $id);
@@ -126,6 +132,60 @@ class UserCondominiumService
                 $response = trans("Erro ao excluir o integrante do condomínio");
                 return redirect()->back()->withErrors($response)->withInput();
             }
+        }
+    }
+
+    public function destroyActive($id)
+    {
+        $usersUnit = $this->usersUnitRepository->findWhere([
+            'user_condominium_id' => $id
+        ]);
+
+        if ($usersUnit->toArray()) {
+            foreach ($usersUnit as $row) {
+                $this->usersUnitService->destroy($row->id);
+            }
+        }
+
+        $this->notificationService->deleteAllToUser($id);
+
+        try {
+            $deleted = $this->repository->delete($id);
+            if ($deleted) {
+                $response = trans("Integrante do condomínio excluido com sucesso!");
+                return redirect()->back()->with('status', trans($response));
+            }
+        } catch (ValidatorException $e) {
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
+    }
+
+    public function activeUserCondominium($id)
+    {
+
+        $dados = $this->repository->getUserCondominiumId($id);
+        if ($dados->toArray()) {
+
+            $data['user_id'] = $dados->user_id;
+            $data['user_role_condominium_id'] = $dados->user_role_condominium_id;
+            $data['condominium_id'] = $dados->condominium_id;
+            $data['active'] = 'y';
+        }
+
+        try {
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $dados = $this->repository->update($data, $id);
+
+            if ($dados) {
+
+                //enviar email avisando usuário que foi aprovado
+                Event::fire(new SendMailConfirmedUser($dados->id));
+
+                $response = trans("Integrante do condomínio aprovado com sucesso!");
+                return redirect()->back()->with('status', trans($response));
+            }
+        } catch (ValidatorException $e) {
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 

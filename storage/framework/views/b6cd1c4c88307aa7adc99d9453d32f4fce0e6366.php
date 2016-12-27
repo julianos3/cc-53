@@ -82,10 +82,10 @@
                         </div>
                     <?php else: ?>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center">
                                 <h4 class="page-title">
                                     <br />
-                                    Nenhum cadastro realizado.
+                                    Nenhum grupo cadastrado.
                                 </h4>
                             </div>
                         </div>

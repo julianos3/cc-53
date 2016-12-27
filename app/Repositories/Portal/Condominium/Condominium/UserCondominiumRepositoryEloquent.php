@@ -47,6 +47,17 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
         return false;
     }
 
+    public function getUserCondominiumsNotActive()
+    {
+        $dados = $this->with(['user', 'condominium', 'userUnit', 'userRoleCondominium'])
+            ->findWhere([
+                'condominium_id' => session()->get('condominium_id'),
+                'active' => 'n'
+            ]);
+
+        return $dados;
+    }
+
     public function getUserCondominiums()
     {
         $dados = $this->with(['user', 'condominium'])
@@ -89,10 +100,9 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
     public function getUserCondominiumIdUser($id)
     {
         $dados = $this->with(['user', 'userUnit', 'userRoleCondominium'])->findWhere([
-            'user_id' => $id,
+            'id' => $id,
             'condominium_id' => session()->get('condominium_id')
         ]);
-        //dd($id);
         return $dados[0];
 
     }

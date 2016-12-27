@@ -28,7 +28,7 @@
                                         if($row->user->imagem){
                                             $imgAvatar = route('portal.condominium.user.image', ['id' => $row->user->id, 'image' => $row->user->imagem]);
                                         }else{
-                                            $imgAvatar = asset('portal/global/portraits/1.jpg');
+                                            $imgAvatar = asset('portal/assets/images/user-not-image.jpg');
                                         }
                                         ?>
                                         <?php if($imgAvatar): ?>
