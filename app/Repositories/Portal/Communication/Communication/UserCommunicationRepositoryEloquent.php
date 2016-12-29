@@ -14,6 +14,18 @@ use CentralCondo\Validators\Portal\Communication\Communication\UserCommunication
  */
 class UserCommunicationRepositoryEloquent extends BaseRepository implements UserCommunicationRepository
 {
+
+    public function getAllCondominium()
+    {
+        $dados = $this->with(['communication'])
+            ->orderBy('created_at','desc')
+            ->findWhere([
+                'user_condominium_id' => session()->get('user_condominium_id')
+            ]);
+
+        return $dados;
+    }
+
     /**
      * Specify Model class name
      *

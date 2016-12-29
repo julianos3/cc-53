@@ -41,7 +41,7 @@ class ContractService
             $dados = $this->repository->create($data);
 
             //add contract file
-            if($data['files']){
+            if(isset($data['files'])){
                 $this->contractFileService->createMultiple($dados['id'], $data);
             }
 
@@ -50,7 +50,6 @@ class ContractService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            //$response = trans("Erro ao cadastrar o Contrato");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -75,7 +74,6 @@ class ContractService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao alterar o Contrato");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }

@@ -55,7 +55,7 @@ class ContractFileService
         $uploadcount = 0;
         foreach ($data['files'] as $file) {
 
-            $validator = 'png,gif,jpeg,txt,pdf,doc,docx';
+            $validator = 'png,gif,jpeg,txt,pdf,doc,docx,xls,xlsx';
             $result = $this->utilObjeto->upload($file, $this->path, $validator);
 
             if ($result) {
@@ -80,7 +80,6 @@ class ContractFileService
 
     public function create(array $data)
     {
-
         try {
             $this->validator->with($data)->passesOrFail();
             $dados = $this->repository->create($data);
@@ -89,7 +88,6 @@ class ContractFileService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao cadastrar o Arquivo");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -106,7 +104,6 @@ class ContractFileService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao alterar o Arquivo");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -134,7 +131,7 @@ class ContractFileService
         switch ($this->storage->getDefaultDriver()) {
             case 'local':
                 return $this->storage->getDriver()->getAdapter()->getPathPrefix()
-                . '/' . $this->getFileName($user['id']);
+                    . '/' . $this->getFileName($user['id']);
         }
     }
 

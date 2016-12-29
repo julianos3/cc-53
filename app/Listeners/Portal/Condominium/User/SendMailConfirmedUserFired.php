@@ -41,7 +41,7 @@ class SendMailConfirmedUserFired
                         'name' => $name,
                         'nameCondominium' => $nameCondominium
                     ], function ($message) use ($row) {
-                        $message->from('suporte@centralcondo.com.br', 'Bem vindo | Central Condo - Seu Condomínio nas nuvens');
+                        $message->from('suporte@centralcondo.com.br', 'Central Condo - Seu Condomínio nas nuvens');
                         $message->subject('Central Condo - Seu Condomínio nas nuvens');
                         $message->priority(1);
                         $message->to($row->user->email, $row->user->name);

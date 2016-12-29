@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <?php echo Form::label('Name', 'Nome:'); ?>
+            <?php echo Form::label('Name', 'Nome *'); ?>
 
             <?php echo Form::text('name', null, ['class'=>'form-control', 'required' => 'required']); ?>
 
@@ -10,7 +10,7 @@
     <div class="col-md-6">
 
         <div class="form-group">
-            <?php echo Form::label('floor', 'Andar:'); ?>
+            <?php echo Form::label('floor', 'Andar'); ?>
 
             <?php echo Form::text('floor', null, ['class'=>'form-control']); ?>
 
@@ -20,7 +20,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label class="control-label" for="block_id">Bloco</label>
+            <label class="control-label" for="block_id">Bloco *</label>
             <select class="form-control" name="block_id" id="block_id" required="required">
                 <option value="">Selecione</option>
                 <?php $__currentLoopData = $block; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label class="control-label" for="unit_type_id">Tipo</label>
+            <label class="control-label" for="unit_type_id">Tipo *</label>
             <select class="form-control" name="unit_type_id" id="unit_type_id" required="required">
                 <option value="">Selecione</option>
                 <?php $__currentLoopData = $type; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>

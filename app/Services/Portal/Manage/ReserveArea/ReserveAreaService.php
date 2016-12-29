@@ -36,7 +36,6 @@ class ReserveAreaService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao cadastrar o Recurso Comum");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -53,7 +52,6 @@ class ReserveAreaService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao alterar o Recurso Comum");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }

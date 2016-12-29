@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <?php echo Form::label('date', 'Data realização:'); ?>
+            <?php echo Form::label('date', 'Data realização *'); ?>
 
             <?php echo Form::text('date', null, ['class'=>'form-control', 'required' => 'required', 'data-plugin' => 'formatter', 'data-pattern' => '[[99]]/[[99]]/[[9999]]', 'data-plugin' => 'datepicker', 'placeholder' => '00/00/0000']); ?>
 
@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="provider_id">Fornecedor:</label>
+            <label for="provider_id">Fornecedor *</label>
             <select class="form-control" required="required" id="provider_id" name="provider_id">
                 <option value="">Selecione</option>
                 <?php $__currentLoopData = $providers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $provider): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>

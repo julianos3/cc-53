@@ -4,6 +4,7 @@ namespace CentralCondo\Repositories\Portal\Communication\Communication;
 
 use CentralCondo\Entities\Portal\Communication\Communication\Communication;
 use CentralCondo\Validators\Portal\Communication\Communication\CommunicationValidator;
+use Illuminate\Container\Container as Application;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -21,6 +22,18 @@ class CommunicationRepositoryEloquent extends BaseRepository implements Communic
             ->findWhere(['id' => $id, 'condominium_id' => $condominiumId]);
 
         return $dados[0];
+    }
+
+    public function getAllCondominiumAdm()
+    {
+        $condominiumId = session()->get('condominium_id');
+        $dados = $this->orderBy('date_display', 'desc')
+            ->with(['userCondominium'])
+            ->findWhere([
+                'condominium_id' => $condominiumId
+            ]);
+
+        return $dados;
     }
 
     public function getAllCondominium()
@@ -47,6 +60,7 @@ class CommunicationRepositoryEloquent extends BaseRepository implements Communic
                     'all_user' => 'y',
                     ['date_display', '>=', date('yyyy-mm-dd')]
                 ]);
+
         }
 
         return $dados;

@@ -2255,10 +2255,10 @@ body.layout-full {
 .site-menubar-unfold .site-menu-category {
     padding: 0 24px;
     margin-top: 20px;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 38px;
-    color: #757575;
+    color: #4caf50;
     text-transform: uppercase;
     -webkit-transition: all .25s, font .1s .15s, color .1s .15s;
     -o-transition: all .25s, font .1s .15s, color .1s .15s;

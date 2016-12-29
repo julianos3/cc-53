@@ -20,6 +20,7 @@
                     <?php echo $__env->make('portal.condominium.group.modals.create', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('portal.condominium.group.modals.edit', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
+                    <?php if(session()->get('admin') == 'y'): ?>
                     <a href="javascript:void(0);"
                        data-target="#modalGroupCreate" data-toggle="modal"
                        data-original-title="Cadastrar"
@@ -27,6 +28,7 @@
                         <i class="icon wb-plus" aria-hidden="true"></i>
                         Cadastrar
                     </a>
+                    <?php endif; ?>
 
                     <?php if(!$dados->isEmpty()): ?>
                         <div class="row">
@@ -39,6 +41,11 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
                                             data-tablesaw-priority="persist">Nome
                                         </th>
+                                        <?php if(session()->get('admin') == 'y'): ?>
+                                        <th class="text-center col-md-1">
+                                            Ativo
+                                        </th>
+                                        <?php endif; ?>
                                         <th class="text-center col-md-2">
                                             Ação
                                         </th>
@@ -48,12 +55,16 @@
                                     <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                         <tr>
                                             <td><?php echo e($row->name); ?></td>
+                                            <?php if(session()->get('admin') == 'y'): ?>
+                                            <td class="text-center"><?php if($row->active == 'y'): ?> Sim <?php else: ?> Não <?php endif; ?></td>
+                                            <?php endif; ?>
                                             <td class="text-center">
                                                 <a href="<?php echo e(route('portal.condominium.group.user.index', ['id' => $row->id])); ?>"
                                                    title="Integrantes"
                                                    class="btn btn-icon bg-success waves-effect waves-light">
                                                     <i class="icon wb-users" aria-hidden="true"></i>
                                                 </a>
+                                                <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('admin', $row)): ?>
                                                 <a href="javascript:void(0);"
                                                    title="Editar"
                                                    data-target="#modalGroupEdit" data-toggle="modal"
@@ -67,6 +78,7 @@
                                                         data-route="<?php echo e(route('portal.condominium.group.destroy', ['id' => $row->id])); ?>">
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
@@ -94,12 +106,15 @@
             </div>
         </div>
     </div>
+
+    <?php if(session()->get('admin') == 'y'): ?>
     <a href="javascript:void(0);" title="Cadastrar"
         data-target="#modalGroupCreate" data-toggle="modal"
         data-original-title="Cadastrar"
         class="site-action site-floataction btn-raised btn btn-success btn-floating">
         <i class="icon md-plus" aria-hidden="true"></i>
     </a>
+    <?php endif; ?>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('portal.layouts.portal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

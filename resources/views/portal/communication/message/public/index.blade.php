@@ -16,15 +16,17 @@
                     @include('success._check')
                     @include('errors._check')
                     @include('portal.modals.delete')
-                    @include('portal.communication.message.public._comment')
+                    @include('portal.communication.message.public.modal.modal_create')
+                    @include('portal.communication.message.public.modal._comment')
 
-                    <a href="{{ route('portal.communication.message.public.create') }}"
-                       data-toggle="tooltip"
-                       data-original-title="Cadastrar"
-                       class="btn btn-primary waves-effect waves-light">
+                    <button title="Enviar Mensagem"
+                            class="btn btn-primary waves-effect waves-light btnShowModal"
+                            data-target="#modalCreateMessage" data-toggle="modal"
+                            data-route="{{ route('portal.communication.message.public.create') }}">
                         <i class="icon wb-plus" aria-hidden="true"></i>
-                        Cadastrar
-                    </a>
+                        Enviar Mensagem
+                    </button>
+
                     @if(!$dados->isEmpty())
                         <ul class="list-group">
                             @foreach($dados  as $row)
@@ -56,12 +58,14 @@
                                                         data-id="{{ $row->id }}">
                                                     Responder
                                                 </button>
+                                                @can('delete', $row)
                                                 <button title="Excluir"
                                                         class="btn btn-icon bg-danger waves-effect waves-light btnDelete"
                                                         data-target="#modalDelete" data-toggle="modal"
                                                         data-route="{{ route('portal.communication.message.public.destroy', ['id' => $row->id]) }}">
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
+                                                @endcan
                                             </div>
                                             @if($row->messageReply->toArray())
                                                 @foreach($row->messageReply as $reply)
@@ -82,12 +86,14 @@
                                                                 <small>{{ date('d/m/Y H:i:s', strtotime($reply->created_at)) }}</small>
                                                                 <p>
                                                                     {{ $reply->message }}
+                                                                    @can('delete', $reply)
                                                                     <a class="btnDelete"
                                                                        data-target="#modalDelete" data-toggle="modal"
                                                                        data-id="{{ $reply->id }}"
                                                                        data-route="{{ route('portal.communication.message.public.reply.destroy', ['id' => $reply->id]) }}"
                                                                        href="javascript:void(0);"
                                                                        title="Excluir">Excluir</a>
+                                                                    @endcan
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -118,11 +124,12 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('portal.communication.message.public.create') }}" title="Cadastrar"
-       data-toggle="tooltip"
-       data-original-title="Cadastrar"
-       class="site-action site-floataction btn-raised btn btn-success btn-floating">
-        <i class="icon md-plus" aria-hidden="true"></i>
-    </a>
+
+    <button title="Enviar Mensagem"
+            class="site-action site-floataction btn-raised btn btn-success btn-floating btnShowModal"
+            data-target="#modalCreateMessage" data-toggle="modal"
+            data-route="{{ route('portal.communication.message.public.create') }}">
+            <i class="icon md-plus" aria-hidden="true"></i>
+    </button>
 
 @endsection

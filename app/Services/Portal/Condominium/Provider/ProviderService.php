@@ -3,10 +3,10 @@
 namespace CentralCondo\Services\Portal\Condominium\Provider;
 
 use CentralCondo\Repositories\Portal\Condominium\Provider\ProviderRepository;
+use CentralCondo\Repositories\Portal\Manage\Contract\ContractRepository;
 use CentralCondo\Validators\Portal\Condominium\Provider\ProviderValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use CentralCondo\Repositories\Portal\Manage\Contract\ContractRepository;
 
 class ProviderService
 {

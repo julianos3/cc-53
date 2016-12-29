@@ -15,6 +15,11 @@ use CentralCondo\Validators\Portal\Manage\Contract\ContractValidator;
 class ContractRepositoryEloquent extends BaseRepository implements ContractRepository
 {
 
+    protected $fieldSearchable = [
+        'name' => 'like',
+        'provider.name'
+    ];
+
     public function getContract($id)
     {
         $condominiumId = session()->get('condominium_id');

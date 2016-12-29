@@ -1,5 +1,5 @@
 <div class="form-group">
-    <?php echo Form::label('Name', 'Serviço:'); ?>
+    <?php echo Form::label('name', 'Serviço *'); ?>
 
     <?php echo Form::text('name', null, ['class'=>'form-control', 'required' => 'required']); ?>
 
@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <?php echo Form::label('start_date', 'Data início:'); ?>
+            <?php echo Form::label('start_date', 'Data início *'); ?>
 
             <?php echo Form::text('start_date', null, ['class'=>'form-control', 'required' => 'required', 'data-plugin' => 'formatter', 'data-pattern' => '[[99]]/[[99]]/[[9999]]', 'data-plugin' => 'datepicker', 'placeholder' => '00/00/0000']); ?>
 
@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <?php echo Form::label('end_date', 'Data Fim:'); ?>
+            <?php echo Form::label('end_date', 'Data Fim *'); ?>
 
             <?php echo Form::text('end_date', null, ['class'=>'form-control', 'required' => 'required', 'data-plugin' => 'formatter', 'data-pattern' => '[[99]]/[[99]]/[[9999]]', 'data-plugin' => 'datepicker', 'placeholder' => '00/00/0000']); ?>
 
@@ -25,7 +25,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="provider_id">Fornecedor:</label>
+            <label for="provider_id">Fornecedor *</label>
             <select class="form-control" required="required" id="provider_id" name="provider_id">
                 <option value="">Selecione</option>
                 <?php $__currentLoopData = $providers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $provider): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
@@ -36,7 +36,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="contract_status_id">Status:</label>
+            <label for="contract_status_id">Status *</label>
             <select class="form-control" required="required" id="contract_status_id" name="contract_status_id">
                 <option value="">Selecione</option>
                 <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stats): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>

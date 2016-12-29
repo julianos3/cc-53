@@ -2,13 +2,12 @@
 
 namespace CentralCondo\Http\Controllers\Portal\Condominium\SecurityCam;
 
-use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
-use CentralCondo\Services\Portal\Condominium\SecurityCam\SecurityCamService;
-use CentralCondo\Http\Requests;
-use CentralCondo\Http\Requests\Portal\Condominium\SecurityCam\SecurityCamRequest;
-use CentralCondo\Repositories\Portal\Condominium\SecurityCam\SecurityCamRepository;
-use CentralCondo\Services\Util\UtilObjeto;
 use CentralCondo\Http\Controllers\Controller;
+use CentralCondo\Http\Requests\Portal\Condominium\SecurityCam\SecurityCamRequest;
+use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
+use CentralCondo\Repositories\Portal\Condominium\SecurityCam\SecurityCamRepository;
+use CentralCondo\Services\Portal\Condominium\SecurityCam\SecurityCamService;
+use CentralCondo\Services\Util\UtilObjeto;
 
 class SecurityCamController extends Controller
 {

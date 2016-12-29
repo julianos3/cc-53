@@ -17,6 +17,7 @@
                     <?php echo $__env->make('portal.modals.delete', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('portal.condominium.security-cam.modal_show', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
+                    <?php if(session()->get('admin') == 'y'): ?>
                     <a href="<?php echo e(route('portal.condominium.security-cam.create')); ?>"
                        data-toggle="tooltip"
                        data-original-title="Cadastrar"
@@ -24,6 +25,7 @@
                         <i class="icon wb-plus" aria-hidden="true"></i>
                         Cadastrar
                     </a>
+                    <?php endif; ?>
 
                     <?php if(!$dados->isEmpty()): ?>
                         <a href="<?php echo e(route('portal.condominium.security-cam.list')); ?>"
@@ -53,12 +55,14 @@
                                         <tr>
                                             <td><?php echo e($row->name); ?></td>
                                             <td class="text-center">
-                                                <button title="Excluir"
+                                                <button title="Visualizar"
                                                         class="btn btn-icon bg-success waves-effect waves-light btnShowCam"
                                                         data-target="#modalCam" data-toggle="modal"
                                                         data-id="<?php echo e($row->id); ?>">
                                                     <i class="icon wb-zoom-in" aria-hidden="true"></i>
                                                 </button>
+
+                                                <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('admin', $row)): ?>
                                                 <a href="<?php echo e(route('portal.condominium.security-cam.edit', ['id' => $row->id])); ?>"
                                                    title="Editar"
                                                    class="btn btn-icon bg-warning waves-effect waves-light">
@@ -70,6 +74,7 @@
                                                         data-route="<?php echo e(route('portal.condominium.security-cam.destroy', ['id' => $row->id])); ?>">
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
@@ -85,10 +90,9 @@
                         </div>
                     <?php else: ?>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center">
                                 <h4 class="page-title">
-                                    <br />
-                                    Nenhum cadastro realizado.
+                                    Nenhum câmera de segurança cadastrada.
                                 </h4>
                             </div>
                         </div>
@@ -97,11 +101,15 @@
             </div>
         </div>
     </div>
+
+    <?php if(session()->get('admin') == 'y'): ?>
     <a href="<?php echo e(route('portal.condominium.security-cam.create')); ?>" title="Cadastrar"
        data-toggle="tooltip"
        data-original-title="Cadastrar"
        class="site-action site-floataction btn-raised btn btn-success btn-floating">
         <i class="icon md-plus" aria-hidden="true"></i>
     </a>
+    <?php endif; ?>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('portal.layouts.portal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

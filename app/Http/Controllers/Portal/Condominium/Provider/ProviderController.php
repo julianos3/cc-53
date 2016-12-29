@@ -2,24 +2,22 @@
 
 namespace CentralCondo\Http\Controllers\Portal\Condominium\Provider;
 
-use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
+use CentralCondo\Http\Controllers\Controller;
+use CentralCondo\Http\Requests\Portal\Condominium\Provider\ProviderRequest;
 use CentralCondo\Repositories\Portal\Condominium\Provider\ProviderCategoryRepository;
 use CentralCondo\Repositories\Portal\Condominium\Provider\ProviderRepository;
 use CentralCondo\Services\Portal\Condominium\Provider\ProviderService;
-use CentralCondo\Http\Requests;
-use CentralCondo\Http\Requests\Portal\Condominium\Provider\ProviderRequest;
-use CentralCondo\Http\Controllers\Controller;
 use CentralCondo\Services\Util\UtilObjeto;
 
 class ProviderController extends Controller
 {
     /**
-     * @var ProvidersRepository
+     * @var ProviderRepository
      */
     protected $repository;
 
     /**
-     * @var ProvidersService
+     * @var ProviderService
      */
     private $service;
 
@@ -35,8 +33,8 @@ class ProviderController extends Controller
 
     /**
      * ProviderController constructor.
-     * @param ProvidersRepository $repository
-     * @param ProvidersService $service
+     * @param ProviderRepository $repository
+     * @param ProviderService $service
      * @param ProviderCategoryRepository $providerCategoryRepository
      * @param UtilObjeto $utilObjeto
      */
@@ -49,16 +47,15 @@ class ProviderController extends Controller
         $this->service = $service;
         $this->providerCategoryRepository = $providerCategoryRepository;
         $this->utilObjeto = $utilObjeto;
-        $this->condominium_id = session()->get('condominium_id');
     }
 
     public function index()
     {
         $config['title'] = "Fornecedores";
         $dados = $this->repository->getAllCondominium();
-
         $dados = $this->utilObjeto->paginate($dados);
-        return view('portal.condominium.provider.index', compact('config','dados'));
+
+        return view('portal.condominium.provider.index', compact('config', 'dados'));
     }
 
     public function create()

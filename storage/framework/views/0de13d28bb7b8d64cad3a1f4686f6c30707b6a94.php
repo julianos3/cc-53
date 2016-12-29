@@ -39,6 +39,10 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="1">Assunto</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="2">Status</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="3">Tipo</th>
+                                        <th data-tablesaw-sortable-col data-tablesaw-priority="3">Criado Por</th>
+                                        <?php if(session()->get('admin') == 'y'): ?>
+                                        <th data-tablesaw-sortable-col data-tablesaw-priority="4">Visivel</th>
+                                        <?php endif; ?>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="5">Data de Abertura</th>
                                         <th class="text-center col-md-2">
                                             Detalhes
@@ -52,6 +56,10 @@
                                             <td><?php echo e($row->subject); ?></td>
                                             <td><?php echo e($row->calledStatus->name); ?></td>
                                             <td><?php echo e($row->calledCategory->name); ?></td>
+                                            <td><?php echo e($row->userCondominium->user->name); ?></td>
+                                            <?php if(session()->get('admin') == 'y'): ?>
+                                            <td><?php echo e($row->visible); ?></td>
+                                            <?php endif; ?>
                                             <td><?php echo e(date('d/m/Y h:i', strtotime($row->created_at))); ?></td>
                                             <td class="text-center">
                                                 <button title="Visualizar"
@@ -60,14 +68,12 @@
                                                         data-id="<?php echo e($row->id); ?>">
                                                     <i class="icon wb-zoom-in" aria-hidden="true"></i>
                                                 </button>
-                                                <?php if($row->called_status_id == 1): ?>
-                                                    <?php if($row->user_condominium_id == $userCondominiumId): ?>
+                                                <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('update', $row)): ?>
                                                 <a href="<?php echo e(route('portal.communication.called.edit', ['id' => $row->id])); ?>"
                                                    title="Editar"
                                                    class="btn btn-icon bg-warning waves-effect waves-light">
                                                     <i class="icon wb-edit" aria-hidden="true"></i>
                                                 </a>
-                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>

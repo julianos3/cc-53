@@ -7,7 +7,7 @@
             <h1 class="page-title">{{ $config['title'] }}</h1>
             <ol class="breadcrumb" data-plugin="breadcrumb">
                 <li><a href="{{ route('portal.home.index') }}">Home</a></li>
-                <li><a href="{{ route('portal.manage.index') }}">Administrar</a></li>
+                <li><a href="{{ route('portal.manage.index') }}">Administração</a></li>
                 <li><a href="{{ route('portal.manage.reserve-areas.index') }}">Recurso Comum</a></li>
                 <li class="active">Cadastrar</li>
             </ol>

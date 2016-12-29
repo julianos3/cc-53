@@ -1,14 +1,17 @@
-<div class="form-group">
-    <?php echo Form::label('Name', 'Nome:'); ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <?php echo Form::label('name', 'Nome *'); ?>
 
-    <?php echo Form::text('name', null, ['class'=>'form-control', 'required' => 'required']); ?>
+            <?php echo Form::text('name', null, ['class'=>'form-control', 'required' => 'required']); ?>
 
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <!-- data-plugin="formatter" data-pattern="[[99999]]-[[999]]" -->
-            <?php echo Form::label('start_date', 'Data início:'); ?>
+            <?php echo Form::label('start_date', 'Data início *'); ?>
 
             <?php echo Form::text('start_date', null, ['class'=>'form-control', 'required' => 'required', 'data-plugin' => 'formatter', 'data-pattern' => '[[99]]/[[99]]/[[9999]]', 'data-plugin' => 'datepicker', 'placeholder' => '00/00/0000']); ?>
 
@@ -16,7 +19,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="periodicity_id">Periodicidade:</label>
+            <label for="periodicity_id">Periodicidade *</label>
             <select class="form-control" required="required" id="periodicity_id" name="periodicity_id">
                 <option value="">Selecione</option>
                 <?php $__currentLoopData = $periodicitys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $periodicity): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>

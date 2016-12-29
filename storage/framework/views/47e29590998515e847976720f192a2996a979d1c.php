@@ -26,7 +26,7 @@
 
             <?php echo Form::textarea('description', null, ['class'=>'form-control', 'required' => 'required']); ?>
 
-            <span class="help-block">Informação será acrescentada no andamento do chamado.</span>
+            <span class="help-block text-primary">* Informação será acrescentada no andamento do chamado.</span>
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@
 
             <?php echo Form::select('visible', ['y' => 'Sim','n' => 'Não'], null, ['class'=>'form-control']); ?>
 
-            <span class="help-block">Ao permitir que outros vejam, pode evitar que sejam criados outros chamados com o mesmo motivo.</span>
+            <span class="help-block text-primary">* Ao permitir que outros vejam, pode evitar que sejam criados outros chamados com o mesmo motivo.</span>
         </div>
     </div>
 </div>

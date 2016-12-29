@@ -7,7 +7,7 @@
             <h1 class="page-title">{{ $config['title'] }}</h1>
             <ol class="breadcrumb" data-plugin="breadcrumb">
                 <li><a href="{{ route('portal.home.index') }}">Home</a></li>
-                <li><a href="{{ route('portal.manage.index') }}">Administrar</a></li>
+                <li><a href="{{ route('portal.manage.index') }}">Administração</a></li>
                 <li class="active">{{ $config['title'] }}</li>
             </ol>
         </div>
@@ -20,6 +20,7 @@
                     @include('portal.manage.maintenance.completed.modal_create')
                     @include('portal.manage.maintenance.completed.modal_view')
 
+                    @if(session()->get('admin') == 'y')
                     <a href="{{ route('portal.manage.maintenance.create') }}"
                        data-toggle="tooltip"
                        data-original-title="Cadastrar"
@@ -27,6 +28,7 @@
                         <i class="icon wb-plus" aria-hidden="true"></i>
                         Cadastrar
                     </a>
+                    @endif
 
                     @if(!$dados->isEmpty())
                         <div class="row">
@@ -53,17 +55,18 @@
                                             <td>{{ date('d/m/Y', strtotime($row->start_date)) }}</td>
                                             <td>{{ $row->periodicity->name }}</td>
                                             <td class="text-center">
-                                                <button title="Registar Manutenção"
-                                                        class="btn btn-icon bg-dark waves-effect waves-light btnMaintenanceCompleted"
-                                                        data-target="#modalCompleted" data-toggle="modal"
-                                                        data-id="{{ $row->id }}">
-                                                    <i class="icon wb-wrench" aria-hidden="true"></i>
-                                                </button>
                                                 <button title="Manutenções Realizadas"
                                                         class="btn btn-icon bg-success waves-effect waves-light btnMaintenanceViewCompleted"
                                                         data-target="#modalViewCompleted" data-toggle="modal"
                                                         data-id="{{ $row->id }}">
                                                     <i class="icon wb-zoom-in" aria-hidden="true"></i>
+                                                </button>
+                                                @if(session()->get('admin') == 'y')
+                                                <button title="Registar Manutenção"
+                                                        class="btn btn-icon bg-dark waves-effect waves-light btnMaintenanceCompleted"
+                                                        data-target="#modalCompleted" data-toggle="modal"
+                                                        data-id="{{ $row->id }}">
+                                                    <i class="icon wb-wrench" aria-hidden="true"></i>
                                                 </button>
                                                 <a href="{{ route('portal.manage.maintenance.edit', ['id' => $row->id]) }}"
                                                    title="Editar"
@@ -78,6 +81,7 @@
                                                         data-route="{{ route('portal.manage.maintenance.destroy', ['id' => $row->id]) }}">
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,8 +98,7 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <h4 class="page-title">
-                                    <br />
-                                    Nenhum cadastro realizado.
+                                    Nenhuma manutenção cadastrada.
                                 </h4>
                             </div>
                         </div>
@@ -104,11 +107,14 @@
             </div>
         </div>
     </div>
+
+    @if(session()->get('admin') == 'y')
     <a href="{{ route('portal.manage.maintenance.create') }}" title="Cadastrar"
        data-toggle="tooltip"
        data-original-title="Cadastrar"
        class="site-action site-floataction btn-raised btn btn-success btn-floating">
         <i class="icon md-plus" aria-hidden="true"></i>
     </a>
+    @endif
 
 @endsection

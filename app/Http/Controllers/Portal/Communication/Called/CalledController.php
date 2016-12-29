@@ -64,8 +64,6 @@ class CalledController extends Controller
         $this->calledStatusCategory = $calledStatusRepository;
         $this->utilObjeto = $utilObjeto;
         $this->userCodominiumRepository = $userCodominiumRepository;
-        $this->condominium_id = session()->get('condominium_id');
-        $this->user_role_condominium = session()->get('user_role_condominium');
     }
 
     public function index()

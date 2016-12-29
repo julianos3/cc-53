@@ -13,7 +13,12 @@ class ContractStatusTableSeeder extends Seeder
     public function run()
     {
         factory(ContractStatus::class)->create([
-            'name' => 'Andamento',
+            'name' => 'Vigente',
+            'active' => 'y'
+        ]);
+
+        factory(ContractStatus::class)->create([
+            'name' => 'Rescindido',
             'active' => 'y'
         ]);
 

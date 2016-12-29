@@ -248,12 +248,12 @@ class CondominiumService
         try {
             $id = session()->get('condominium_id');
 
-
             $this->validator->with($data)->passesOrFail();
             $dados = $this->repository->update($data, $id);
 
             if ($dados) {
-                if ($data['route'] == 'edit') {
+
+                if (isset($data['route']) && $data['route'] == 'edit') {
 
                     $response = [
                         'message' => 'Informações alteradas com sucesso!',
@@ -266,8 +266,7 @@ class CondominiumService
                 return redirect(route('portal.condominium.create.config'));
             }
         } catch (ValidatorException $e) {
-            $response = trans('Erro ao editar as informações docondomínio');
-            return redirect()->back()->withErrors($response)->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 

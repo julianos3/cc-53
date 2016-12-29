@@ -18,6 +18,7 @@ Route::group(['prefix' => 'manage', 'as' => 'manage.'], function () {
     Route::get('contract/edit/{id}', ['as' => 'contract.edit', 'uses' => 'Portal\Manage\Contract\ContractController@edit']);
     Route::post('contract/update/{id}', ['as' => 'contract.update', 'uses' => 'Portal\Manage\Contract\ContractController@update']);
     Route::get('contract/destroy/{id}', ['as' => 'contract.destroy', 'uses' => 'Portal\Manage\Contract\ContractController@destroy']);
+    Route::get('contract/show/{id}', ['as' => 'contract.show', 'uses' => 'Portal\Manage\Contract\ContractController@show']);
 
     Route::get('contract/file/destroy/{id}', ['as' => 'contract.file.destroy', 'uses' => 'Portal\Manage\Contract\ContractFileController@destroy']);
     Route::get('contract/file/show/{id}', ['as' => 'contract.file.show', 'uses' => 'Portal\Manage\Contract\ContractFileController@show']);

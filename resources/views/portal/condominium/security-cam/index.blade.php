@@ -17,6 +17,7 @@
                     @include('portal.modals.delete')
                     @include('portal.condominium.security-cam.modal_show')
 
+                    @if(session()->get('admin') == 'y')
                     <a href="{{ route('portal.condominium.security-cam.create') }}"
                        data-toggle="tooltip"
                        data-original-title="Cadastrar"
@@ -24,6 +25,7 @@
                         <i class="icon wb-plus" aria-hidden="true"></i>
                         Cadastrar
                     </a>
+                    @endif
 
                     @if(!$dados->isEmpty())
                         <a href="{{ route('portal.condominium.security-cam.list') }}"
@@ -53,12 +55,14 @@
                                         <tr>
                                             <td>{{ $row->name }}</td>
                                             <td class="text-center">
-                                                <button title="Excluir"
+                                                <button title="Visualizar"
                                                         class="btn btn-icon bg-success waves-effect waves-light btnShowCam"
                                                         data-target="#modalCam" data-toggle="modal"
                                                         data-id="{{ $row->id }}">
                                                     <i class="icon wb-zoom-in" aria-hidden="true"></i>
                                                 </button>
+
+                                                @can('admin', $row)
                                                 <a href="{{ route('portal.condominium.security-cam.edit', ['id' => $row->id]) }}"
                                                    title="Editar"
                                                    class="btn btn-icon bg-warning waves-effect waves-light">
@@ -70,6 +74,7 @@
                                                         data-route="{{ route('portal.condominium.security-cam.destroy', ['id' => $row->id]) }}">
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
@@ -84,10 +89,9 @@
                         </div>
                     @else
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center">
                                 <h4 class="page-title">
-                                    <br />
-                                    Nenhum cadastro realizado.
+                                    Nenhum câmera de segurança cadastrada.
                                 </h4>
                             </div>
                         </div>
@@ -96,10 +100,14 @@
             </div>
         </div>
     </div>
+
+    @if(session()->get('admin') == 'y')
     <a href="{{ route('portal.condominium.security-cam.create') }}" title="Cadastrar"
        data-toggle="tooltip"
        data-original-title="Cadastrar"
        class="site-action site-floataction btn-raised btn btn-success btn-floating">
         <i class="icon md-plus" aria-hidden="true"></i>
     </a>
+    @endif
+
 @endsection

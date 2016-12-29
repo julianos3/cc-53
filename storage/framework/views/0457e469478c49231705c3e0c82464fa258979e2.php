@@ -16,15 +16,17 @@
                     <?php echo $__env->make('success._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('errors._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('portal.modals.delete', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                    <?php echo $__env->make('portal.communication.message.public._comment', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php echo $__env->make('portal.communication.message.public.modal.modal_create', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php echo $__env->make('portal.communication.message.public.modal._comment', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-                    <a href="<?php echo e(route('portal.communication.message.public.create')); ?>"
-                       data-toggle="tooltip"
-                       data-original-title="Cadastrar"
-                       class="btn btn-primary waves-effect waves-light">
+                    <button title="Enviar Mensagem"
+                            class="btn btn-primary waves-effect waves-light btnShowModal"
+                            data-target="#modalCreateMessage" data-toggle="modal"
+                            data-route="<?php echo e(route('portal.communication.message.public.create')); ?>">
                         <i class="icon wb-plus" aria-hidden="true"></i>
-                        Cadastrar
-                    </a>
+                        Enviar Mensagem
+                    </button>
+
                     <?php if(!$dados->isEmpty()): ?>
                         <ul class="list-group">
                             <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
@@ -57,12 +59,14 @@
                                                         data-id="<?php echo e($row->id); ?>">
                                                     Responder
                                                 </button>
+                                                <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('delete', $row)): ?>
                                                 <button title="Excluir"
                                                         class="btn btn-icon bg-danger waves-effect waves-light btnDelete"
                                                         data-target="#modalDelete" data-toggle="modal"
                                                         data-route="<?php echo e(route('portal.communication.message.public.destroy', ['id' => $row->id])); ?>">
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
+                                                <?php endif; ?>
                                             </div>
                                             <?php if($row->messageReply->toArray()): ?>
                                                 <?php $__currentLoopData = $row->messageReply; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reply): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
@@ -84,12 +88,14 @@
                                                                 <p>
                                                                     <?php echo e($reply->message); ?>
 
+                                                                    <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('delete', $reply)): ?>
                                                                     <a class="btnDelete"
                                                                        data-target="#modalDelete" data-toggle="modal"
                                                                        data-id="<?php echo e($reply->id); ?>"
                                                                        data-route="<?php echo e(route('portal.communication.message.public.reply.destroy', ['id' => $reply->id])); ?>"
                                                                        href="javascript:void(0);"
                                                                        title="Excluir">Excluir</a>
+                                                                    <?php endif; ?>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -121,12 +127,13 @@
             </div>
         </div>
     </div>
-    <a href="<?php echo e(route('portal.communication.message.public.create')); ?>" title="Cadastrar"
-       data-toggle="tooltip"
-       data-original-title="Cadastrar"
-       class="site-action site-floataction btn-raised btn btn-success btn-floating">
-        <i class="icon md-plus" aria-hidden="true"></i>
-    </a>
+
+    <button title="Enviar Mensagem"
+            class="site-action site-floataction btn-raised btn btn-success btn-floating btnShowModal"
+            data-target="#modalCreateMessage" data-toggle="modal"
+            data-route="<?php echo e(route('portal.communication.message.public.create')); ?>">
+            <i class="icon md-plus" aria-hidden="true"></i>
+    </button>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('portal.layouts.portal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -37,8 +37,7 @@ class BlockService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao cadastrar o bloco");
-            return redirect()->back()->withErrors($response)->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 
@@ -54,8 +53,7 @@ class BlockService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao alterar o bloco");
-            return redirect()->back()->withErrors($response)->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 

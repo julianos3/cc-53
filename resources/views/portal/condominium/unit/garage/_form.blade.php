@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('Name', 'Nome:') !!}
+            {!! Form::label('name', 'Nome *') !!}
             {!! Form::text('name', null, ['class'=>'form-control', 'required' => 'required']) !!}
         </div>
     </div>
@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            {!! Form::label('description', 'Descrição:') !!}
+            {!! Form::label('description', 'Descrição') !!}
             {!! Form::textarea('description', null, ['class'=>'form-control', 'rows' => '5']) !!}
         </div>
     </div>

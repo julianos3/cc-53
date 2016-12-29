@@ -4,6 +4,7 @@ namespace CentralCondo\Services\Portal\Condominium\Condominium;
 
 use CentralCondo\Events\Portal\Condominium\User\SendMailAddCondominium;
 use CentralCondo\Events\Portal\Condominium\User\SendMailConfirmedUser;
+use CentralCondo\Events\Portal\Condominium\User\SendMailNotConfirmedUser;
 use CentralCondo\Events\Portal\User\SendMailNewUserWellcome;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Repositories\Portal\Condominium\Unit\UserUnitRepository;
@@ -82,7 +83,6 @@ class UserCondominiumService
     public function update(array $data, $id)
     {
         $usersCondominium = $this->repository->find($id);
-        //dd($usersCondominium);
         if ($usersCondominium->toArray()) {
             if ($this->updateRoleCondominium($usersCondominium->id, $usersCondominium->user_id, $data['user_role_condominium_id'], $usersCondominium->active)) {
                 return $this->userService->update($data, $usersCondominium->user_id);
@@ -150,6 +150,9 @@ class UserCondominiumService
         $this->notificationService->deleteAllToUser($id);
 
         try {
+            //enviar email infornado que o mesmo foi removido do condominio
+            Event::fire(new SendMailNotConfirmedUser($id));
+
             $deleted = $this->repository->delete($id);
             if ($deleted) {
                 $response = trans("Integrante do condomínio excluido com sucesso!");

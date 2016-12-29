@@ -11,9 +11,12 @@
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="1">Data Realizada</th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="2">Fornecedor</th>
+
+                    <?php if(session()->get('admin') == 'y'): ?>
                     <th class="text-center col-md-3">
                         Ação
                     </th>
+                    <?php endif; ?>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,6 +25,8 @@
                         <td><?php echo e($row->description); ?></td>
                         <td><?php echo e(date('d/m/Y', strtotime($row->date))); ?></td>
                         <td><?php echo e($row->provider->name); ?></td>
+
+                        <?php if(session()->get('admin') == 'y'): ?>
                         <td class="text-center">
                             <a href="<?php echo e(route('portal.manage.maintenance.completed.edit', ['id' => $row->id])); ?>"
                                title="Editar"
@@ -31,6 +36,7 @@
                                 <i class="icon wb-edit" aria-hidden="true"></i>
                             </a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                 </tbody>

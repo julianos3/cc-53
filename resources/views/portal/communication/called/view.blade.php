@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="assunto"><strong>Criado Por</strong></label>
-                            <p class="form-control-static">{{ $dados['usersCondominium']['user']['name'] }}</p>
+                            <p class="form-control-static">{{ $dados['userCondominium']['user']['name']}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -76,7 +76,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <strong>CRIADO EM</strong> {{ date('d/m/Y h:i', strtotime($row['created_at'])) }}
-                                    <strong>POR</strong> {{ $row['usersCondominium']['user']['name']}}
+                                    <strong>POR</strong> {{ $row['userCondominium']['user']['name']}}
                                 </div>
                             </div>
                             <div class="row">

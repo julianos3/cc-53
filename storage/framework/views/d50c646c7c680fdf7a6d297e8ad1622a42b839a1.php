@@ -83,14 +83,28 @@
                         <div class="panel-body container-fluid">
                             <div class="article-content">
 
-                                <?php if(!$dados->user->description ||
-                                        !$dados->user->formation ||
+                                    <!--
+                                    <?php
+                                        /*
+                                    @if(!isset($dados->user->description) ||
+                                        !isset($dados->user->formation) ||
                                         !$dados->user->institution ||
                                         !$dados->user->conclusion ||
                                         !$dados->user->profession ||
                                         !$dados->user->company ||
-                                        !$dados->userUnit->toArray()||
-                                        !$dados->user->site): ?>
+                                        !$dados->userUnit->toArray() ||
+                                        !$dados->user->site)
+                                        */
+                                        ?>
+                                    -->
+                                <?php if(!isset($dados->user->description) ||
+                                    !isset($dados->user->formation) ||
+                                    !isset($dados->user->institution) ||
+                                    !isset($dados->user->profession) ||
+                                    !isset($dados->user->conclusion) ||
+                                    !isset($dados->user->company) ||
+                                    !$dados->userUnit->toArray() ||
+                                    !isset($dados->user->site)): ?>
 
                                     <div class="col-md-12 text-center">
                                         <h4 class="page-title">

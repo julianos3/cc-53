@@ -29,7 +29,7 @@
                     <div class="widget-content">
                         <div class="padding-20 padding-top-10">
                             <h4>{{ $row->name }}</h4>
-                            <iframe width="100%" height="" src="{{ $row->url }}" frameborder="0" allowfullscreen></iframe>
+                            <iframe width="100%" src="{{ $row->url }}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>

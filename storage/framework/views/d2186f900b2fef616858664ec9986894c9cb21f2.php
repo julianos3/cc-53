@@ -13,17 +13,6 @@
         <div class="page-content">
             <div class="panel">
                 <div class="panel-body">
-                    <?php echo $__env->make('success._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                    <?php echo $__env->make('errors._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                    <?php echo $__env->make('portal.modals.delete', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-
-                    <a href="<?php echo e(route('portal.communication.communication.create')); ?>"
-                       data-toggle="tooltip"
-                       data-original-title="Novo Comunicado"
-                       class="btn btn-primary waves-effect waves-light">
-                        <i class="icon wb-plus" aria-hidden="true"></i>
-                        Novo Comunicado
-                    </a>
 
                     <?php if(!$dados->isEmpty()): ?>
                         <div class="row">
@@ -37,7 +26,7 @@
                                             data-tablesaw-priority="persist">Código
                                         </th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="1">Título</th>
-                                        <th data-tablesaw-sortable-col data-tablesaw-priority="2">Data F. exibição</th>
+                                        <th data-tablesaw-sortable-col data-tablesaw-priority="2">Criado Por</th>
                                         <th class="text-center">
                                             Detalhes
                                         </th>
@@ -46,30 +35,15 @@
                                     <tbody>
                                     <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                         <tr>
-                                            <td><?php echo e($row->id); ?></td>
-                                            <td><?php echo e($row->name); ?></td>
-                                            <td><?php echo e(date('d/m/Y', strtotime($row->date_display))); ?></td>
+                                            <td><?php echo e($row->communication_id); ?></td>
+                                            <td><?php echo e($row->communication->name); ?></td>
+                                            <td><?php echo e($row->communication->userCondominium->user->name); ?></td>
                                             <td class="text-center">
-                                                <a href="<?php echo e(route('portal.communication.communication.show', ['id' => $row->id])); ?>"
+                                                <a href="<?php echo e(route('portal.communication.communication.show', ['id' => $row->communication_id])); ?>"
                                                    title="Visualizar"
                                                    class="btn btn-icon bg-success waves-effect waves-light">
                                                     <i class="icon wb-zoom-in" aria-hidden="true"></i>
                                                 </a>
-                                                <?php if($row->user_condominium_id == $user_condominium_id || $userAdm == 'y'): ?>
-                                                <a href="<?php echo e(route('portal.communication.communication.edit', ['id' => $row->id])); ?>"
-                                                   title="Editar"
-                                                   class="btn btn-icon bg-warning waves-effect waves-light">
-                                                    <i class="icon wb-edit" aria-hidden="true"></i>
-                                                </a>
-                                                <?php endif; ?>
-                                                <?php if($userAdm == 'y'): ?>
-                                                <button title="Excluir"
-                                                        class="btn btn-icon bg-danger waves-effect waves-light btnDelete"
-                                                        data-target="#modalDelete" data-toggle="modal"
-                                                        data-route="<?php echo e(route('portal.communication.communication.destroy', ['id' => $row->id])); ?>">
-                                                    <i class="icon wb-trash" aria-hidden="true"></i>
-                                                </button>
-                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
@@ -96,12 +70,6 @@
             </div>
         </div>
     </div>
-    <a href="<?php echo e(route('portal.communication.communication.create')); ?>" title="Novo Comunicado"
-       data-toggle="tooltip"
-       data-original-title="Novo Comunicado"
-       class="site-action site-floataction btn-raised btn btn-success btn-floating">
-        <i class="icon md-plus" aria-hidden="true"></i>
-    </a>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('portal.layouts.portal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

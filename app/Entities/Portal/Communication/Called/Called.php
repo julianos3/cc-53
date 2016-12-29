@@ -31,7 +31,7 @@ class Called extends Model implements Transformable
 
     public function userCondominium()
     {
-        return $this->belongsTo(UserCondominium::class);
+        return $this->belongsTo(UserCondominium::class, 'user_condominium_id');
     }
 
     public function calledCategory()

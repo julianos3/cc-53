@@ -15,6 +15,10 @@ use CentralCondo\Validators\Portal\Condominium\Group\UserGroupCondominiumValidat
 class UserGroupCondominiumRepositoryEloquent extends BaseRepository implements UserGroupCondominiumRepository
 {
 
+    /**
+     * @param $groupId
+     * @return mixed
+     */
     public function getAllGroupCondominium($groupId)
     {
         $dados = $this->with('userCondominium')->findWhere(['group_id' => $groupId]);
@@ -41,7 +45,6 @@ class UserGroupCondominiumRepositoryEloquent extends BaseRepository implements U
 
         return UserGroupCondominiumValidator::class;
     }
-
 
     /**
      * Boot up the repository, pushing criteria

@@ -36,20 +36,6 @@
                             <p class="form-control-static"><?php echo e(date('d/m/Y', strtotime($dados->created_at))); ?></p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="codigo"><strong>Visivel até</strong></label>
-                            <p class="form-control-static"><?php echo e(date('d/m/Y', strtotime($dados->date_display))); ?></p>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="codigo"><strong>Enviado por e-mail?</strong></label>
-                            <p class="form-control-static"><?php if($dados->send_mail == 's'): ?> Sim <?php else: ?> Não <?php endif; ?></p>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="codigo"><strong>Todos os usuários?</strong></label>
-                            <p class="form-control-static"><?php if($dados->all_user == 's'): ?> Sim <?php else: ?> Somente Grupos <?php endif; ?></p>
-                        </div>
-                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
@@ -60,59 +46,7 @@
                             <label for="codigo"><strong>Descrição</strong></label>
                             <p class="form-control-static"><?php echo e($dados->description); ?></p>
                         </div>
-                    </div>
-                    <?php if($dados->all_user == 'n'): ?>
-                    <hr>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="tablesaw table-striped table-bordered table-hover"
-                                       data-tablesaw-mode="swipe"
-                                       data-tablesaw-sortable data-tablesaw-minimap>
-                                    <thead>
-                                        <tr>
-                                            <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
-                                                data-tablesaw-priority="persist">Grupos
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php $__currentLoopData = $dados->communicationGroup; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                                        <tr>
-                                            <td><?php echo e($row->groupCondominium->name); ?></td>
-                                        </tr>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <?php if(!$dados->userCommunication->isEmpty()): ?>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="tablesaw table-striped table-bordered table-hover"
-                                   data-tablesaw-mode="swipe"
-                                   data-tablesaw-sortable data-tablesaw-minimap>
-                                <thead>
-                                <tr>
-                                    <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
-                                        data-tablesaw-priority="persist">Integrantes
-                                    </th>
-                                    <th data-tablesaw-sortable-col data-tablesaw-priority="1">E-mail</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php $__currentLoopData = $dados->userCommunication; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                                    <tr>
-                                        <td><?php echo e($row->userCondominium->user->name); ?></td>
-                                        <td><?php echo e($row->userCondominium->user->email); ?></td>
-                                    </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <?php endif; ?>
+                    </div>s
                 </div>
             </div>
         </div>

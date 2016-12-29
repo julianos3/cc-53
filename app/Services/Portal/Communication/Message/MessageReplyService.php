@@ -24,8 +24,6 @@ class MessageReplyService
     {
         $this->repository = $repository;
         $this->validator = $validator;
-        $this->condominium_id = session()->get('condominium_id');
-        $this->user_condominium_id = session()->get('user_condominium_id');
     }
 
     public function create(array $data)
@@ -73,7 +71,6 @@ class MessageReplyService
             $response = trans("Erro ao removevr resposta!");
             return redirect()->back()->withErrors($response)->withInput();
         }
-
     }
 
 }

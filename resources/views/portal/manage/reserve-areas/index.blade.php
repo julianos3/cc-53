@@ -7,7 +7,7 @@
             <h1 class="page-title">{{ $config['title'] }}</h1>
             <ol class="breadcrumb" data-plugin="breadcrumb">
                 <li><a href="{{ route('portal.home.index') }}">Home</a></li>
-                <li><a href="{{ route('portal.manage.index') }}">Administrar</a></li>
+                <li><a href="{{ route('portal.manage.index') }}">Administração</a></li>
                 <li class="active">Recursos Comuns</li>
             </ol>
         </div>
@@ -78,8 +78,7 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <h4 class="page-title">
-                                    <br />
-                                    Nenhum cadastro realizado.
+                                    Nenhum recurso comum cadastrado.
                                 </h4>
                             </div>
                         </div>
@@ -88,6 +87,7 @@
             </div>
         </div>
     </div>
+
     <a href="{{ route('portal.manage.reserve-areas.create') }}" title="Cadastrar"
        data-toggle="tooltip"
        data-original-title="Cadastrar"

@@ -4,7 +4,6 @@ namespace CentralCondo\Repositories\Portal\Communication\Called;
 
 use CentralCondo\Entities\Portal\Communication\Called\Called;
 use CentralCondo\Validators\Portal\Communication\Called\CalledValidator;
-use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -17,28 +16,35 @@ class CalledRepositoryEloquent extends BaseRepository implements CalledRepositor
 
     public function getAllCondominium()
     {
-        $userRoleCondominium = session()->get('user_role_condominium');
         $condominiumId = session()->get('condominium_id');
         $userCondominiumId = session()->get('user_condominium_id');
 
-        if ($userRoleCondominium == 1 || $userRoleCondominium == 2 ||
-            $userRoleCondominium == 3 || $userRoleCondominium == 7 ||
-            $userRoleCondominium == 9
-        ) {
+        if ($this->checkAdmin()) {
             $dados = $this->orderBy('created_at', 'desc')
                 ->with(['userCondominium', 'calledCategory', 'calledStatus'])
                 ->findWhere(['condominium_id' => $condominiumId]);
         } else {
-            $dados = $this->orderBy('created_at', 'desc')
-                ->with(['userCondominium', 'calledCategory', 'calledStatus'])
-                ->findWhere([
-                    'condominium_id' => $condominiumId,
-                    'user_condominium_id' => $userCondominiumId,
-                    'visible' => 'y'
-                ]);
+            $dados = $this->orderBy('created_at', 'desc')->with(['userCondominium', 'calledCategory', 'calledStatus'])
+                ->scopeQuery(function($query) use ($condominiumId, $userCondominiumId){
+                return $query->where('user_condominium_id', $userCondominiumId)
+                    ->orWhere('visible', 'y');
+            })->findWhere(['condominium_id' => $condominiumId]);
         }
 
         return $dados;
+    }
+
+    public function checkAdmin()
+    {
+        $userRoleCondominium = session()->get('user_role_condominium');
+        if ($userRoleCondominium == 1 || $userRoleCondominium == 2 ||
+            $userRoleCondominium == 3 || $userRoleCondominium == 7 ||
+            $userRoleCondominium == 9
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getId($id)
@@ -70,7 +76,6 @@ class CalledRepositoryEloquent extends BaseRepository implements CalledRepositor
 
         return CalledValidator::class;
     }
-
 
     /**
      * Boot up the repository, pushing criteria

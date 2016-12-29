@@ -20,6 +20,7 @@
                     @include('portal.condominium.group.modals.create')
                     @include('portal.condominium.group.modals.edit')
 
+                    @if(session()->get('admin') == 'y')
                     <a href="javascript:void(0);"
                        data-target="#modalGroupCreate" data-toggle="modal"
                        data-original-title="Cadastrar"
@@ -27,6 +28,7 @@
                         <i class="icon wb-plus" aria-hidden="true"></i>
                         Cadastrar
                     </a>
+                    @endif
 
                     @if(!$dados->isEmpty())
                         <div class="row">
@@ -39,6 +41,11 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
                                             data-tablesaw-priority="persist">Nome
                                         </th>
+                                        @if(session()->get('admin') == 'y')
+                                        <th class="text-center col-md-1">
+                                            Ativo
+                                        </th>
+                                        @endif
                                         <th class="text-center col-md-2">
                                             Ação
                                         </th>
@@ -48,12 +55,16 @@
                                     @foreach($dados  as $row)
                                         <tr>
                                             <td>{{ $row->name }}</td>
+                                            @if(session()->get('admin') == 'y')
+                                            <td class="text-center">@if($row->active == 'y') Sim @else Não @endif</td>
+                                            @endif
                                             <td class="text-center">
                                                 <a href="{{ route('portal.condominium.group.user.index', ['id' => $row->id]) }}"
                                                    title="Integrantes"
                                                    class="btn btn-icon bg-success waves-effect waves-light">
                                                     <i class="icon wb-users" aria-hidden="true"></i>
                                                 </a>
+                                                @can('admin', $row)
                                                 <a href="javascript:void(0);"
                                                    title="Editar"
                                                    data-target="#modalGroupEdit" data-toggle="modal"
@@ -67,6 +78,7 @@
                                                         data-route="{{ route('portal.condominium.group.destroy', ['id' => $row->id]) }}">
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
@@ -93,11 +105,14 @@
             </div>
         </div>
     </div>
+
+    @if(session()->get('admin') == 'y')
     <a href="javascript:void(0);" title="Cadastrar"
         data-target="#modalGroupCreate" data-toggle="modal"
         data-original-title="Cadastrar"
         class="site-action site-floataction btn-raised btn btn-success btn-floating">
         <i class="icon md-plus" aria-hidden="true"></i>
     </a>
+    @endif
 
 @endsection

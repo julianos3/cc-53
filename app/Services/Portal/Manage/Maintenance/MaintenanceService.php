@@ -38,9 +38,7 @@ class MaintenanceService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao cadastrar Manutenção Preventiva");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-            //return redirect()->back()->withErrors($response)->withInput();
         }
     }
 
@@ -58,8 +56,6 @@ class MaintenanceService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao alterar a Manutenção Preventiva");
-            //return redirect()->back()->withErrors($response)->withInput();
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }

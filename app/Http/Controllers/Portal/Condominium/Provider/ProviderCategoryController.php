@@ -2,14 +2,10 @@
 
 namespace CentralCondo\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use CentralCondo\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
-use CentralCondo\Http\Requests\Portal\Condominium\Provider\ProviderCategoryRequest;
 use CentralCondo\Repositories\Portal\Condominium\Provider\ProviderCategoryRepository;
 use CentralCondo\Validators\Portal\Condominium\Provider\ProviderCategoryValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 
 class ProviderCategoryController extends Controller
@@ -17,7 +13,7 @@ class ProviderCategoryController extends Controller
 
     /**
      * @var ProviderCategoryRepository
-     */ 
+     */
     protected $repository;
 
     /**
@@ -28,7 +24,7 @@ class ProviderCategoryController extends Controller
     public function __construct(ProviderCategoryRepository $repository, ProviderCategoryValidator $validator)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
     }
 
 
@@ -53,11 +49,8 @@ class ProviderCategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  ProviderCategoryCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param ProviderCategoryCreateRequest $request
+     * @return $this|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store(ProviderCategoryCreateRequest $request)
     {
@@ -70,7 +63,7 @@ class ProviderCategoryController extends Controller
 
             $response = [
                 'message' => 'ProviderCategory created.',
-                'data'    => $providerCategory->toArray(),
+                'data' => $providerCategory->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -82,7 +75,7 @@ class ProviderCategoryController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }
@@ -134,7 +127,7 @@ class ProviderCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  ProviderCategoryUpdateRequest $request
-     * @param  string            $id
+     * @param  string $id
      *
      * @return Response
      */
@@ -149,7 +142,7 @@ class ProviderCategoryController extends Controller
 
             $response = [
                 'message' => 'ProviderCategory updated.',
-                'data'    => $providerCategory->toArray(),
+                'data' => $providerCategory->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -163,7 +156,7 @@ class ProviderCategoryController extends Controller
             if ($request->wantsJson()) {
 
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => $e->getMessageBag()
                 ]);
             }

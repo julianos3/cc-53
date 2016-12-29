@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal-body text-center">
 
-                    @include('portal.communication.message.public._comment_form')
+                    @include('portal.communication.message.public.modal._comment_form')
                     <input type="hidden" name="message_id" id="messageId" value="" />
                 </div>
                 <div class="modal-footer">

@@ -3,7 +3,6 @@
 namespace CentralCondo\Http\Controllers\Portal\Condominium\Block;
 
 use CentralCondo\Http\Controllers\Controller;
-use CentralCondo\Http\Requests;
 use CentralCondo\Http\Requests\Portal\Condominium\Block\BlockRequest;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
@@ -62,7 +61,6 @@ class BlockController extends Controller
     public function create()
     {
         $config['title'] = "Novo Bloco";
-
         return view('portal.condominium.block.create', compact('config'));
     }
 

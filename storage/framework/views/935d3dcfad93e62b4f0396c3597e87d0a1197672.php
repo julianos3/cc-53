@@ -29,7 +29,7 @@
                     <div class="widget-content">
                         <div class="padding-20 padding-top-10">
                             <h4><?php echo e($row->name); ?></h4>
-                            <iframe width="100%" height="" src="<?php echo e($row->url); ?>" frameborder="0" allowfullscreen></iframe>
+                            <iframe width="100%" src="<?php echo e($row->url); ?>" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>

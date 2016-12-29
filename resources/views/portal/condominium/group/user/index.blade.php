@@ -29,6 +29,7 @@
                     @include('portal.modals.delete')
                     @include('portal.condominium.group.user.modals.create')
 
+                    @if(session()->get('admin') == 'y')
                     <a href="javascript:void(0);"
                        data-original-title="Cadastrar"
                        data-target="#modalGroupUser" data-toggle="modal"
@@ -36,6 +37,7 @@
                         <i class="icon wb-plus" aria-hidden="true"></i>
                         Cadastrar
                     </a>
+                    @endif
 
                     @if(!$dados->isEmpty())
                         <div class="row">
@@ -48,15 +50,18 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
                                             data-tablesaw-priority="persist">Nome
                                         </th>
+                                        @can('admin', $dados[0])
                                         <th class="text-center col-md-2">
                                             Ação
                                         </th>
+                                        @endcan
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($dados  as $row)
                                         <tr>
                                             <td>{{ $row->userCondominium->user->name }}</td>
+                                            @can('admin', $dados[0])
                                             <td class="text-center">
                                                 <button title="Excluir"
                                                         class="btn btn-icon bg-danger waves-effect waves-light btnDelete"
@@ -65,6 +70,7 @@
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
                                             </td>
+                                            @endcan
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -90,9 +96,12 @@
             </div>
         </div>
     </div>
+
+    @if(session()->get('admin') == 'y')
     <a href="javascript:void(0);"
        data-target="#modalGroupUser" data-toggle="modal" title="Cadastrar" class="site-action site-floataction btn-raised btn btn-success btn-floating">
         <i class="icon md-plus" aria-hidden="true"></i>
     </a>
+    @endif
 
 @endsection

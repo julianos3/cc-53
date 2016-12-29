@@ -6,7 +6,7 @@
             <h1 class="page-title">{{ $config['title'] }}</h1>
             <ol class="breadcrumb" data-plugin="breadcrumb">
                 <li><a href="{{ route('portal.home.index') }}">Home</a></li>
-                <li><a href="{{ route('portal.manage.index') }}">Administrar</a></li>
+                <li><a href="{{ route('portal.manage.index') }}">Administração</a></li>
                 <li><a href="{{ route('portal.manage.contract.index') }}">Contratos</a></li>
                 <li class="active">Cadastrar</li>
             </ol>
@@ -30,7 +30,13 @@
                     @include('portal.manage.contract._form')
 
                     <div class="form-group text-right">
-                        {!! Form::button('Salvar', ['type' => 'submit', 'class'=>'btn btn-raised btn-primary waves-effect waves-light']) !!}
+                        <button type="submit"
+                           data-toggle="tooltip"
+                           data-original-title="Adicionar contrato"
+                           class="btn btn-raised btn-primary waves-effect waves-light">
+                            <i class="icon wb-plus" aria-hidden="true"></i>
+                            Adicionar contrato
+                        </button>
                     </div>
 
                     {!! Form::close() !!}

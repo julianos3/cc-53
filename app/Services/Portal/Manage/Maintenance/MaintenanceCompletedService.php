@@ -33,7 +33,6 @@ class MaintenanceCompletedService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao registrar Manutenção");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -52,7 +51,6 @@ class MaintenanceCompletedService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao alterar o Registro de Manutenção");
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }

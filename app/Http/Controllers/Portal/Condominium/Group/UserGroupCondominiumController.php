@@ -2,14 +2,12 @@
 
 namespace CentralCondo\Http\Controllers\Portal\Condominium\Group;
 
-use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
-use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
-use CentralCondo\Services\Portal\Condominium\Group\UserGroupCondominiumService;
-use CentralCondo\Http\Requests;
-use CentralCondo\Http\Requests\Portal\Condominium\Group\UserGroupCondominiumRequest;
-use CentralCondo\Repositories\Portal\Condominium\Group\UserGroupCondominiumRepository;
-use CentralCondo\Services\Util\UtilObjeto;
 use CentralCondo\Http\Controllers\Controller;
+use CentralCondo\Http\Requests\Portal\Condominium\Group\UserGroupCondominiumRequest;
+use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
+use CentralCondo\Repositories\Portal\Condominium\Group\UserGroupCondominiumRepository;
+use CentralCondo\Services\Portal\Condominium\Group\UserGroupCondominiumService;
+use CentralCondo\Services\Util\UtilObjeto;
 
 class UserGroupCondominiumController extends Controller
 {
@@ -49,7 +47,6 @@ class UserGroupCondominiumController extends Controller
         $this->service = $service;
         $this->userCondominiumRepository = $userCondominiumRepository;
         $this->utilObjeto = $utilObjeto;
-        $this->condominium_id = session()->get('condominium_id');
     }
 
     public function index($groupId)

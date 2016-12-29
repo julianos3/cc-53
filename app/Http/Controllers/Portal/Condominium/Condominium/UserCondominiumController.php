@@ -208,8 +208,6 @@ class UserCondominiumController extends Controller
         $config['title'] = 'Usuários para aprovação';
         $dados = $this->repository->getUserCondominiumsNotActive();
 
-        //dd($dados);
-
         return view('portal.condominium.user.approval', compact('config', 'dados'));
     }
 

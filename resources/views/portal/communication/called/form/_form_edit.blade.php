@@ -73,7 +73,7 @@
         <div class="form-group">
             {!! Form::label('description_historic', 'Descrição:') !!}
             {!! Form::textarea('description_historic', null, ['class'=>'form-control', 'required' => 'required']) !!}
-            <span class="help-block">Informação será adicionada no andamento do chamado.</span>
+            <span class="help-block text-primary">* Informação será adicionada no andamento do chamado.</span>
         </div>
     </div>
 </div>

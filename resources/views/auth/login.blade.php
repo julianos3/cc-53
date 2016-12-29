@@ -47,7 +47,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Login</button>
                 </form>
-                <p>Não tem conta? <a href="{{ url('/register') }}">Experimente grátis por 15 dias</a></p>
+                <p>Não tem conta? <a href="{{ url('/register') }}">Criar conta agora</a></p>
                 <footer class="page-copyright">
                     <p>© 2017. Todos os direitos reservados.</p>
                     <div class="social">

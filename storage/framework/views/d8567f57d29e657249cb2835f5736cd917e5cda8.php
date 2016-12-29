@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-4">
         <label for="assunto"><strong>Criado Por</strong></label>
-        <p class="form-control-static"><?php echo e($dados['usersCondominium']['user']['name']); ?></p>
+        <p class="form-control-static"><?php echo e($dados['userCondominium']['user']['name']); ?></p>
     </div>
 </div>
 <div class="row">

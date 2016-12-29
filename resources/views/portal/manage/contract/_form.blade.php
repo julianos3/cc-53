@@ -1,17 +1,17 @@
 <div class="form-group">
-    {!! Form::label('Name', 'Serviço:') !!}
+    {!! Form::label('name', 'Serviço *') !!}
     {!! Form::text('name', null, ['class'=>'form-control', 'required' => 'required']) !!}
 </div>
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('start_date', 'Data início:') !!}
+            {!! Form::label('start_date', 'Data início *') !!}
             {!! Form::text('start_date', null, ['class'=>'form-control', 'required' => 'required', 'data-plugin' => 'formatter', 'data-pattern' => '[[99]]/[[99]]/[[9999]]', 'data-plugin' => 'datepicker', 'placeholder' => '00/00/0000']) !!}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('end_date', 'Data Fim:') !!}
+            {!! Form::label('end_date', 'Data Fim *') !!}
             {!! Form::text('end_date', null, ['class'=>'form-control', 'required' => 'required', 'data-plugin' => 'formatter', 'data-pattern' => '[[99]]/[[99]]/[[9999]]', 'data-plugin' => 'datepicker', 'placeholder' => '00/00/0000']) !!}
         </div>
     </div>
@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="provider_id">Fornecedor:</label>
+            <label for="provider_id">Fornecedor *</label>
             <select class="form-control" required="required" id="provider_id" name="provider_id">
                 <option value="">Selecione</option>
                 @foreach($providers as $provider)
@@ -30,7 +30,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="contract_status_id">Status:</label>
+            <label for="contract_status_id">Status *</label>
             <select class="form-control" required="required" id="contract_status_id" name="contract_status_id">
                 <option value="">Selecione</option>
                 @foreach($status as $stats)

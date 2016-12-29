@@ -29,6 +29,7 @@
                     <?php echo $__env->make('portal.modals.delete', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('portal.condominium.group.user.modals.create', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
+                    <?php if(session()->get('admin') == 'y'): ?>
                     <a href="javascript:void(0);"
                        data-original-title="Cadastrar"
                        data-target="#modalGroupUser" data-toggle="modal"
@@ -36,6 +37,7 @@
                         <i class="icon wb-plus" aria-hidden="true"></i>
                         Cadastrar
                     </a>
+                    <?php endif; ?>
 
                     <?php if(!$dados->isEmpty()): ?>
                         <div class="row">
@@ -48,15 +50,18 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
                                             data-tablesaw-priority="persist">Nome
                                         </th>
+                                        <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('admin', $dados[0])): ?>
                                         <th class="text-center col-md-2">
                                             Ação
                                         </th>
+                                        <?php endif; ?>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                         <tr>
                                             <td><?php echo e($row->userCondominium->user->name); ?></td>
+                                            <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('admin', $dados[0])): ?>
                                             <td class="text-center">
                                                 <button title="Excluir"
                                                         class="btn btn-icon bg-danger waves-effect waves-light btnDelete"
@@ -65,6 +70,7 @@
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
                                             </td>
+                                            <?php endif; ?>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                     </tbody>
@@ -91,10 +97,13 @@
             </div>
         </div>
     </div>
+
+    <?php if(session()->get('admin') == 'y'): ?>
     <a href="javascript:void(0);"
        data-target="#modalGroupUser" data-toggle="modal" title="Cadastrar" class="site-action site-floataction btn-raised btn btn-success btn-floating">
         <i class="icon md-plus" aria-hidden="true"></i>
     </a>
+    <?php endif; ?>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('portal.layouts.portal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

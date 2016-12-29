@@ -76,19 +76,12 @@ class CommunicationController extends Controller
 
     public function index()
     {
-        $config['title'] = 'Comunicados';
+        $config['title'] = 'Meus Comunicados';
 
-        if ($this->userCondominiumRepository->checkAdm(session()->get('user_role_condominium'))) {
-            $userAdm = 'y';
-        } else {
-            $userAdm = 'n';
-        }
-
-        $dados = $this->repository->getAllCondominium();
-        $user_condominium_id = session()->get('user_condominium_id');
+        $dados = $this->userCommunicationRepository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
 
-        return view('portal.communication.communication.index', compact('config', 'dados', 'userAdm', 'user_condominium_id'));
+        return view('portal.communication.communication.index', compact('config', 'dados', 'user_condominium_id'));
     }
 
     public function create()

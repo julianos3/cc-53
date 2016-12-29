@@ -7,7 +7,7 @@
             <h1 class="page-title">{{ $config['title'] }}</h1>
             <ol class="breadcrumb" data-plugin="breadcrumb">
                 <li><a href="{{ route('portal.home.index') }}">Home</a></li>
-                <li><a href="{{ route('portal.manage.index') }}">Administrar</a></li>
+                <li><a href="{{ route('portal.manage.index') }}">Administração</a></li>
                 <li class="active">{{ $config['title'] }}</li>
             </ol>
         </div>
@@ -17,7 +17,9 @@
                     @include('success._check')
                     @include('errors._check')
                     @include('portal.modals.delete')
+                    @include('portal.manage.contract.modal.modal_show')
 
+                    @if(session()->get('admin') == 'y')
                     <a href="{{ route('portal.manage.contract.create') }}"
                        data-toggle="tooltip"
                        data-original-title="Cadastrar"
@@ -25,8 +27,9 @@
                         <i class="icon wb-plus" aria-hidden="true"></i>
                         Cadastrar
                     </a>
+                    @endif
 
-                    @if(!$dados->isEmpty())
+                @if(!$dados->isEmpty())
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="tablesaw table-striped table-bordered table-hover"
@@ -55,6 +58,13 @@
                                             <td>{{ date('d/m/Y', strtotime($row->start_date)) }}</td>
                                             <td>{{ date('d/m/Y', strtotime($row->end_date)) }}</td>
                                             <td class="text-center">
+                                                <button title="Visualizar"
+                                                        class="btn btn-icon bg-success waves-effect waves-light btnShowModal"
+                                                        data-target="#modalShowContract" data-toggle="modal"
+                                                        data-route="{{ route('portal.manage.contract.show', ['id' => $row->id]) }}">
+                                                    <i class="icon wb-zoom-in" aria-hidden="true"></i>
+                                                </button>
+                                            @if(session()->get('admin') == 'y')
                                                 <a href="{{ route('portal.manage.contract.edit', ['id' => $row->id]) }}"
                                                    title="Editar"
                                                    data-toggle="tooltip"
@@ -68,6 +78,7 @@
                                                         data-route="{{ route('portal.manage.contract.destroy', ['id' => $row->id]) }}">
                                                     <i class="icon wb-trash" aria-hidden="true"></i>
                                                 </button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -85,7 +96,7 @@
                             <div class="col-md-12 text-center">
                                 <h4 class="page-title">
                                     <br />
-                                    Nenhum cadastro realizado.
+                                    Nenhum contrato cadastro.
                                 </h4>
                             </div>
                         </div>
@@ -94,11 +105,14 @@
             </div>
         </div>
     </div>
+
+    @if(session()->get('admin') == 'y')
     <a href="{{ route('portal.manage.contract.create') }}" title="Cadastrar"
        data-toggle="tooltip"
        data-original-title="Cadastrar"
        class="site-action site-floataction btn-raised btn btn-success btn-floating">
         <i class="icon md-plus" aria-hidden="true"></i>
     </a>
+    @endif
 
 @endsection

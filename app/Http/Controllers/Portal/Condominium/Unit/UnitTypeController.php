@@ -14,7 +14,7 @@ use CentralCondo\Repositories\Portal\Condominium\Unit\UnitTypeRepository;
 use CentralCondo\Validators\Portal\Condominium\Unit\UnitTypeValidator;
 
 
-class UnitTypesController extends Controller
+class UnitTypeController extends Controller
 {
 
     /**

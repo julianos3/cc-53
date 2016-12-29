@@ -6,7 +6,7 @@
             <h1 class="page-title"><?php echo e($config['title']); ?></h1>
             <ol class="breadcrumb" data-plugin="breadcrumb">
                 <li><a href="<?php echo e(route('portal.home.index')); ?>">Home</a></li>
-                <li><a href="<?php echo e(route('portal.manage.index')); ?>">Administrar</a></li>
+                <li><a href="<?php echo e(route('portal.manage.index')); ?>">Administração</a></li>
                 <li><a href="<?php echo e(route('portal.manage.contract.index')); ?>">Contratos</a></li>
                 <li class="active">Alterar</li>
             </ol>
@@ -32,8 +32,15 @@
                     <?php echo $__env->make('portal.manage.contract._form', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                     <div class="form-group text-right">
-                        <?php echo Form::button('Salvar', ['type' => 'submit', 'class'=>'btn btn-raised btn-primary waves-effect waves-light']); ?>
-
+                        <div class="form-group text-right">
+                            <button type="submit"
+                                    data-toggle="tooltip"
+                                    data-original-title="Salvar Alteração"
+                                    class="btn btn-raised btn-primary waves-effect waves-light">
+                                <i class="icon wb-plus" aria-hidden="true"></i>
+                                Salvar Alteração
+                            </button>
+                        </div>
                     </div>
 
                     <?php echo Form::close(); ?>

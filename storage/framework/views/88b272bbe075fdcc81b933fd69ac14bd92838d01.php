@@ -4,7 +4,7 @@
         <div>
             <div>
                 <ul class="site-menu">
-                    <li class="site-menu-category">General</li>
+                    <li class="site-menu-category"><?php echo e(session()->get('name')); ?></li>
                     <li class="site-menu-item">
                         <a class="animsition-link" href="<?php echo e(route('portal.home.index')); ?>">
                             <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
@@ -14,10 +14,11 @@
                     <li class="site-menu-item has-sub">
                         <a href="javascript:void(0)">
                             <i class="site-menu-icon icon wb-grid-9" aria-hidden="true"></i>
-                            <span class="site-menu-title">Condomínio</span>
+                            <span class="site-menu-title">Meu Condomínio</span>
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">
+                            <?php if(session()->get('admin') == 'y'): ?>
                             <li class="site-menu-item has-sub">
                                 <a href="javascript:void(0)">
                                     <span class="site-menu-title">Meu Condomínio</span>
@@ -36,45 +37,40 @@
                                     </li>
                                     <li class="site-menu-item">
                                         <a class="animsition-link" href="<?php echo e(route('portal.condominium.unit.garage.index')); ?>">
-                                            <span class="site-menu-title">Garagens</span>
-                                        </a>
-                                    </li>
-                                    <li class="site-menu-item">
-                                        <a class="animsition-link" href="<?php echo e(route('portal.condominium.security-cam.index')); ?>">
-                                            <span class="site-menu-title">Câmeras de Segurança</span>
+                                            <span class="site-menu-title">Garagem</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="site-menu-item has-sub">
-                                <a href="javascript:void(0)">
+                            <?php endif; ?>
+                            <li class="site-menu-item">
+                                <a class="animsition-link" href="<?php echo e(route('portal.condominium.user.index')); ?>">
                                     <span class="site-menu-title">Integrantes</span>
-                                    <span class="site-menu-arrow"></span>
                                 </a>
-                                <ul class="site-menu-sub">
-                                    <li class="site-menu-item">
-                                        <a class="animsition-link" href="<?php echo e(route('portal.condominium.user.index')); ?>">
-                                            <span class="site-menu-title">Integrantes</span>
-                                        </a>
-                                    </li>
-                                    <li class="site-menu-item">
-                                        <a class="animsition-link" href="<?php echo e(route('portal.condominium.group.index')); ?>">
-                                            <span class="site-menu-title">Meus Grupos</span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
+                            <li class="site-menu-item">
+                                <a class="animsition-link" href="<?php echo e(route('portal.condominium.group.index')); ?>">
+                                    <span class="site-menu-title">Grupos</span>
+                                </a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a class="animsition-link" href="<?php echo e(route('portal.condominium.security-cam.index')); ?>">
+                                    <span class="site-menu-title">Câmeras de Segurança</span>
+                                </a>
+                            </li>
+                            <?php if(session()->get('admin') == 'y'): ?>
                             <li class="site-menu-item">
                                 <a href="<?php echo e(route('portal.condominium.provider.index')); ?>">
                                     <span class="site-menu-title">Fornecedores</span>
                                 </a>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </li>
                     <li class="site-menu-item has-sub">
                         <a href="javascript:void(0)">
                             <i class="site-menu-icon icon wb-users" aria-hidden="true"></i>
-                            <span class="site-menu-title">Administrar</span>
+                            <span class="site-menu-title">Administração</span>
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">
@@ -88,11 +84,14 @@
                                     <span class="site-menu-title">Manutenções Preventivas</span>
                                 </a>
                             </li>
+
+                            <?php if(session()->get('admin') == 'y'): ?>
                             <li class="site-menu-item">
                                 <a class="animsition-link" href="<?php echo e(route('portal.manage.reserve-areas.index')); ?>">
                                     <span class="site-menu-title">Recursos Comuns</span>
                                 </a>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </li>
                     <!-- active open -->
@@ -167,11 +166,13 @@
                                     <span class="site-menu-title">Meus Condomínios</span>
                                 </a>
                             </li>
+                            <?php if(session()->get('admin') == 'y'): ?>
                             <li class="site-menu-item">
                                 <a class="animsition-link" href="<?php echo e(route('portal.condominium.user.approval.all')); ?>">
                                     <span class="site-menu-title">Aprovação de Usuários</span>
                                 </a>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </li>
                 </ul>
@@ -209,60 +210,4 @@
         </form>
     </div>
 </div>
-<div class="site-gridmenu">
-    <div>
-        <div>
-            <ul>
-                <li>
-                    <a href="../apps/mailbox/mailbox.html">
-                        <i class="icon wb-envelope"></i>
-                        <span>Mailbox</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../apps/calendar/calendar.html">
-                        <i class="icon wb-calendar"></i>
-                        <span>Calendar</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../apps/contacts/contacts.html">
-                        <i class="icon wb-user"></i>
-                        <span>Contacts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../apps/media/overview.html">
-                        <i class="icon wb-camera"></i>
-                        <span>Media</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../apps/documents/categories.html">
-                        <i class="icon wb-order"></i>
-                        <span>Documents</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../apps/projects/projects.html">
-                        <i class="icon wb-image"></i>
-                        <span>Project</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../apps/forum/forum.html">
-                        <i class="icon wb-chat-group"></i>
-                        <span>Forum</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../index.html">
-                        <i class="icon wb-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-    <?php endif; ?>
+<?php endif; ?>

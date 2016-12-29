@@ -2,8 +2,20 @@
 
 namespace CentralCondo\Providers;
 
+use CentralCondo\Entities\Portal\Communication\Called\Called;
+use CentralCondo\Entities\Portal\Communication\Message\Message;
+use CentralCondo\Entities\Portal\Communication\Message\MessageReply;
 use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
+use CentralCondo\Entities\Portal\Condominium\Group\GroupCondominium;
+use CentralCondo\Entities\Portal\Condominium\Group\UserGroupCondominium;
+use CentralCondo\Entities\Portal\Condominium\SecurityCam\SecurityCam;
+use CentralCondo\Policies\Portal\Communication\Called\CalledPolicy;
+use CentralCondo\Policies\Portal\Communication\Message\MessagePublicPolicy;
+use CentralCondo\Policies\Portal\Communication\Message\MessageReplyPolicy;
+use CentralCondo\Policies\Portal\Condominium\Group\GroupCondominiumPolicy;
 use CentralCondo\Policies\Portal\Condominium\Condominium\UserCondominiumPolicy;
+use CentralCondo\Policies\Portal\Condominium\SecurityCam\SecurityCamPolicy;
+use CentralCondo\Policies\Portal\Condominium\Group\UserGroupCondominiumPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -17,6 +29,12 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'CentralCondo\Model' => 'CentralCondo\Policies\ModelPolicy',
         UserCondominium::class => UserCondominiumPolicy::class,
+        GroupCondominium::class => GroupCondominiumPolicy::class,
+        UserGroupCondominium::class => UserGroupCondominiumPolicy::class,
+        SecurityCam::class => SecurityCamPolicy::class,
+        Message::class => MessagePublicPolicy::class,
+        MessageReply::class => MessageReplyPolicy::class,
+        Called::class => CalledPolicy::class,
     ];
 
     /**

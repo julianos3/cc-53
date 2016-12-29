@@ -3,7 +3,6 @@
 namespace CentralCondo\Http\Controllers\Portal\Manage\Contract;
 
 use CentralCondo\Http\Controllers\Controller;
-use CentralCondo\Http\Requests;
 use CentralCondo\Http\Requests\Portal\Manage\Contract\ContractRequest;
 use CentralCondo\Repositories\Portal\Condominium\Provider\ProviderRepository;
 use CentralCondo\Repositories\Portal\Manage\Contract\ContractFileRepository;
@@ -66,13 +65,13 @@ class ContractController extends Controller
         $this->providersRepository = $providersRepository;
         $this->contractFileRepository = $contractFileRepository;
         $this->utilObjeto = $utilObjeto;
-        $this->condominium_id = session()->get('condominium_id');
     }
 
     public function index()
     {
         $config['title'] = "Contratos";
-        $dados = $this->repository->getAllCondominium();
+
+        $dados = $this->repository->getAllCondominium();//$dados = $this->repository->all();
         $dados = $this->utilObjeto->paginate($dados);
 
         return view('portal.manage.contract.index', compact('config', 'dados'));
@@ -111,6 +110,17 @@ class ContractController extends Controller
     public function update(ContractRequest $request, $id)
     {
         return $this->service->update($request->all(), $id);
+    }
+
+    public function show($id)
+    {
+
+        $dados = $this->repository->getContract($id);
+
+        $dados['start_date'] = date('d/m/Y', strtotime($dados['start_date']));
+        $dados['end_date'] = date('d/m/Y', strtotime($dados['end_date']));
+
+        return view('portal.manage.contract.show', compact('dados'));
     }
 
     public function destroy($id)

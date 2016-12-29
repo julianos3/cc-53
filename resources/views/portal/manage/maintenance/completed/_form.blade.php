@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('date', 'Data realização:') !!}
+            {!! Form::label('date', 'Data realização *') !!}
             {!! Form::text('date', null, ['class'=>'form-control', 'required' => 'required', 'data-plugin' => 'formatter', 'data-pattern' => '[[99]]/[[99]]/[[9999]]', 'data-plugin' => 'datepicker', 'placeholder' => '00/00/0000']) !!}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="provider_id">Fornecedor:</label>
+            <label for="provider_id">Fornecedor *</label>
             <select class="form-control" required="required" id="provider_id" name="provider_id">
                 <option value="">Selecione</option>
                 @foreach($providers as $provider)

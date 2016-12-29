@@ -35,6 +35,8 @@ class HomeController extends Controller
         $userCondominiumId = session()->get('user_condominium_id');
         $userRoleCondominiumId = session()->get('user_role_condominium');
 
+        //dd(session()->get('admin'));
+
         if(!isset($condominium_id)) {
 
             $dados = $this->userCondominiumRepository->getUserCondominiums();

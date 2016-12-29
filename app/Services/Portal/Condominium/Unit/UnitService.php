@@ -64,8 +64,7 @@ class UnitService
             }
 
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao cadastrar a Garagem");
-            return redirect()->back()->withErrors($response)->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
 
     }
@@ -84,8 +83,7 @@ class UnitService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao cadastrar o unidade");
-            return redirect()->back()->withErrors($response)->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 
@@ -104,8 +102,7 @@ class UnitService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao alterar a unidade");
-            return redirect()->back()->withErrors($response)->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 
@@ -135,8 +132,7 @@ class UnitService
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
-            $response = trans("Erro ao alterar a Garagem");
-            return redirect()->back()->withErrors($response)->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 
