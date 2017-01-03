@@ -14,6 +14,8 @@
             <div class="panel">
                 <div class="panel-body">
 
+                    <?php echo $__env->make('portal.communication.communication.modal.modal_show', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
                     <?php if(!$dados->isEmpty()): ?>
                         <div class="row">
                             <div class="col-md-12">
@@ -26,6 +28,8 @@
                                             data-tablesaw-priority="persist">Código
                                         </th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="1">Título</th>
+                                        <th class="text-center">Lido</th>
+                                        <th class="text-center">Data Comunicado</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="2">Criado Por</th>
                                         <th class="text-center">
                                             Detalhes
@@ -37,13 +41,22 @@
                                         <tr>
                                             <td><?php echo e($row->communication_id); ?></td>
                                             <td><?php echo e($row->communication->name); ?></td>
+                                            <td class="text-center">
+                                                <?php if($row->view == 'y'): ?>
+                                                    <i class="icon wb-check text-success" aria-hidden="true"></i>
+                                                <?php else: ?>
+                                                    <i class="icon wb-close text-danger" aria-hidden="true"></i>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-center"><?php echo e(date('d/m/Y', strtotime($row->created_at))); ?></td>
                                             <td><?php echo e($row->communication->userCondominium->user->name); ?></td>
                                             <td class="text-center">
-                                                <a href="<?php echo e(route('portal.communication.communication.show', ['id' => $row->communication_id])); ?>"
-                                                   title="Visualizar"
-                                                   class="btn btn-icon bg-success waves-effect waves-light">
+                                                <button title="Visualizar"
+                                                        class="btn btn-icon bg-success waves-effect waves-light btnShowModal"
+                                                        data-target="#modalShowCommunication" data-toggle="modal"
+                                                        data-route="<?php echo e(route('portal.communication.communication.show', ['id' => $row->communication_id])); ?>">
                                                     <i class="icon wb-zoom-in" aria-hidden="true"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>

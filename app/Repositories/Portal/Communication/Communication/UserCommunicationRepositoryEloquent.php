@@ -2,6 +2,7 @@
 
 namespace CentralCondo\Repositories\Portal\Communication\Communication;
 
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Communication\Communication\UserCommunicationRepository;

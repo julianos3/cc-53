@@ -82,7 +82,7 @@
                         <p>
                             E-mail: {{ $email }}<br />
                             Senha: {{ $password }}<br />
-                            Endereço de acesso: <a href="http://www.centralcondo.com.br/auth" style="color: #9a9b9f;">Portal Central Condo</a>
+                            Endereço de acesso: <a href="http://www.centralcondo.com.br/login" style="color: #9a9b9f;">Portal Central Condo</a>
                         </p>
                     </td>
                 </tr>

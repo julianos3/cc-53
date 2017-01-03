@@ -91,7 +91,6 @@ class UserService
                 $data['birth'] = date("Y-m-d", strtotime(str_replace('/', '-', $data['birth'])));
             }
 
-
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
             $dados = $this->repository->update($data, $id);
 
@@ -141,51 +140,61 @@ class UserService
         if (count($usersCondominium) > 1) {
             //multiplos condominios
             //salva todos os condominios na session
-            $cont = 0;
             foreach ($usersCondominium as $row) {
-                $cont++;
-                $image = $this->userSessionImage($row);
-
-                $admin = 'n';
-                if($this->usersCondominiumRepository->checkAdm($row->user_role_condominium_id)){
-                    $admin = 'y';
-                }
-
-                session([
-                    'user_id' => $row->user->id,
-                    'user_condominium_id' => $row->id,
-                    'user_role_condominium' => $row->user_role_condominium_id,
-                    'condominium_id' => $row->condominium_id,
-                    'name' => $row->condominium->name,
-                    'active' => $row->active,
-                    'image' => $image,
-                    'admin' => $admin
-                ]);
+                $this->getCondominiumSession($row);
             }
 
         } elseif (count($usersCondominium) == 1) {
+            $this->getCondominiumSession($usersCondominium[0]);
+        }
 
-            $usersCondominium = $usersCondominium[0];
-            $image = $this->userSessionImage($usersCondominium);
+        return true;
+    }
+
+    public function getCondominiumSession($dados)
+    {
+        if ($dados) {
+            $image = $this->userSessionImage($dados);
 
             $admin = 'n';
-            if($this->usersCondominiumRepository->checkAdm($usersCondominium->user_role_condominium_id)){
+            if ($this->usersCondominiumRepository->checkAdm($dados->user_role_condominium_id)) {
                 $admin = 'y';
             }
 
             session([
-                'user_id' => $usersCondominium->user->id,
-                'user_condominium_id' => $usersCondominium->id,
-                'user_role_condominium' => $usersCondominium->user_role_condominium_id,
-                'condominium_id' => $usersCondominium->condominium_id,
-                'name' => $usersCondominium->condominium->name,
-                'active' => $usersCondominium->active,
+                'user_id' => $dados->user->id,
+                'user_condominium_id' => $dados->id,
+                'user_role_condominium' => $dados->user_role_condominium_id,
+                'condominium_id' => $dados->condominium_id,
+                'name' => $dados->condominium->name,
+                'active' => $dados->active,
                 'image' => $image,
                 'admin' => $admin
             ]);
+
+            return true;
         }
 
-        return true;
+        return false;
+    }
+
+    public function userSessionImage($dados)
+    {
+        $image = '';
+        if ($this->storage->exists($this->path . $dados->user->image)) {
+            $image = $dados->user->imagem;
+        }
+
+        if (isset($dados->user->imagem)) {
+            $image = route('portal.condominium.user.image', [
+                'id' => Auth::user()->id,
+                'image' => $dados->user->imagem
+            ]);
+        } else {
+            $image = asset('portal/assets/images/user-not-image.jpg');
+        }
+
+        return $image;
     }
 
     public function updatePassword(array $data)
@@ -226,26 +235,6 @@ class UserService
         } else {
             return redirect()->back()->withErrors($error)->withInput();
         }
-
-    }
-
-    public function userSessionImage($dados)
-    {
-        $image = '';
-        if ($this->storage->exists($this->path . $dados->user->image)) {
-            $image = $dados->user->imagem;
-        }
-
-        if (isset($dados->user->imagem)) {
-            $image = route('portal.condominium.user.image', [
-                'id' => Auth::user()->id,
-                'image' => $dados->user->imagem
-            ]);
-        } else {
-            $image = asset('portal/assets/images/user-not-image.jpg');
-        }
-
-        return $image;
     }
 
     public function addSession($condominiumId)
@@ -263,7 +252,7 @@ class UserService
 
             $image = $this->userSessionImage($usersCondominium);
             $admin = 'n';
-            if($this->usersCondominiumRepository->checkAdm($usersCondominium->user_role_condominium_id)){
+            if ($this->usersCondominiumRepository->checkAdm($usersCondominium->user_role_condominium_id)) {
                 $admin = 'y';
             }
 

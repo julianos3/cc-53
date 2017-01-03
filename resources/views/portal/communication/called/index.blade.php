@@ -58,7 +58,7 @@
                                             <td>{{ $row->calledCategory->name }}</td>
                                             <td>{{ $row->userCondominium->user->name }}</td>
                                             @if(session()->get('admin') == 'y')
-                                            <td>{{ $row->visible }}</td>
+                                            <td>@if($row->visible == 'y') Sim @else Não @endif</td>
                                             @endif
                                             <td>{{ date('d/m/Y h:i', strtotime($row->created_at)) }}</td>
                                             <td class="text-center">

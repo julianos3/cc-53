@@ -85,8 +85,8 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <label class="control-label" for="user_unit_role">Tipo de vinculo com a Unidade</label>
-            <select class="form-control" name="user_unit_role" id="user_unit_role">
+            <label class="control-label" for="user_unit_role_id">Tipo de vinculo com a Unidade</label>
+            <select class="form-control" name="user_unit_role_id" id="user_unit_role_id">
                 <option value="">Selecione</option>
                 <?php $__currentLoopData = $userRole; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                     <option value="<?php echo e($row->id); ?>"><?php echo e($row->name); ?></option>

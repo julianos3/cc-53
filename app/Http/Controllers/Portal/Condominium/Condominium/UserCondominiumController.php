@@ -1,16 +1,15 @@
 <?php
 
-namespace CentralCondo\Http\Controllers\Portal\Condominium\Condominium  ;
+namespace CentralCondo\Http\Controllers\Portal\Condominium\Condominium;
 
 use CentralCondo\Http\Controllers\Controller;
-use CentralCondo\Http\Requests;
 use CentralCondo\Http\Requests\Portal\Condominium\Condominium\UserCondominiumRequest;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
-use CentralCondo\Repositories\Portal\Condominium\Unit\UserUnitRepository;
-use CentralCondo\Repositories\Portal\Condominium\Unit\UserUnitRoleRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserRoleCondominiumRepository;
+use CentralCondo\Repositories\Portal\Condominium\Unit\UserUnitRepository;
+use CentralCondo\Repositories\Portal\Condominium\Unit\UserUnitRoleRepository;
 use CentralCondo\Repositories\Portal\User\UserRepository;
 use CentralCondo\Services\Portal\Condominium\Condominium\UserCondominiumService;
 use CentralCondo\Services\Portal\User\UserService;
@@ -102,7 +101,6 @@ class UserCondominiumController extends Controller
         $this->usersUnitRepository = $usersUnitRepository;
         $this->userService = $userService;
         $this->utilObjeto = $utilObjeto;
-        $this->condominium_id = session()->get('condominium_id');
     }
 
     public function index()
@@ -133,7 +131,7 @@ class UserCondominiumController extends Controller
     public function show($id)
     {
         $config['title'] = "Perfil Integrante";
-        $dados  = $this->repository->getUserCondominiumId($id);
+        $dados = $this->repository->getUserCondominiumId($id);
 
         return view('portal.condominium.user.show', compact('config', 'dados'));
     }
@@ -141,17 +139,17 @@ class UserCondominiumController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Integrante";
-        $dados  = $this->repository->getUserCondominiumIdUser($id);
+        $dados = $this->repository->getUserCondominiumIdUser($id);
         $userRoleCondominium = $dados['user_role_condominium_id'];
         $userCondominium = $dados;
         $dados = $dados['user'];
-        if($dados['birth'] == '0000-00-00'){
+        if ($dados['birth'] == '0000-00-00' || $dados['birth'] == null) {
             $dados['birth'] = '';
-        }else{
+        } else {
             $dados['birth'] = date('d/m/Y', strtotime($dados['birth']));
         }
 
-        $role = $this->userRoleCondominiumRepository->orderBy('name','asc')->findWhere(['active' => 'y']);
+        $role = $this->userRoleCondominiumRepository->orderBy('name', 'asc')->findWhere(['active' => 'y']);
 
         return view('portal.condominium.user.edit', compact('config', 'dados', 'id', 'role', 'userRoleCondominium', 'userCondominium'));
     }
@@ -165,9 +163,7 @@ class UserCondominiumController extends Controller
     {
         $config['title'] = "Unidades Integrantes";
 
-        //$dados  = $this->repository->getUserCondominiumId($id);
-
-        $dados  = $this->repository->getUserCondominiumIdUser($id);
+        $dados = $this->repository->getUserCondominiumIdUser($id);
 
         $block = $this->blockRepository->getAllCondominium();
         $userRole = $this->usersUnitRoleRepository->findWhere(['active' => 'y']);
@@ -213,7 +209,7 @@ class UserCondominiumController extends Controller
 
     public function showUserNotActive($id)
     {
-        $dados  = $this->repository->getUserCondominiumId($id);
+        $dados = $this->repository->getUserCondominiumId($id);
         return view('portal.condominium.user.show.not-active', compact('config', 'dados'));
     }
 

@@ -50,12 +50,6 @@
 
                     <div class="row margin-top-30">
                         <div class="col-md-12">
-                            ID Condominium: <?php echo e($condominium->id); ?><br/>
-                            Condominium Name: <?php echo e($condominium->name); ?><br/>
-                            User Condominium ID: <?php echo e($userCondominiumId); ?><br />
-                            User Role Condominium <?php echo e($userRoleCondominiumId); ?><br />
-                            <?php echo e(session()->get('condominium_id')); ?>
-
                         </div>
                     </div>
                 </div>

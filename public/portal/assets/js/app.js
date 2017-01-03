@@ -200,7 +200,7 @@
                         //selected uf pegando namo e buscando o id e carregar a cidade
 
                         getUfId(dados.uf, dados.localidade);
-                        $( "#number" ).focus();
+                        $("#number").focus();
                         //getCidade(id_estado);
                     } //end if.
                     else {
@@ -315,18 +315,18 @@
         });
     });
 
-    $('.btnShowModal').bind('click', function(){
+    $('.btnShowModal').bind('click', function () {
         var route = $(this).attr('data-route');
         var routebtn = $(this).attr('data-route-btn');
         $.get(route, function (result) {
-            if(routebtn != ''){
+            if (routebtn != '') {
                 $('.btnShowConfirm').attr("data-route", routebtn);
             }
             $('.showModal').html(result);
         });
     });
 
-    $('.btnShowConfirm').bind('click', function(){
+    $('.btnShowConfirm').bind('click', function () {
         $('.close').click();
         var route = $(this).attr('data-route');
         var msg = $(this).attr('data-msg');
@@ -366,7 +366,7 @@
 
 })(document, window, jQuery);
 
-function showNotification(){
+function showNotification() {
     $.get('/portal/communication/notification/show', function (result) {
         $('.showNotification').html(result);
     });

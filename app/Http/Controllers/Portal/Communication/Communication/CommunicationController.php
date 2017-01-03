@@ -10,6 +10,7 @@ use CentralCondo\Repositories\Portal\Communication\Communication\UserCommunicati
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Repositories\Portal\Condominium\Group\GroupCondominiumRepository;
 use CentralCondo\Services\Portal\Communication\Communication\CommunicationService;
+use CentralCondo\Services\Portal\Communication\Communication\UserCommunicationService;
 use CentralCondo\Services\Util\UtilObjeto;
 
 
@@ -41,11 +42,19 @@ class CommunicationController extends Controller
     private $userCommunicationRepository;
 
     /**
+     * @var UserCondominiumRepository
+     */
+    private $userCondominiumRepository;
+
+    /**
+     * @var UserCommunicationService
+     */
+    private $userCommunicationService;
+
+    /**
      * @var UtilObjeto
      */
     private $utilObjeto;
-
-    private $userCondominiumRepository;
 
     /**
      * CommunicationController constructor.
@@ -55,6 +64,7 @@ class CommunicationController extends Controller
      * @param CommunicationGroupRepository $communicationGroupRepository
      * @param UserCommunicationRepository $userCommunicationRepository
      * @param UserCondominiumRepository $userCondominiumRepository
+     * @param UserCommunicationService $userCommunicationService
      * @param UtilObjeto $utilObjeto
      */
     public function __construct(CommunicationRepository $repository,
@@ -63,6 +73,7 @@ class CommunicationController extends Controller
                                 CommunicationGroupRepository $communicationGroupRepository,
                                 UserCommunicationRepository $userCommunicationRepository,
                                 UserCondominiumRepository $userCondominiumRepository,
+                                UserCommunicationService $userCommunicationService,
                                 UtilObjeto $utilObjeto)
     {
         $this->repository = $repository;
@@ -71,6 +82,7 @@ class CommunicationController extends Controller
         $this->communicationGroupRepository = $communicationGroupRepository;
         $this->userCommunicationRepository = $userCommunicationRepository;
         $this->userCondominiumRepository = $userCondominiumRepository;
+        $this->userCommunicationService = $userCommunicationService;
         $this->utilObjeto = $utilObjeto;
     }
 
@@ -123,6 +135,17 @@ class CommunicationController extends Controller
     public function show($id)
     {
         $config['title'] = 'Visualizar Comunicado';
+
+        //verifica se já visualizou
+        $verifica = $this->userCommunicationRepository->findWhere([
+            'communication_id' => $id,
+            'user_condominium_id' => session()->get('user_condominium_id'),
+            'view' => 'n'
+        ]);
+
+        if($verifica->toArray()){
+            $this->userCommunicationService->updateView($verifica[0], $verifica[0]->id);
+        }
 
         $dados = $this->repository->getId($id);
 

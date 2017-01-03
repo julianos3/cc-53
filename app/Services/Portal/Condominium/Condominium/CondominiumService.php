@@ -423,6 +423,7 @@ class CondominiumService
                     $numeroInit = $nomeAP;
                     $unit['name'] = $labelUnitType . $nomeAP;
                     $unit['block_id'] = $dadosBlock['id'];
+                    $unit['unit_id'] = 0;
                     $unit['unit_type_id'] = $data['unit_type_id'];
                     $unit['condominium_id'] = $id;
 
@@ -453,6 +454,7 @@ class CondominiumService
             for ($garagem = 1; $garagem <= $data['number_garagem']; $garagem++) {
                 $unit['name'] = $unitType['label'] . ' ' . $garagem;
                 $unit['block_id'] = $dadosBlock['id'];
+                $unit['unit_id'] = 0;
                 $unit['unit_type_id'] = $data['unit_type_id'];
                 $unit['condominium_id'] = $id;
 

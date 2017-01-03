@@ -16,6 +16,7 @@ use CentralCondo\Repositories\Portal\Condominium\Unit\UnitRepository;
 use CentralCondo\Repositories\Portal\Condominium\Unit\UnitTypeRepository;
 use CentralCondo\Repositories\Portal\Condominium\Unit\UserUnitRoleRepository;
 use CentralCondo\Repositories\Portal\StateRepository;
+use CentralCondo\Services\Portal\Condominium\Block\BlockService;
 use CentralCondo\Services\Portal\Condominium\Condominium\CondominiumService;
 use CentralCondo\Services\Portal\Condominium\Condominium\UserCondominiumService;
 use CentralCondo\Services\Portal\Condominium\Unit\UserUnitService;
@@ -56,6 +57,8 @@ class CondominiumController extends Controller
 
     protected $cityRepository;
 
+    protected $blockService;
+
     public function __construct(CondominiumRepository $repository,
                                 CondominiumService $service,
                                 StateRepository $stateRepository,
@@ -70,7 +73,8 @@ class CondominiumController extends Controller
                                 UserCondominiumService $userCondominiumService,
                                 UserUnitService $userUnitService,
                                 UserService $userService,
-                                CityRepository $cityRepository)
+                                CityRepository $cityRepository,
+                                BlockService $blockService)
     {
         $this->repository = $repository;
         $this->stateRepository = $stateRepository;
@@ -87,6 +91,7 @@ class CondominiumController extends Controller
         $this->userUnitService = $userUnitService;
         $this->userService = $userService;
         $this->cityRepository = $cityRepository;
+        $this->blockService = $blockService;
     }
 
     public function index()
@@ -171,6 +176,9 @@ class CondominiumController extends Controller
         $config['message'] = 'off';
 
         $userRole = $this->userRoleCondominiumRepository->getAll();
+
+        $this->blockService->clearBlockNull();
+
         $block = $this->blockRepository->getAllCondominium();
         $userUnitRole = $this->userUnitRoleRepository->getAll();
         $dados = $this->repository->getCondominium();
@@ -204,7 +212,20 @@ class CondominiumController extends Controller
 
     public function access($id)
     {
-        if ($this->userService->addSession($id)) {
+        return $this->getAccess($id);
+    }
+
+    public function accessStore(CondominiumRequest $request)
+    {
+        $data = $request->all();
+        return $this->getAccess($data['id']);
+    }
+
+    public function getAccess($id)
+    {
+        $userCondominium = $this->userCondominiumRepostory->getId($id);
+        if ($userCondominium->toArray()) {
+            $this->userService->getCondominiumSession($userCondominium);
             return redirect(route('portal.home.index'));
         } else {
             return redirect(route('portal.condominium.index'));

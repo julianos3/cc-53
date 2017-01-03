@@ -55,7 +55,7 @@
         Breakpoints();
     </script>
 </head>
-<body class="page-user page-profile">
+<body class="page-user page-profile <?php if(session()->get('condominium_id') == ''): ?> padding-top-0 <?php endif; ?>">
 <!--[if lt IE 8]>
 <p class="browserupgrade">
     Você esta usando um navegador <strong>desatualizado.</strong> Por favor,
@@ -63,13 +63,15 @@
 </p>
 <![endif]-->
 
-<?php echo $__env->make('portal.layouts.topo', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php echo $__env->make('portal.layouts.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php if(session()->get('condominium_id') != ''): ?>
+    <?php echo $__env->make('portal.layouts.topo', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('portal.layouts.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php endif; ?>
 
 <?php echo $__env->yieldContent('content'); ?>
 
 <footer class="site-footer">
-    <div class="site-footer-legal">© 2016 <a href="http://www.centralcondo.com.br">Central Condo</a></div>
+    <div class="site-footer-legal">© 2017 <a href="http://www.centralcondo.com.br">Central Condo</a></div>
     <div class="site-footer-right">
         Feito com <i class="red-600 wb wb-heart"></i></a>
     </div>

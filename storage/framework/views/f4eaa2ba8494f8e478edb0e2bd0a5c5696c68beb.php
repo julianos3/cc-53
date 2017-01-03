@@ -12,7 +12,7 @@
                 </div>
                 <div class="modal-body text-center">
 
-                    <?php echo $__env->make('portal.communication.message.public._comment_form', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php echo $__env->make('portal.communication.message.public.modal._comment_form', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <input type="hidden" name="message_id" id="messageId" value="" />
                 </div>
                 <div class="modal-footer">

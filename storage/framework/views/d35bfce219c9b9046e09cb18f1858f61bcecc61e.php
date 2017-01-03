@@ -17,6 +17,20 @@
             <?php echo $__env->make('errors._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             <?php echo $__env->make('portal.modals.delete', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
+            <?php if(session()->get('admin') == 'y'): ?>
+            <div class="row">
+                <div class="col-md-12 margin-bottom-20">
+                    <a href="<?php echo e(route('portal.condominium.user.create')); ?>"
+                       data-toggle="tooltip"
+                       data-original-title="Cadastrar"
+                       class="btn btn-primary waves-effect waves-light">
+                        <i class="icon wb-plus" aria-hidden="true"></i>
+                        Cadastrar
+                    </a>
+                </div>
+            </div>
+            <?php endif; ?>
+
             <?php if($dados->toArray()): ?>
                 <div class="row">
                     <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>

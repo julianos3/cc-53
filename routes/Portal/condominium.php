@@ -10,7 +10,8 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
     Route::post('/create/finish', ['as' => 'create.finish', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@finishStore']);
     Route::post('/store', ['as' => 'store', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@store']);
     Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@edit']);
-    Route::get('/access/{id}', ['as' => 'access', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@access']);
+    Route::get('/accessGet/{id}', ['as' => 'accessGet', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@access']);
+    Route::post('/access', ['as' => 'access', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@accessStore']);
     Route::post('/update', ['as' => 'update', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@update']);
     Route::post('/update/info', ['as' => 'update.info', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@updateInfo']);
     Route::get('/destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@destroy']);

@@ -76,6 +76,8 @@ class NotificationController extends Controller
             }
         }
 
+        $notification = $this->utilObjeto->paginate($notification, 4);
+
         return view('portal.communication.notification.show', compact('notification', 'totalClick'));
     }
 

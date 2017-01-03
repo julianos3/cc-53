@@ -52,11 +52,6 @@
 
                     <div class="row margin-top-30">
                         <div class="col-md-12">
-                            ID Condominium: {{ $condominium->id }}<br/>
-                            Condominium Name: {{ $condominium->name }}<br/>
-                            User Condominium ID: {{ $userCondominiumId }}<br />
-                            User Role Condominium {{ $userRoleCondominiumId }}<br />
-                            {{ session()->get('condominium_id') }}
                         </div>
                     </div>
                 </div>

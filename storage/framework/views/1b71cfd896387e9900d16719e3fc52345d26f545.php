@@ -14,24 +14,23 @@
         <div data-role="container">
             <div data-role="content">
                 <?php if($notification->toArray()): ?>
-                <?php $__currentLoopData = $notification; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                <a class="list-group-item href="<?php echo e($row->route); ?>" role="menuitem">
-                    <div class="media">
-                        <div class="media-left padding-right-10">
-                            <i class="icon md-order bg-red-600 white icon-circle"
-                               aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body">
-                            <h6 class="media-heading"><?php echo e($row->name); ?></h6>
-                            <time class="media-meta" datetime="2016-06-12T20:50:48+08:00">
-                                <?php echo e(date('d/m/Y H:i', strtotime($row->created_at))); ?>
+                    <?php $__currentLoopData = $notification; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                    <a class="list-group-item" href="<?php echo e($row->route); ?>" role="menuitem">
+                        <div class="media">
+                            <div class="media-left padding-right-10">
+                                <i class="icon md-order bg-red-600 white icon-circle"
+                                   aria-hidden="true"></i>
+                            </div>
+                            <div class="media-body">
+                                <h6 class="media-heading"><?php echo e($row->name); ?></h6>
+                                <time class="media-meta" datetime="2016-06-12T20:50:48+08:00">
+                                    <?php echo e(date('d/m/Y H:i', strtotime($row->created_at))); ?>
 
-                            </time>
+                                </time>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-                <?php else: ?>
+                    </a>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                 <?php endif; ?>
             </div>
         </div>

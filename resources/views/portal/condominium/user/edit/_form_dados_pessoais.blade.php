@@ -91,7 +91,14 @@
     <div class="col-md-6">
         <div class="form-group">
             {!! Form::label('marital_status', 'Estado Cívil: *') !!}
-            {!! Form::select('marital_status', ['Solteiro' => 'Solteiro','Casado' => 'Casado'], null, ['class'=>'form-control', 'required' => 'required']) !!}
+            {!! Form::select('marital_status', [
+                'Solteiro' => 'Solteiro',
+                'Casado' => 'Casado',
+                'Divorciado' => 'Divorciado',
+                'Viúvo' => 'Viúvo',
+                'Separado' => 'Separado',
+                'Companheiro' => 'Companheiro'
+            ], null, ['class'=>'form-control', 'required' => 'required']) !!}
         </div>
     </div>
     <div class="col-md-6">

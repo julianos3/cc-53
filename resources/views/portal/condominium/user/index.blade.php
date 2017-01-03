@@ -17,6 +17,20 @@
             @include('errors._check')
             @include('portal.modals.delete')
 
+            @if(session()->get('admin') == 'y')
+            <div class="row">
+                <div class="col-md-12 margin-bottom-20">
+                    <a href="{{ route('portal.condominium.user.create') }}"
+                       data-toggle="tooltip"
+                       data-original-title="Cadastrar"
+                       class="btn btn-primary waves-effect waves-light">
+                        <i class="icon wb-plus" aria-hidden="true"></i>
+                        Cadastrar
+                    </a>
+                </div>
+            </div>
+            @endif
+
             @if($dados->toArray())
                 <div class="row">
                     @foreach($dados as $row)

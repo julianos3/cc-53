@@ -69,6 +69,25 @@ class UserCommunicationService
         }
     }
 
+    public function updateView($userCommunication, $id)
+    {
+        try {
+            $data['date_view'] = date("Y-m-d H:i:s");
+            $data['view'] = 'y';
+            $data['user_condominium_id'] = $userCommunication['user_condominium_id'];
+            $data['communication_id'] = $userCommunication['communication_id'];
+
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $dados = $this->repository->update($data, $id);
+
+            if ($dados) {
+                return true;
+            }
+        } catch (ValidatorException $e) {
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
+    }
+
     public function destroy($id)
     {
         $deleted = $this->repository->delete($id);

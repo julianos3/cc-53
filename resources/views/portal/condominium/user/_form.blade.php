@@ -77,8 +77,8 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <label class="control-label" for="user_unit_role">Tipo de vinculo com a Unidade</label>
-            <select class="form-control" name="user_unit_role" id="user_unit_role">
+            <label class="control-label" for="user_unit_role_id">Tipo de vinculo com a Unidade</label>
+            <select class="form-control" name="user_unit_role_id" id="user_unit_role_id">
                 <option value="">Selecione</option>
                 @foreach($userRole as $row)
                     <option value="{{ $row->id }}">{{ $row->name }}</option>

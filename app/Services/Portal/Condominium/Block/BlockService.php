@@ -57,6 +57,23 @@ class BlockService
         }
     }
 
+    public function clearBlockNull()
+    {
+        $dados = $this->repository->findWhere([
+            'condominium_id' => session()->get('condominium_id')
+        ]);
+        if ($dados->toArray()) {
+            foreach ($dados as $row) {
+                $unit = $this->unitRepository->findWhere(['block_id' => $row->id]);
+                if (!$unit->toArray()) {
+                    $this->repository->delete($row->id);
+                }
+            }
+        }
+
+        return true;
+    }
+
     public function destroy($id)
     {
         $unit = $this->unitRepository->findWhere(['block_id' => $id]);
@@ -73,7 +90,6 @@ class BlockService
                 return redirect()->back()->withErrors($response)->withInput();
             }
         }
-
     }
 
 }

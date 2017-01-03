@@ -134,9 +134,16 @@
                             </li>
                             <li class="site-menu-item">
                                 <a class="animsition-link" href="{{ route('portal.communication.communication.index') }}">
+                                    <span class="site-menu-title">Meus Comunicados</span>
+                                </a>
+                            </li>
+                            @if(session()->get('admin') == 'y')
+                            <li class="site-menu-item">
+                                <a class="animsition-link" href="{{ route('portal.communication.communication-condominium.index') }}">
                                     <span class="site-menu-title">Comunicados</span>
                                 </a>
                             </li>
+                            @endif
                             <li class="site-menu-item none">
                                 <a class="animsition-link" href="">
                                     <span class="site-menu-title">Achados e Perdidos</span>

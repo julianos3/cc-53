@@ -197,6 +197,7 @@ class UserCondominiumService
         //verifica se usuário já existe no central condo
         $verificaCondominium = '';
         $verificaUser = $this->userRepository->findWhere(['email' => $data['email'], 'user_role_id' => 1]);
+
         if ($verificaUser->toArray()) {
             $user = $verificaUser[0];
 
@@ -205,71 +206,73 @@ class UserCondominiumService
                 'user_id' => $user->id,
                 'condominium_id' => session()->get('condominium_id')
             ]);
-        }
 
-        if (!isset($verificaCondominium)) {
-            $response = trans("Usuário já cadastrado neste condominio");
-            return redirect()->back()->withErrors($response)->withInput();
-        } else {
-            try {
-
-                if (!$verificaUser->toArray()) {
-                    //cadastra usuario e envia e-mail com os acessos ao sistema
-                    //gerar uma senha automatica
-                    $data['user_role_id'] = 1;
-                    $password = $this->generatePassword();
-                    $data['password'] = $password;
-                    $data['password_confirmed'] = $password;
-
-                    $data['password'] = bcrypt($data['password']);
-                    $data['password_confirmation'] = bcrypt($data['password_confirmed']);
-
-                    $user = $this->userRepository->createUser($data);
-
-                    if ($user) {
-                        $this->newUserMail($user['email'], $password);
-                    }
-
-                } else {
-                    //envia email informando que o mesmo foi adicionado em outro condominio
-                    //está mais abaixo
-                }
-
-                //cadastra usuario no condominio
-                $data['condominium_id'] = session()->get('condominium_id');
-                $data['user_id'] = $user->id;
-                $data['active'] = 'y';
-
-
-                $this->validator->with($data)->passesOrFail();
-                $dados = $this->repository->create($data);
-
-                if ($dados) {
-
-                    //cadastra users_unit
-                    if (!empty($data['unit_id']) && !empty($data['user_unit_role'])) {
-                        $usersUnit['user_condominium_id'] = $dados['id'];
-                        $usersUnit['unit_id'] = $data['unit_id'];
-                        $usersUnit['user_unit_role'] = $data['user_unit_role'];
-
-                        $this->usersUnitRepository->create($usersUnit);
-                    }
-
-                    if ($verificaUser->toArray()) {
-                        $this->newCondominiumUserMail($dados['id']);
-                    } else {
-                        $this->newUserMail($dados['id'], $password);
-                    }
-
-                    $response = trans("Integrante cadastrado com sucesso!");
-                    return redirect()->back()->with('status', trans($response));
-                }
-
-            } catch (ValidatorException $e) {
-                $response = trans("Erro ao cadastrar o integrante");
-                return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            if ($verificaCondominium->toArray()) {
+                $response = trans("Usuário já cadastrado neste condominio");
+                return redirect()->back()->withErrors($response)->withInput();
             }
+
         }
+
+        try {
+
+            if (!$verificaUser->toArray()) {
+                //cadastra usuario e envia e-mail com os acessos ao sistema
+                //gerar uma senha automatica
+                $data['user_role_id'] = 1;
+                $password = $this->generatePassword();
+                $data['password'] = $password;
+                $data['password_confirmed'] = $password;
+
+                $data['password'] = bcrypt($data['password']);
+                $data['password_confirmation'] = bcrypt($data['password_confirmed']);
+
+                $user = $this->userRepository->createUser($data);
+
+                if ($user) {
+                    $this->newUserMail($user['email'], $password);
+                }
+
+            } else {
+                //envia email informando que o mesmo foi adicionado em outro condominio
+                //está mais abaixo
+            }
+
+            //cadastra usuario no condominio
+            $data['condominium_id'] = session()->get('condominium_id');
+            $data['user_id'] = $user->id;
+            $data['active'] = 'y';
+
+
+            $this->validator->with($data)->passesOrFail();
+            $dados = $this->repository->create($data);
+
+            if ($dados) {
+
+                //cadastra users_unit
+                if (!empty($data['unit_id']) && !empty($data['user_unit_role_id'])) {
+                    $usersUnit['user_condominium_id'] = $dados['id'];
+                    $usersUnit['unit_id'] = $data['unit_id'];
+                    $usersUnit['user_unit_role_id'] = $data['user_unit_role_id'];
+
+                    $this->usersUnitRepository->create($usersUnit);
+                }
+
+                if ($verificaUser->toArray()) {
+                    $this->newCondominiumUserMail($dados['id']);
+                } else {
+                    $this->newUserMail($dados['id'], $password);
+                }
+
+                $response = trans("Integrante cadastrado com sucesso!");
+                return redirect()->back()->with('status', trans($response));
+            }
+
+        } catch (ValidatorException $e) {
+            $response = trans("Erro ao cadastrar o integrante");
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
+
     }
 
     public function generatePassword($tamanho = 6, $maiusculas = true, $numeros = true, $simbolos = false)

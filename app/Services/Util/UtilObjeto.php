@@ -44,10 +44,13 @@ class UtilObjeto
         return false;
     }
 
-    public function paginate($dados)
+    public function paginate($dados, $limit = '')
     {
         $currentPage = Paginator::resolveCurrentPage() - 1;
         $perPage = 15;
+        if((int)$limit > 0){
+            $perPage = $limit;
+        }
         $currentPageSearchResults = $dados->slice($currentPage * $perPage, $perPage)->all();
         $dados = new LengthAwarePaginator($currentPageSearchResults, count($dados), $perPage);
 

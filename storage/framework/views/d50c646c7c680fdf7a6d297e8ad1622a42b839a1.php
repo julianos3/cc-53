@@ -53,23 +53,23 @@
                                     $dados->user->instagram != '' || $dados->user->google_plus != '' || $dados->user->linkedin != ''): ?>
                                     <div class="profile-social">
                                         <?php if($dados->user->twitter != ''): ?>
-                                            <a class="icon bd-twitter" href="javascript:void(0)" target="_blank"
+                                            <a class="icon bd-twitter" href="<?php echo $dados->user->twitter; ?>" target="_blank"
                                                title="Twitter"></a>
                                         <?php endif; ?>
                                         <?php if($dados->user->facebook != ''): ?>
-                                            <a class="icon bd-facebook" href="javascript:void(0)" target="_blank"
+                                            <a class="icon bd-facebook" href="<?php echo e($dados->user->facebook); ?>" target="_blank"
                                                title="Facebook"></a>
                                         <?php endif; ?>
                                         <?php if($dados->user->instagram != ''): ?>
-                                            <a class="icon bd-instagram" href="javascript:void(0)" target="_blank"
+                                            <a class="icon bd-instagram" href="<?php echo e($dados->user->instagram); ?>" target="_blank"
                                                title="Instagram"></a>
                                         <?php endif; ?>
                                         <?php if($dados->user->google_plus != ''): ?>
-                                            <a class="icon bd-google-plus" href="javascript:void(0)" target="_blank"
+                                            <a class="icon bd-google-plus" href="<?php echo e($dados->user->google_plus); ?>" target="_blank"
                                                title="Google Plus"></a>
                                         <?php endif; ?>
                                         <?php if($dados->user->linkedin != ''): ?>
-                                            <a class="icon bd-linkedin" href="javascript:void(0)" target="_blank"
+                                            <a class="icon bd-linkedin" href="<?php echo e($dados->user->linkedin); ?>" target="_blank"
                                                title="Linkedin"></a>
                                         <?php endif; ?>
                                     </div>
@@ -83,20 +83,6 @@
                         <div class="panel-body container-fluid">
                             <div class="article-content">
 
-                                    <!--
-                                    <?php
-                                        /*
-                                    @if(!isset($dados->user->description) ||
-                                        !isset($dados->user->formation) ||
-                                        !$dados->user->institution ||
-                                        !$dados->user->conclusion ||
-                                        !$dados->user->profession ||
-                                        !$dados->user->company ||
-                                        !$dados->userUnit->toArray() ||
-                                        !$dados->user->site)
-                                        */
-                                        ?>
-                                    -->
                                 <?php if(!isset($dados->user->description) ||
                                     !isset($dados->user->formation) ||
                                     !isset($dados->user->institution) ||

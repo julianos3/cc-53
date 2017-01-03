@@ -107,7 +107,14 @@
         <div class="form-group">
             <?php echo Form::label('marital_status', 'Estado Cívil: *'); ?>
 
-            <?php echo Form::select('marital_status', ['Solteiro' => 'Solteiro','Casado' => 'Casado'], null, ['class'=>'form-control', 'required' => 'required']); ?>
+            <?php echo Form::select('marital_status', [
+                'Solteiro' => 'Solteiro',
+                'Casado' => 'Casado',
+                'Divorciado' => 'Divorciado',
+                'Viúvo' => 'Viúvo',
+                'Separado' => 'Separado',
+                'Companheiro' => 'Companheiro'
+            ], null, ['class'=>'form-control', 'required' => 'required']); ?>
 
         </div>
     </div>

@@ -49,7 +49,7 @@
                                     <p class="alert-danger">Aguardando aprovação do condomínio!</p>
                                 <?php else: ?>
                                     <?php if(count($dados) > 1): ?>
-                                    <a href="<?php echo e(route('portal.condominium.access', ['id' => $row->condominium->id])); ?>"
+                                    <a href="<?php echo e(route('portal.condominium.accessGet', ['id' => $row->condominium->id])); ?>"
                                        title="Acessar"
                                        class="btn btn-icon bg-success waves-effect waves-light">
                                         <i class="icon wb-zoom-in" aria-hidden="true"></i>

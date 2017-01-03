@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-md-4">
         <label for="assunto"><strong>Público?</strong></label>
-        <p class="form-control-static"><?php if($dados['visible'] == 'y'): ?> Sim <?php else: ?> Não <?php endif; ?></p>
+        <p class="form-control-static"><?php if($dados->visible == 'y'): ?> Sim <?php else: ?> Não <?php endif; ?></p>
     </div>
     <div class="col-md-4">
         <label for="assunto"><strong>Data de Abertura</strong></label>
@@ -54,7 +54,7 @@
             <div class="col-md-12">
                 <strong>CRIADO EM</strong> <?php echo e(date('d/m/Y h:i', strtotime($row['created_at']))); ?>
 
-                <strong>POR</strong> <?php echo e($row['usersCondominium']['user']['name']); ?>
+                <strong>POR</strong> <?php echo e($row['userCondominium']['user']['name']); ?>
 
             </div>
         </div>

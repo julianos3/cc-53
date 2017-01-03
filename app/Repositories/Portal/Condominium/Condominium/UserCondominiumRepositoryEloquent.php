@@ -123,6 +123,16 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
         return $dados;
     }
 
+    public function getId($id)
+    {
+        $dados = $this->findWhere([
+            'condominium_id' => $id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        return $dados[0];
+    }
+
     /**
      * Specify Model class name
      *

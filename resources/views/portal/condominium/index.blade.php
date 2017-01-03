@@ -44,7 +44,7 @@
                                     <p class="alert-danger">Aguardando aprovação do condomínio!</p>
                                 @else
                                     @if (count($dados) > 1)
-                                    <a href="{{ route('portal.condominium.access', ['id' => $row->condominium->id]) }}"
+                                    <a href="{{ route('portal.condominium.accessGet', ['id' => $row->condominium->id]) }}"
                                        title="Acessar"
                                        class="btn btn-icon bg-success waves-effect waves-light">
                                         <i class="icon wb-zoom-in" aria-hidden="true"></i>

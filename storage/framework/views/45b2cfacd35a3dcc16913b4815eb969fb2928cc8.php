@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-4">
         <label for="assunto"><strong>Criado Por</strong></label>
-        <p class="form-control-static"><?php echo e($dados['usersCondominium']['user']['name']); ?></p>
+        <p class="form-control-static"><?php echo e($dados['userCondominium']['user']['name']); ?></p>
     </div>
 </div>
 <div class="row">
@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 CRIADO EM <?php echo e(date('d/m/Y h:i', strtotime($row['created_at']))); ?>
 
-                POR <?php echo e($row['usersCondominium']['user']['name']); ?>
+                POR <?php echo e($row['userCondominium']['user']['name']); ?>
 
             </div>
         </div>

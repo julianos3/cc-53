@@ -58,7 +58,7 @@
                                             <td><?php echo e($row->calledCategory->name); ?></td>
                                             <td><?php echo e($row->userCondominium->user->name); ?></td>
                                             <?php if(session()->get('admin') == 'y'): ?>
-                                            <td><?php echo e($row->visible); ?></td>
+                                            <td><?php if($row->visible == 'y'): ?> Sim <?php else: ?> Não <?php endif; ?></td>
                                             <?php endif; ?>
                                             <td><?php echo e(date('d/m/Y h:i', strtotime($row->created_at))); ?></td>
                                             <td class="text-center">

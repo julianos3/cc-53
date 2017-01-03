@@ -81,12 +81,17 @@ Route::group(['prefix' => 'communication', 'as' => 'communication.'], function (
     //COMUNICADOS
     Route::group(['prefix' => 'communication', 'as' => 'communication.'], function () {
         Route::get('', ['as' => 'index', 'uses' => 'Portal\Communication\Communication\CommunicationController@index']);
-        Route::get('create', ['as' => 'create', 'uses' => 'Portal\Communication\Communication\CommunicationController@create']);
-        Route::post('store', ['as' => 'store', 'uses' => 'Portal\Communication\Communication\CommunicationController@store']);
-        Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'Portal\Communication\Communication\CommunicationController@edit']);
         Route::get('show/{id}', ['as' => 'show', 'uses' => 'Portal\Communication\Communication\CommunicationController@show']);
-        Route::post('update/{id}', ['as' => 'update', 'uses' => 'Portal\Communication\Communication\CommunicationController@update']);
-        Route::get('destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Communication\Communication\CommunicationController@destroy']);
+    });
+
+    Route::group(['prefix' => 'communication-condominium', 'as' => 'communication-condominium.'], function () {
+        Route::get('', ['as' => 'index', 'uses' => 'Portal\Communication\Communication\CommunicationCondominiumController@index']);
+        Route::get('create', ['as' => 'create', 'uses' => 'Portal\Communication\Communication\CommunicationCondominiumController@create']);
+        Route::post('store', ['as' => 'store', 'uses' => 'Portal\Communication\Communication\CommunicationCondominiumController@store']);
+        Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'Portal\Communication\Communication\CommunicationCondominiumController@edit']);
+        Route::get('show/{id}', ['as' => 'show', 'uses' => 'Portal\Communication\Communication\CommunicationCondominiumController@show']);
+        Route::post('update/{id}', ['as' => 'update', 'uses' => 'Portal\Communication\Communication\CommunicationCondominiumController@update']);
+        Route::get('destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Communication\Communication\CommunicationCondominiumController@destroy']);
 
         //COMUNICADOS GROUP
         Route::get('/{communicationId}/group/', ['as' => 'group.index', 'uses' => 'Portal\Communication\Communication\CommunicationGroupController@index']);
