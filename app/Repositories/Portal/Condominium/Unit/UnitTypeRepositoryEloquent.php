@@ -6,13 +6,17 @@ use CentralCondo\Entities\Portal\Condominium\Unit\UnitType;
 use CentralCondo\Validators\Portal\Condominium\Unit\UnitTypeValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class UnitTypeRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Unit
  */
-class UnitTypeRepositoryEloquent extends BaseRepository implements UnitTypeRepository
+class UnitTypeRepositoryEloquent extends BaseRepository implements UnitTypeRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     public function getId($id)
     {
         $dados = $this->findWhere(['id' => $id, 'active' => 'y']);

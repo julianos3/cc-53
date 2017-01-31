@@ -6,13 +6,16 @@ use CentralCondo\Entities\Portal\Condominium\SecurityCam\SecurityCam;
 use CentralCondo\Validators\Portal\Condominium\SecurityCam\SecurityCamValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class SecurityCamRepositoryEloquent
  * @package namespace CentralCondo\Repositories;
  */
-class SecurityCamRepositoryEloquent extends BaseRepository implements SecurityCamRepository
+class SecurityCamRepositoryEloquent extends BaseRepository implements SecurityCamRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getAllCondominium()
     {

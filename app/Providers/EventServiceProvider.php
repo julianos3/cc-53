@@ -34,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         'CentralCondo\Events\Portal\Communication\Communication\SendMailCommunication' => [
             'CentralCondo\Listeners\Portal\Communication\Communication\SendMailCommunicationFired'
         ],
+        'CentralCondo\Events\Portal\User\SendMailNewPassword' => [
+            'CentralCondo\Listeners\Portal\User\SendMailNewPasswordFired'
+        ],
     ];
 
     /**

@@ -1,15 +1,23 @@
 <div class="row">
     <?php if($dados['imagem']): ?>
     <div class="col-md-6 height-100">
-        <img class="img-responsive margin-right-15 height-100 img-thumbnail" src="<?php echo e(route('portal.condominium.user.image', ['id' => $dados->id, 'imagem' => $dados['imagem']])); ?>" />
-        <a href="<?php echo e(route('portal.condominium.user.image', ['id' => $dados->id, 'imagem' => $dados['imagem']])); ?>" target="_blank">Visualizar Imagem</a>
+        <a href="<?php echo e(route('portal.condominium.user.image', ['id' => $dados->id, 'image' => $dados['imagem']])); ?>" class="zoom-light-box" data-effect="mfp-zoom-in">
+            <img class="img-responsive margin-right-15 height-100 img-thumbnail" src="<?php echo e(route('portal.condominium.user.image', ['id' => $dados->id, 'imagem' => $dados['imagem']])); ?>" />
+        </a>
     </div>
     <?php endif; ?>
     <div class="col-md-6">
-        <div class="control-group">
-            <div class="controls">
-                <?php echo Form::file('imagem'); ?>
+        <div class="form-group">
+            <?php echo Form::label('image', 'Imagem de Perfil'); ?>
 
+            <div class="input-group input-group-file">
+                <input type="text" class="form-control" readonly="">
+                <span class="input-group-btn">
+                      <span class="btn btn-success btn-file waves-effect waves-light">
+                        <i class="icon md-upload" aria-hidden="true"></i>
+                        <input type="file" name="imagem" >
+                      </span>
+                </span>
                 <p class="errors"><?php echo $errors->first('imagem'); ?></p>
                 <?php if(Session::has('error')): ?>
                     <p class="errors"><?php echo Session::get('error'); ?></p>

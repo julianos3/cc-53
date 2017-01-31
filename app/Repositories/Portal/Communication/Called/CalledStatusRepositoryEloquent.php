@@ -7,13 +7,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Communication\Called\CalledStatusRepository;
 use CentralCondo\Entities\Portal\Communication\Called\CalledStatus;
 use CentralCondo\Validators\Portal\Communication\Called\CalledStatusValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class CalledStatusRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Communication\Called
  */
-class CalledStatusRepositoryEloquent extends BaseRepository implements CalledStatusRepository
+class CalledStatusRepositoryEloquent extends BaseRepository implements CalledStatusRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     /**
      * @return mixed

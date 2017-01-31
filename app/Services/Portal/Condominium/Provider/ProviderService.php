@@ -26,6 +26,29 @@ class ProviderService
         $this->contractRepository = $contractRepository;
     }
 
+    public function createAjax(array $data)
+    {
+        try {
+            $data['condominium_id'] = session()->get('condominium_id');
+            $this->validator->with($data)->passesOrFail();
+            $dados = $this->repository->create($data);
+
+            if ($dados) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Registro adicionado com sucesso!',
+                    'data' => $dados->toArray(),
+                ]);
+            }
+
+        } catch (ValidatorException $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessageBag()
+            ]);
+        }
+    }
+
     public function create(array $data)
     {
         try {

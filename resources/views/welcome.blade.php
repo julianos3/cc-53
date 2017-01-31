@@ -1,6 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W5LM6V9');</script>
+    <!-- End Google Tag Manager -->
+
     <title>Central Condo - Sistema de Condomínio Online</title>
     <base href="http://www.centralcondo.com.br" />
     <!-- metas -->
@@ -35,6 +44,12 @@
     </script>
 </head>
 <body class="def-100">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5LM6V9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <nav class="def-100 def-h-100 fixed z-index-2">
     <ul class="def-100 def-h-100 cycle-slideshow" data-cycle-speed="1000" data-cycle-fx="fade" data-cycle-next=".next-banner" data-cycle-prev=".prev-banner" data-cycle-timeout="9000" data-cycle-timein="1000">
         <li class="def-100 def-h-100" style="background: url('{{ asset('site/banner/517b10b996302e72f81dd6068ae82204.jpg') }}') no-repeat;background-position: center center;background-size: cover;"></li>

@@ -37,8 +37,10 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
                                             data-tablesaw-priority="persist">Nome
                                         </th>
+                                        <th data-tablesaw-sortable-col data-tablesaw-priority="2">Telefone</th>
+                                        <th data-tablesaw-sortable-col data-tablesaw-priority="2">E-mail</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="2">Categoria</th>
-                                        <th data-tablesaw-sortable-col data-tablesaw-priority="1">Ativo</th>
+                                        <th class="text-center">Ativo</th>
                                         <th class="text-center col-md-2">
                                             Ação
                                         </th>
@@ -48,8 +50,16 @@
                                     @foreach($dados  as $row)
                                         <tr>
                                             <td>{{ $row->name }}</td>
+                                            <td>{{ $row->phone }}</td>
+                                            <td>{{ $row->email }}</td>
                                             <td>{{ $row->providerCategory->name }}</td>
-                                            <td>@if($row->active == 'y') Sim @else Não @endif</td>
+                                            <td class="text-center">
+                                                @if($row->active == 'y')
+                                                    <i class="icon wb-check text-success" aria-hidden="true"></i>
+                                                @else
+                                                    <i class="icon wb-close text-danger" aria-hidden="true"></i>
+                                                @endif
+                                            </td>
                                             <td class="text-center">
                                                 <a href="{{ route('portal.condominium.provider.edit', ['id' => $row->id]) }}"
                                                    title="Editar"

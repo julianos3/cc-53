@@ -36,9 +36,13 @@
                                     </a>
                                 </li>
                                 <li class="active" role="presentation">
-                                    <a href="{{ route('portal.condominium.user.unit', ['id'=> $dados->id]) }}"
-                                       data-toggle="tab" href="#tabUnit" aria-controls="exampleTabsLineTwo" role="tab">
+                                    <a data-toggle="tab" href="#tabUnit" aria-controls="exampleTabsLineTwo" role="tab">
                                         Unidades
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('portal.condominium.user.config', ['id'=> $dados->id]) }}">
+                                        Configurações
                                     </a>
                                 </li>
                             </ul>
@@ -63,6 +67,7 @@
                                                         <th data-tablesaw-sortable-col data-tablesaw-priority="3">Andar</th>
                                                         <th data-tablesaw-sortable-col data-tablesaw-priority="2">Bloco</th>
                                                         <th data-tablesaw-sortable-col data-tablesaw-priority="1">Tipo</th>
+                                                        <th data-tablesaw-sortable-col data-tablesaw-priority="4">Vinculo</th>
                                                         <th class="text-center col-md-2">
                                                             Ação
                                                         </th>
@@ -75,6 +80,7 @@
                                                             <td>{{ $row->unit->floor }}</td>
                                                             <td>{{ $row->unit->block->name }}</td>
                                                             <td>{{ $row->unit->unitType->name }}</td>
+                                                            <td>{{ $row->userUnitRole->name }}</td>
                                                             <td class="text-center">
                                                                 <button title="Excluir"
                                                                         class="btn btn-icon bg-danger waves-effect waves-light btnDelete"

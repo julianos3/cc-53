@@ -7,7 +7,6 @@ use Prettus\Validator\LaravelValidator;
 
 class UserValidator extends LaravelValidator
 {
-
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
             'user_role_id' => 'required',
@@ -21,6 +20,6 @@ class UserValidator extends LaravelValidator
             'email' => 'required|email|max:255',
             'sex' => 'required',
             //'password' => 'required|min:6'
-        ],
+        ]
     ];
 }

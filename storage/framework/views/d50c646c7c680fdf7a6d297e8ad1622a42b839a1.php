@@ -41,12 +41,8 @@
                                 <p class="profile-job"><?php echo e($dados->userRoleCondominium->name); ?></p>
                                 <p>
                                     E-mail: <?php echo e($dados->user->email); ?><br/>
-                                    <?php if($dados->user->phone): ?>
-                                        Telefone: <?php echo e($dados->user->phone); ?><br/>
-                                    <?php endif; ?>
-                                    <?php if(isset($dados->user->cell_phone)): ?>
-                                        Celular: <?php echo e($dados->user->cell_phone); ?><br/>
-                                    <?php endif; ?>
+                                    Telefone: <?php echo e($dados->user->phone); ?><br/>
+                                    Celular: <?php echo $dados->user->cell_phone; ?><br/>
                                 </p>
 
                                 <?php if($dados->user->twitter != '' || $dados->user->facebook != '' ||
@@ -89,7 +85,7 @@
                                     !isset($dados->user->profession) ||
                                     !isset($dados->user->conclusion) ||
                                     !isset($dados->user->company) ||
-                                    !$dados->userUnit->toArray() ||
+                                    is_array($dados->userUnit) ||
                                     !isset($dados->user->site)): ?>
 
                                     <div class="col-md-12 text-center">

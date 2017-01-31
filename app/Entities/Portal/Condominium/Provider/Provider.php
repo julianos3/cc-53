@@ -18,6 +18,8 @@ class Provider extends Model implements Transformable
         'condominium_id',
         'provider_category_id',
         'name',
+        'phone',
+        'email',
         'description',
         'active'
     ];

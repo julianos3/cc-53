@@ -44,9 +44,22 @@ class MaintenanceCompletedController extends Controller
     public function index($id)
     {
         $config['title'] = "Manutenções Realizadas";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'maintenance';
         $dados = $this->repository->getIdMaintenanceCompleted($id);
 
         return view('portal.manage.maintenance.completed.index', compact('config', 'dados'));
+    }
+
+    public function create($id)
+    {
+        $config['title'] = "Registrar Manutenção Preventiva";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'maintenance';
+
+        $providers = $this->providersRepository->getAllCondominiumActive();
+
+        return view('portal.manage.maintenance.completed.create', compact('dados', 'config', 'providers', 'id'));
     }
 
     public function store(MaintenanceCompletedRequest $request)
@@ -57,6 +70,8 @@ class MaintenanceCompletedController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Manutenção Preventiva";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'maintenance';
         $dados = $this->repository->getMaintenanceCompleted($id);
         $dados['date'] = date('d/m/Y', strtotime($dados['date']));
         

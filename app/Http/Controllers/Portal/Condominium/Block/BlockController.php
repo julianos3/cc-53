@@ -52,6 +52,10 @@ class BlockController extends Controller
     public function index()
     {
         $config['title'] = "Blocos";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'block';
+
         $dados = $this->repository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
 
@@ -61,6 +65,10 @@ class BlockController extends Controller
     public function create()
     {
         $config['title'] = "Novo Bloco";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'block';
+
         return view('portal.condominium.block.create', compact('config'));
     }
 
@@ -72,6 +80,10 @@ class BlockController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Bloco";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'block';
+
         $dados = $this->repository->getBlock($id);
 
         return view('portal.condominium.block.edit', compact('config', 'dados'));

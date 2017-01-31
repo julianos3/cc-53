@@ -82,6 +82,7 @@ Route::group(['prefix' => 'communication', 'as' => 'communication.'], function (
     Route::group(['prefix' => 'communication', 'as' => 'communication.'], function () {
         Route::get('', ['as' => 'index', 'uses' => 'Portal\Communication\Communication\CommunicationController@index']);
         Route::get('show/{id}', ['as' => 'show', 'uses' => 'Portal\Communication\Communication\CommunicationController@show']);
+        Route::get('view/{id}', ['as' => 'view', 'uses' => 'Portal\Communication\Communication\CommunicationController@view']);
     });
 
     Route::group(['prefix' => 'communication-condominium', 'as' => 'communication-condominium.'], function () {

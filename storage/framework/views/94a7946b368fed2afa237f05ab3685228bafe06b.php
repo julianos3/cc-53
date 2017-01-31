@@ -40,7 +40,6 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
                                             data-tablesaw-priority="persist">Serviço
                                         </th>
-                                        <th data-tablesaw-sortable-col data-tablesaw-priority="1">Fornecedor</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="2">Status</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="3">Data Início</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="4">Data Fim</th>
@@ -53,7 +52,6 @@
                                     <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                         <tr>
                                             <td><?php echo e($row->name); ?></td>
-                                            <td><?php echo e($row->provider->name); ?></td>
                                             <td><?php echo e($row->contractStatus->name); ?></td>
                                             <td><?php echo e(date('d/m/Y', strtotime($row->start_date))); ?></td>
                                             <td><?php echo e(date('d/m/Y', strtotime($row->end_date))); ?></td>

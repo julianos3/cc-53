@@ -39,6 +39,7 @@ class User extends Authenticatable implements Transformable
         'site',
         'imagem',
         'active',
+        'notification_email'
     ];
 
     protected $hidden = [

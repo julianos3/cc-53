@@ -7,13 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Condominium\Diary\DiaryRepository;
 use CentralCondo\Entities\Portal\Condominium\Diary\Diary;
 use CentralCondo\Validators\Portal\Condominium\Diary\DiaryValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class DiaryRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Diary
  */
-class DiaryRepositoryEloquent extends BaseRepository implements DiaryRepository
+class DiaryRepositoryEloquent extends BaseRepository implements DiaryRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     /**
      * Specify Model class name
      *

@@ -7,13 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Communication\Message\UserMessageRepository;
 use CentralCondo\Entities\Portal\Communication\Message\UserMessage;
 use CentralCondo\Validators\Portal\Communication\Message\UserMessageValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class UserMessageRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Communication\Message
  */
-class UserMessageRepositoryEloquent extends BaseRepository implements UserMessageRepository
+class UserMessageRepositoryEloquent extends BaseRepository implements UserMessageRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     public function getAllUserCondominium()
     {
         $dados = $this->orderBy('created_at', 'desc')

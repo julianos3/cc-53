@@ -6,13 +6,16 @@ use CentralCondo\Entities\Portal\Communication\Called\Called;
 use CentralCondo\Validators\Portal\Communication\Called\CalledValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class CalledRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Communication\Called
  */
-class CalledRepositoryEloquent extends BaseRepository implements CalledRepository
+class CalledRepositoryEloquent extends BaseRepository implements CalledRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getAllCondominium()
     {

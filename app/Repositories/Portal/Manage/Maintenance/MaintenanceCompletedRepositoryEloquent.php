@@ -7,13 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Manage\Maintenance\MaintenanceCompletedRepository;
 use CentralCondo\Entities\Portal\Manage\Maintenance\MaintenanceCompleted;
 use CentralCondo\Validators\Portal\Manage\Maintenance\MaintenanceCompletedValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
+
 
 /**
  * Class MaintenanceCompletedRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Manage\Maintenance
  */
-class MaintenanceCompletedRepositoryEloquent extends BaseRepository implements MaintenanceCompletedRepository
+class MaintenanceCompletedRepositoryEloquent extends BaseRepository implements MaintenanceCompletedRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getIdMaintenanceCompleted($id)
     {

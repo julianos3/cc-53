@@ -7,7 +7,7 @@
             <h1 class="page-title"><?php echo e($config['title']); ?></h1>
             <ol class="breadcrumb" data-plugin="breadcrumb">
                 <li><a href="<?php echo e(route('portal.home.index')); ?>">Home</a></li>
-                <li><a href="<?php echo e(route('portal.manage.index')); ?>">Administrar</a></li>
+                <li><a href="<?php echo e(route('portal.manage.index')); ?>">Administração</a></li>
                 <li><a href="<?php echo e(route('portal.manage.maintenance.index')); ?>">Manutenções Preventivas</a></li>
                 <li><a href="javascript:void(0);">Registros</a></li>
                 <li class="active">Alterar</li>
@@ -26,6 +26,7 @@
                 <div class="panel-body">
                     <?php echo $__env->make('success._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('errors._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php echo $__env->make('portal.modals.create', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                     <?php echo Form::model($dados, ['route'=>['portal.manage.maintenance.completed.update', $dados->id], 'files' => true]); ?>
 

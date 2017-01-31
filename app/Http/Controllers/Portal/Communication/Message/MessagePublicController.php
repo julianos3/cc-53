@@ -43,6 +43,8 @@ class MessagePublicController extends Controller
     public function index()
     {
         $config['title'] = 'Mensagens Públicas';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'message';
 
         $dados = $this->repository->getAllPublicCondominium();
         $dados = $this->utilObjeto->paginate($dados);
@@ -53,6 +55,8 @@ class MessagePublicController extends Controller
     public function create()
     {
         $config['title'] = 'Nova Mensagem Pública';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'message';
         return view('portal.communication.message.public.create', compact('config'));
     }
 

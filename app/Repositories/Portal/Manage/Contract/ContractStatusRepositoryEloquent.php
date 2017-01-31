@@ -7,13 +7,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Manage\Contract\ContractStatusRepository;
 use CentralCondo\Entities\Portal\Manage\Contract\ContractStatus;
 use CentralCondo\Validators\Portal\Manage\Contract\ContractStatusValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class ContractStatusRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Manage\Contract
  */
-class ContractStatusRepositoryEloquent extends BaseRepository implements ContractStatusRepository
+class ContractStatusRepositoryEloquent extends BaseRepository implements ContractStatusRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getAllActive()
     {

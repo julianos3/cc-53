@@ -21,7 +21,7 @@
         <div class="page-content container-fluid">
             <div class="panel">
                 <div class="panel-body">
-                    {!! Form::model($dados, ['route'=>['portal.condominium.update.info', $dados->id]]) !!}
+                    {!! Form::model($dados, ['route'=>['portal.condominium.update.info', $dados->id], 'files' => true]) !!}
                         @include('success._check')
                         @include('errors._check')
 

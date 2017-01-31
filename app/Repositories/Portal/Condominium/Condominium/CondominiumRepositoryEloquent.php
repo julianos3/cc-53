@@ -7,13 +7,16 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
 use CentralCondo\Validators\Portal\Condominium\Condominium\CondominiumValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class CondominiumRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Condominium
  */
-class CondominiumRepositoryEloquent extends BaseRepository implements CondominiumRepository
+class CondominiumRepositoryEloquent extends BaseRepository implements CondominiumRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getCondominiumId($id)
     {

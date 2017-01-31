@@ -62,6 +62,8 @@ class MaintenanceController extends Controller
     public function index()
     {
         $config['title'] = "Manutenções Preventivas";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'maintenance';
 
         $dados = $this->repository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
@@ -73,6 +75,8 @@ class MaintenanceController extends Controller
     public function create()
     {
         $config['title'] = "Cadastrar Manutenção Preventiva";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'maintenance';
         $periodicitys = $this->periodicityRepository->getAll();
 
         return view('portal.manage.maintenance.create', compact('config', 'periodicitys'));
@@ -86,6 +90,8 @@ class MaintenanceController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Manutenção Preventiva";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'maintenance';
         $dados = $this->repository->getMaintenance($id);
         $dados['start_date'] = date('d/m/Y', strtotime($dados['start_date']));
         $periodicitys = $this->periodicityRepository->getAll();

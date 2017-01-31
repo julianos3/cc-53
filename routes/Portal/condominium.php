@@ -16,6 +16,7 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
     Route::post('/update/info', ['as' => 'update.info', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@updateInfo']);
     Route::get('/destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@destroy']);
     Route::get('/unitBlockClear', ['as' => 'unitBlockClear', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@clearUnitBlock']);
+    Route::get('/image/{id}/{image}', ['as' => 'image', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@showImage']);
 
     //USER
     Route::get('user', ['as' => 'user.index', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@index']);
@@ -35,6 +36,10 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
     Route::get('user/approval/{id}', ['as' => 'user.approval.show', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@showUserNotActive']);
     Route::get('user/approval/confirm/{id}', ['as' => 'user.approval.confirm', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@confirmNotActive']);
     Route::get('user/approval', ['as' => 'user.approval.all', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@approvalAll']);
+    Route::get('user/config/{id}', ['as' => 'user.config', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@config']);
+    Route::post('user/config/update/{id}', ['as' => 'user.config.update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@configUpdate']);
+    Route::get('user/newPassword/{id}/{userId}', ['as' => 'user.newPassword', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@newPassword']);
+
 
     //UNIT
     Route::group(['prefix' => 'unit', 'as' => 'unit.'], function () {
@@ -106,10 +111,24 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
         Route::get('', ['as' => 'index', 'uses' => 'Portal\Condominium\Provider\ProviderController@index']);
         Route::get('create', ['as' => 'create', 'uses' => 'Portal\Condominium\Provider\ProviderController@create']);
         Route::post('store', ['as' => 'store', 'uses' => 'Portal\Condominium\Provider\ProviderController@store']);
+        Route::get('createAjax', ['as' => 'createAjax', 'uses' => 'Portal\Condominium\Provider\ProviderController@createAjax']);
+        Route::post('storeAjax', ['as' => 'storeAjax', 'uses' => 'Portal\Condominium\Provider\ProviderController@storeAjax']);
+        Route::get('listAllSelect', ['as' => 'listAllSelect', 'uses' => 'Portal\Condominium\Provider\ProviderController@listAllSelect']);
         Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'Portal\Condominium\Provider\ProviderController@edit']);
         Route::post('update/{id}', ['as' => 'update', 'uses' => 'Portal\Condominium\Provider\ProviderController@update']);
         Route::get('destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Condominium\Provider\ProviderController@destroy']);
     });
+
+    //DIARY
+    Route::group(['prefix' => 'diary', 'as' => 'diary.'], function () {
+        Route::get('', ['as' => 'index', 'uses' => 'Portal\Condominium\Diary\DiaryController@index']);
+        Route::get('create', ['as' => 'create', 'uses' => 'Portal\Condominium\Diary\DiaryController@create']);
+        Route::post('store', ['as' => 'store', 'uses' => 'Portal\Condominium\Diary\DiaryController@store']);
+        Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'Portal\Condominium\Diary\DiaryController@edit']);
+        Route::post('update/{id}', ['as' => 'update', 'uses' => 'Portal\Condominium\Diary\DiaryController@update']);
+        Route::get('destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Condominium\Diary\DiaryController@destroy']);
+    });
+
 
 
 });

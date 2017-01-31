@@ -601,7 +601,6 @@ table.tablesaw {
   position: relative;
 }
 .tablesaw-sortable thead tr th {
-  padding-right: 1.6em;
   vertical-align: top;
 }
 .tablesaw-sortable th.tablesaw-sortable-head,

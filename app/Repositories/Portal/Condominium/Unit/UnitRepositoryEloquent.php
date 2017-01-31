@@ -6,13 +6,16 @@ use CentralCondo\Entities\Portal\Condominium\Unit\Unit;
 use CentralCondo\Validators\Portal\Condominium\Unit\UnitValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class UnitRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Unit
  */
-class UnitRepositoryEloquent extends BaseRepository implements UnitRepository
+class UnitRepositoryEloquent extends BaseRepository implements UnitRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function deleteAllCondominium()
     {

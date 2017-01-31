@@ -6,13 +6,16 @@ use CentralCondo\Entities\Portal\Condominium\Block\BlockNomemclature;
 use CentralCondo\Validators\Portal\Condominium\Block\BlockNomemclatureValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class BlockNomemclatureRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Block
  */
-class BlockNomemclatureRepositoryEloquent extends BaseRepository implements BlockNomemclatureRepository
+class BlockNomemclatureRepositoryEloquent extends BaseRepository implements BlockNomemclatureRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getId($id)
     {

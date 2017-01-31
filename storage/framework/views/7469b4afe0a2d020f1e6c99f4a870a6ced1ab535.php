@@ -37,8 +37,10 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
                                             data-tablesaw-priority="persist">Nome
                                         </th>
+                                        <th data-tablesaw-sortable-col data-tablesaw-priority="2">Telefone</th>
+                                        <th data-tablesaw-sortable-col data-tablesaw-priority="2">E-mail</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="2">Categoria</th>
-                                        <th data-tablesaw-sortable-col data-tablesaw-priority="1">Ativo</th>
+                                        <th class="text-center">Ativo</th>
                                         <th class="text-center col-md-2">
                                             Ação
                                         </th>
@@ -48,8 +50,16 @@
                                     <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                         <tr>
                                             <td><?php echo e($row->name); ?></td>
+                                            <td><?php echo e($row->phone); ?></td>
+                                            <td><?php echo e($row->email); ?></td>
                                             <td><?php echo e($row->providerCategory->name); ?></td>
-                                            <td><?php if($row->active == 'y'): ?> Sim <?php else: ?> Não <?php endif; ?></td>
+                                            <td class="text-center">
+                                                <?php if($row->active == 'y'): ?>
+                                                    <i class="icon wb-check text-success" aria-hidden="true"></i>
+                                                <?php else: ?>
+                                                    <i class="icon wb-close text-danger" aria-hidden="true"></i>
+                                                <?php endif; ?>
+                                            </td>
                                             <td class="text-center">
                                                 <a href="<?php echo e(route('portal.condominium.provider.edit', ['id' => $row->id])); ?>"
                                                    title="Editar"

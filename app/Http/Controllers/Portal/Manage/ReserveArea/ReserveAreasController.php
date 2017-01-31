@@ -44,6 +44,8 @@ class ReserveAreasController extends Controller
     public function index()
     {
         $config['title'] = "Recursos Comuns";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'reserve-areas';
         $dados = $this->repository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
 
@@ -53,6 +55,8 @@ class ReserveAreasController extends Controller
     public function create()
     {
         $config['title'] = "Cadastrar Recurso Comum";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'reserve-areas';
         return view('portal.manage.reserve-areas.create', compact('config'));
     }
 
@@ -64,6 +68,8 @@ class ReserveAreasController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Recurso Comum";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'reserve-areas';
         $dados = $this->repository->getReserveArea($id);
 
         return view('portal.manage.reserve-areas.edit', compact('dados', 'config'));

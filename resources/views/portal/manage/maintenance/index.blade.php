@@ -62,12 +62,11 @@
                                                     <i class="icon wb-zoom-in" aria-hidden="true"></i>
                                                 </button>
                                                 @if(session()->get('admin') == 'y')
-                                                <button title="Registar Manutenção"
+                                                <a href="{{ route('portal.manage.maintenance.completed.create', ['id' => $row->id]) }}" title="Registar Manutenção"
                                                         class="btn btn-icon bg-dark waves-effect waves-light btnMaintenanceCompleted"
-                                                        data-target="#modalCompleted" data-toggle="modal"
                                                         data-id="{{ $row->id }}">
                                                     <i class="icon wb-wrench" aria-hidden="true"></i>
-                                                </button>
+                                                </a>
                                                 <a href="{{ route('portal.manage.maintenance.edit', ['id' => $row->id]) }}"
                                                    title="Editar"
                                                    data-toggle="tooltip"

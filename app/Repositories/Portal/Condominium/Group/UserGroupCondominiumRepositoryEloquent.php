@@ -7,13 +7,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Condominium\Group\UserGroupCondominiumRepository;
 use CentralCondo\Entities\Portal\Condominium\Group\UserGroupCondominium;
 use CentralCondo\Validators\Portal\Condominium\Group\UserGroupCondominiumValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class UserGroupCondominiumRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Group
  */
-class UserGroupCondominiumRepositoryEloquent extends BaseRepository implements UserGroupCondominiumRepository
+class UserGroupCondominiumRepositoryEloquent extends BaseRepository implements UserGroupCondominiumRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     /**
      * @param $groupId

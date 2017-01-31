@@ -52,6 +52,9 @@ class SecurityCamController extends Controller
     public function index()
     {
         $config['title'] = "Câmeras de Segurança";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'security-cam';
+
         $dados = $this->repository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
 
@@ -68,6 +71,8 @@ class SecurityCamController extends Controller
     public function listAll()
     {
         $config['title'] = "Todas as câmeras";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'security-cam';
         $dados = $this->repository->getAllCondominium();
 
         return view('portal.condominium.security-cam.list', compact('config', 'dados'));
@@ -76,6 +81,8 @@ class SecurityCamController extends Controller
     public function create()
     {
         $config['title'] = "Nova Câmera de Segurança";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'security-cam';
         return view('portal.condominium.security-cam.create', compact('config'));
     }
 
@@ -87,6 +94,8 @@ class SecurityCamController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Câmera de Segurança";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'security-cam';
         $dados = $this->repository->getId($id);
 
         return view('portal.condominium.security-cam.edit', compact('config', 'dados'));

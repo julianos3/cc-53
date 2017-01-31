@@ -25,6 +25,7 @@
                     @include('success._check')
                     @include('errors._check')
                     @include('portal.modals.delete')
+                    @include('portal.modals.create')
 
                     {!! Form::model($dados, ['route'=>['portal.manage.contract.update', $dados->id], 'files' => true]) !!}
 

@@ -69,6 +69,9 @@ class CalledController extends Controller
     public function index()
     {
         $config['title'] = 'Chamados';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'called';
+
         $dados = $this->repository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
         $userCondominiumId = session()->get('user_condominium_id');
@@ -79,6 +82,8 @@ class CalledController extends Controller
     public function create()
     {
         $config['title'] = 'Cadastrar Chamado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'called';
         $calledCategory = $this->calledCategoryRepository->getAll();
         $calledStatus = $this->calledStatusCategory->getAll();
 
@@ -93,6 +98,8 @@ class CalledController extends Controller
     public function edit($id)
     {
         $config['title'] = 'Alterar Chamado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'called';
         $dados = $this->repository->getId($id);
         $calledCategory = $this->calledCategoryRepository->getAll();
         $calledStatus = $this->calledStatusCategory->getAll();
@@ -110,6 +117,8 @@ class CalledController extends Controller
     public function view($id)
     {
         $config['title'] = 'Visualizar Chamado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'called';
         $dados = $this->repository->getId($id);
 
         return view('portal.communication.called.view', compact('dados', 'config'));

@@ -2,12 +2,14 @@
 
 namespace CentralCondo\Services\Portal\User;
 
+use CentralCondo\Events\Portal\User\SendMailNewPassword;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Repositories\Portal\User\UserRepository;
 use CentralCondo\Validators\Portal\User\UserValidator;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -104,16 +106,18 @@ class UserService
                 }
 
                 //altera imagem na session se for do proprio usuario
+                /*
                 if (Auth::user()->id == $id) {
-                    $this->userSessionCondominion($dados->image);
+                    $this->userSessionImage($dados);
                 }
+                */
 
                 $response = trans("Integrante alterado com sucesso!");
                 return redirect()->back()->with('status', trans($response));
             }
         } catch (ValidatorException $e) {
             $response = trans("Erro ao alterar o integrante");
-            return redirect()->back()->withErrors($response)->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 
@@ -195,6 +199,71 @@ class UserService
         }
 
         return $image;
+    }
+
+    public function configUpdate(array $data, $id)
+    {
+        try {
+            $user = $this->repository->find($id);
+            $data['user_role_id'] = $user->user_role_id;
+            $data['name'] = $user->name;
+            $data['email'] = $user->email;
+            $data['sex'] = $user->sex;
+
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $dados = $this->repository->update($data, $id);
+
+            if ($dados) {
+                $response = trans("Registro salvo com sucesso!");
+                return redirect()->back()->with('status', trans($response));
+            }
+
+        } catch (ValidatorException $e) {
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
+    }
+
+    public function updateNewPassword(array $data, $id)
+    {
+        try {
+            $user = $this->repository->find($id);
+            $data['user_role_id'] = $user->user_role_id;
+            $data['name'] = $user->name;
+            $data['email'] = $user->email;
+            $data['sex'] = $user->sex;
+
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $dados = $this->repository->update($data, $id);
+
+            if ($dados) {
+                $this->sendMailNewPassword($dados, $data['password_clear']);
+
+                $response = trans("Nova senha enviada com sucesso!");
+                return redirect()->back()->with('status', trans($response));
+            }
+
+        } catch (ValidatorException $e) {
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
+        return true;
+    }
+
+    public function sendMailNewPassword($dados, $password)
+    {
+        Event::fire(new SendMailNewPassword($dados, $password));
+    }
+
+    public function addSessionUser()
+    {
+        session([
+            'user_id' => Auth::user()->id,
+            'name' => Auth::user()->name,
+            'active' => Auth::user()->active,
+            'image' => asset('portal/assets/images/user-not-image.jpg'),
+            'admin' => 'n'
+        ]);
+
+        return true;
     }
 
     public function updatePassword(array $data)

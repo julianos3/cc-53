@@ -6,13 +6,17 @@ use CentralCondo\Entities\Portal\Communication\Message\Message;
 use CentralCondo\Validators\Portal\Communication\Message\MessageValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class MessageRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Communication\Message
  */
-class MessageRepositoryEloquent extends BaseRepository implements MessageRepository
+class MessageRepositoryEloquent extends BaseRepository implements MessageRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     public function getAllPublicCondominium()
     {
         $condominiumId = session()->get('condominium_id');

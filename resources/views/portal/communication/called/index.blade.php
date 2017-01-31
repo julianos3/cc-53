@@ -50,7 +50,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($dados  as $row)
+                                    @foreach($dados as $row)
                                         <tr>
                                             <td>{{ $row->id }}</td>
                                             <td>{{ $row->subject }}</td>

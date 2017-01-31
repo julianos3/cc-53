@@ -41,12 +41,8 @@
                                 <p class="profile-job">{{$dados->userRoleCondominium->name}}</p>
                                 <p>
                                     E-mail: {{$dados->user->email}}<br/>
-                                    @if($dados->user->phone)
-                                        Telefone: {{$dados->user->phone}}<br/>
-                                    @endif
-                                    @if(isset($dados->user->cell_phone))
-                                        Celular: {{$dados->user->cell_phone}}<br/>
-                                    @endif
+                                    Telefone: {{$dados->user->phone}}<br/>
+                                    Celular: {!! $dados->user->cell_phone !!}<br/>
                                 </p>
 
                                 @if($dados->user->twitter != '' || $dados->user->facebook != '' ||
@@ -89,7 +85,7 @@
                                     !isset($dados->user->profession) ||
                                     !isset($dados->user->conclusion) ||
                                     !isset($dados->user->company) ||
-                                    !$dados->userUnit->toArray() ||
+                                    is_array($dados->userUnit) ||
                                     !isset($dados->user->site))
 
                                     <div class="col-md-12 text-center">

@@ -7,13 +7,16 @@ use CentralCondo\Validators\Portal\Communication\Communication\CommunicationVali
 use Illuminate\Container\Container as Application;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class CommunicationRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Communication\Communication
  */
-class CommunicationRepositoryEloquent extends BaseRepository implements CommunicationRepository
+class CommunicationRepositoryEloquent extends BaseRepository implements CommunicationRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getId($id)
     {

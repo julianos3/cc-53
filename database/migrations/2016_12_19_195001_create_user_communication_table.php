@@ -20,7 +20,7 @@ class CreateUserCommunicationTable extends Migration
             $table->integer('communication_id')->unsigned();
             $table->foreign('communication_id')->references('id')->on('communication');
             $table->enum('view', ['y', 'n'])->default('n');
-            $table->dateTime('date_view');
+            $table->dateTime('date_view')->nullable();
             $table->timestamps();
 		});
 	}

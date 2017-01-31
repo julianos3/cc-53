@@ -121,7 +121,7 @@ class CommunicationService
                     $usersCommunication['communication_id'] = $communicationId;
                     $usersCommunication['user_condominium_id'] = $row->id;
                     $usersCommunication['view'] = 'n';
-                    //$usersCommunication['date_view'] = '0000-00-00';
+                    //$usersCommunication['date_view'] = '0000-00-00 00:00:00';
 
                     $this->userCommunicationService->create($usersCommunication);
 
@@ -146,7 +146,7 @@ class CommunicationService
             if (!isset($name)) {
                 $communication['name'] = $name;
             }
-            $communication['route'] = route('portal.communication.communication.show', ['id' => $communicationId]);
+            $communication['route'] = route('portal.communication.communication.view', ['id' => $communicationId]);
 
             $this->notificationService->create($communication);
 

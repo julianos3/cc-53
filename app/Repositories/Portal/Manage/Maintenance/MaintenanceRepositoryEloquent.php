@@ -6,13 +6,16 @@ use CentralCondo\Entities\Portal\Manage\Maintenance\Maintenance;
 use CentralCondo\Validators\Portal\Manage\Maintenance\MaintenanceValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class MaintenanceRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Manage\Maintenance
  */
-class MaintenanceRepositoryEloquent extends BaseRepository implements MaintenanceRepository
+class MaintenanceRepositoryEloquent extends BaseRepository implements MaintenanceRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getAllCondominium()
     {
@@ -32,6 +35,25 @@ class MaintenanceRepositoryEloquent extends BaseRepository implements Maintenanc
         $dados = $this->findWhere(['id' => $id, 'condominium_id' => $condominiumId]);
 
         return $dados[0];
+    }
+
+    public function getMaintenanceWeek()
+    {
+        $condominiumId = session()->get('condominium_id');
+        /*
+        $dados = $this->orderBy('end_date','asc')
+            ->findWhere([
+                'condominium_id' => $condominiumId,
+                'contract_status_id' => 1,
+                [
+                    'end_date', '<=', Carbon::now()->month(2)
+                ]
+            ])->count();
+
+        return $dados;
+        */
+
+        return true;
     }
 
     /**

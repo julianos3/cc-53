@@ -38,7 +38,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label class="font-weight-bold">Descrição:</label>
-            <p>{{ $dados->description }}</p>
+            <p>{!! $dados->description !!}</p>
         </div>
     </div>
-</div> /
+</div>

@@ -27,9 +27,11 @@ class UserUnitService
             $dados = $this->repository->create($data);
             if($dados) {
                 $response = [
-                    'message' => 'UsersRole add.',
+                    'message' => 'Unidade Adicionada com sucesso!',
                     'data' => $dados->toArray(),
                 ];
+
+                $this->repository->skipCache();
 
                 return redirect()->back()->with('message', $response['message']);
             }

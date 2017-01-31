@@ -26,6 +26,7 @@
                 <div class="panel-body">
                     @include('success._check')
                     @include('errors._check')
+                    @include('portal.modals.create')
 
                     {!! Form::model($dados, ['route'=>['portal.manage.maintenance.completed.update', $dados->id], 'files' => true]) !!}
 

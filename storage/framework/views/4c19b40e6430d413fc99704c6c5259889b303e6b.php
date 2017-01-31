@@ -19,7 +19,14 @@
                         <div class="widget-header">
                             <div class="widget-header-content">
                                 <a class="avatar avatar-lg" href="javascript:void(0)">
-                                    <img src="<?php echo e(asset('portal/assets/images/condominium-not-image.png')); ?>" alt="<?php echo e($row->condominium->name); ?>">
+                                    <?php
+                                    if($row->condominium->image){
+                                        $image = route('portal.condominium.image', ['id' => $row->condominium->id, 'image' => $row->condominium->image]);
+                                    }else{
+                                        $image = asset('portal/assets/images/condominium-not-image.png');
+                                    }
+                                    ?>
+                                    <img src="<?php echo $image; ?>" class="img-responsive img-circle" alt="<?php echo e($row->condominium->name); ?>">
                                 </a>
                                 <h5 class="profile-user"><?php echo e($row->condominium->name); ?></h5>
                                 <p class="profile-job"><?php echo e($row->condominium->finality->name); ?></p>

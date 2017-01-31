@@ -52,6 +52,8 @@ class UserGroupCondominiumController extends Controller
     public function index($groupId)
     {
         $config['title'] = "Integrantes do Grupo";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'group';
 
         $dados = $this->repository->getAllGroupCondominium($groupId);
         $dados = $this->utilObjeto->paginate($dados);
@@ -64,6 +66,9 @@ class UserGroupCondominiumController extends Controller
     public function create($groupId)
     {
         $config['title'] = "Cadastrar integrante no Grupo";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'group';
+
         $usersCondominium = $this->userCondominiumRepository->getAllCondominiumActive();
 
         return view('portal.condominium.group.user.create', compact('config', 'usersCondominium', 'groupId'));

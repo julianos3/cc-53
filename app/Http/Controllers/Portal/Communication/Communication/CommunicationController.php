@@ -89,6 +89,8 @@ class CommunicationController extends Controller
     public function index()
     {
         $config['title'] = 'Meus Comunicados';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication';
 
         $dados = $this->userCommunicationRepository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
@@ -99,6 +101,8 @@ class CommunicationController extends Controller
     public function create()
     {
         $config['title'] = 'Novo Comunicado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication';
         $groupCondominium = $this->groupCondominiumRepository->getAllCondominium();
 
         return view('portal.communication.communication.create', compact('config', 'groupCondominium'));
@@ -112,6 +116,8 @@ class CommunicationController extends Controller
     public function edit($id)
     {
         $config['title'] = 'Alterar Comunicado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication';
 
         $dados = $this->repository->getId($id);
         $dados['date_display'] = date('d/m/Y', strtotime($dados['date_display']));
@@ -135,6 +141,8 @@ class CommunicationController extends Controller
     public function show($id)
     {
         $config['title'] = 'Visualizar Comunicado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication';
 
         //verifica se já visualizou
         $verifica = $this->userCommunicationRepository->findWhere([
@@ -143,7 +151,7 @@ class CommunicationController extends Controller
             'view' => 'n'
         ]);
 
-        if($verifica->toArray()){
+        if ($verifica->toArray()) {
             $this->userCommunicationService->updateView($verifica[0], $verifica[0]->id);
         }
 
@@ -151,4 +159,27 @@ class CommunicationController extends Controller
 
         return view('portal.communication.communication.show', compact('config', 'dados'));
     }
+
+    public function view($id)
+    {
+        $config['title'] = 'Visualizar Comunicado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication';
+
+        //verifica se já visualizou
+        $verifica = $this->userCommunicationRepository->findWhere([
+            'communication_id' => $id,
+            'user_condominium_id' => session()->get('user_condominium_id'),
+            'view' => 'n'
+        ]);
+
+        if ($verifica->toArray()) {
+            $this->userCommunicationService->updateView($verifica[0], $verifica[0]->id);
+        }
+
+        $dados = $this->repository->getId($id);
+
+        return view('portal.communication.communication.view', compact('config', 'dados'));
+    }
+
 }

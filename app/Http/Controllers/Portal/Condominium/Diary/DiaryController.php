@@ -1,7 +1,9 @@
 <?php
 
-namespace CentralCondo\Http\Controllers;
+namespace CentralCondo\Http\Controllers\Portal\Condominium\Diary;
 
+use CentralCondo\Http\Controllers\Controller;
+use CentralCondo\Repositories\Portal\Condominium\Diary\DiaryRepository;
 use Illuminate\Http\Request;
 
 use CentralCondo\Http\Requests;
@@ -9,11 +11,9 @@ use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use CentralCondo\Http\Requests\DiaryCreateRequest;
 use CentralCondo\Http\Requests\DiaryUpdateRequest;
-use CentralCondo\Repositories\DiaryRepository;
-use CentralCondo\Validators\DiaryValidator;
 
 
-class DiariesController extends Controller
+class DiaryController extends Controller
 {
 
     /**
@@ -21,36 +21,28 @@ class DiariesController extends Controller
      */
     protected $repository;
 
-    /**
-     * @var DiaryValidator
-     */
-    protected $validator;
-
-    public function __construct(DiaryRepository $repository, DiaryValidator $validator)
+    public function __construct(DiaryRepository $repository)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $config['title'] = trans('Agenda');
+        $config['page'] = 'diary';
+        //$config['js'] = 'diary';
+
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $diaries = $this->repository->all();
+        $dados = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $diaries,
+                'data' => $dados,
             ]);
         }
 
-        return view('diaries.index', compact('diaries'));
+        return view('portal.condominium.diary.index', compact('config', 'dados'));
     }
 
     /**

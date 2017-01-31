@@ -7,13 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\User\UserRoleRepository;
 use CentralCondo\Entities\Portal\User\UserRole;
 use CentralCondo\Validators\Portal\User\UserRoleValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class UserRoleRepositoryEloquent
  * @package namespace CentralCondo\Repositories;
  */
-class UserRoleRepositoryEloquent extends BaseRepository implements UserRoleRepository
+class UserRoleRepositoryEloquent extends BaseRepository implements UserRoleRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     /**
      * Specify Model class name
      *

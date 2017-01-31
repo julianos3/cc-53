@@ -9,55 +9,15 @@
                 <li class="active">{{ $condominium->name }}</li>
             </ol>
         </div>
-        <div class="page-content">
-            <div class="panel">
-                <div class="panel-body">
-                    home do sistema
-                    <div class="row">
-                        <div class="col-md-12">
-                            CHAMADAS DA HOME<br>
-                            - Agenda<br>
-                            - Próximas manutenções preventivas<br>
-                            - Contratos próximos a vencer<br>
-                            - Ultimos chamados<br>
-                            - Ultimas do forum]<br>
-                            - Ultimas comunicados<br>
-                            - Mural de recados<br>
-                            - assembleia
-                        </div>
-                    </div>
-                    <div class="row margin-top-30">
-                        <div class="col-md-12">
-                            ITENS QUE FALTA<br>
-                            <!--
-                            - Imagens padrões para condominios sem imagem - OK<br />
-                            - Edição do Condomínio - OK<br />
-                            - Validar CNPJ no cadastro e no editar - OK<br />
-                            - Imagens padrões para integrantes sem imagem - OK<br />
-                            - Número de integrantes na listagem dos condomínio<br />
-                            - Usuários para aprovação no sistema - OK<br>
-                            - Logout redirecionar para /login - OK<br />
-                            -->
-                            - Assinatura<br>
-                            - Agenda<br />
-                            - Mensagens Privadas<br />
-                            - Forum<br />
-                            - Status de perfil completo do usuário<br />
-                            - Status do perfil completo do condominio<br />
-                            - Configurações<br />
-                            - Mensagens no topo<br />
-                            - Gerar nova senha e enviar por email para o integrante / Apenas adm pode fazer
-                        </div>
-                    </div>
 
-                    <div class="row margin-top-30">
-                        <div class="col-md-12">
-                        </div>
-                    </div>
-                </div>
-
+        <div class="page-content container-fluid">
+            <div class="row" data-plugin="matchHeight" data-by-row="true">
+                @include('portal.home.inc.statistics')
+                @include('portal.home.inc.called')
+                @include('portal.home.inc.communication')
             </div>
         </div>
+
     </div>
 
 @endsection

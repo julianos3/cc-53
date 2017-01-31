@@ -7,13 +7,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Condominium\Provider\ProviderCategoryRepository;
 use CentralCondo\Entities\Portal\Condominium\Provider\ProviderCategory;
 use CentralCondo\Validators\Portal\Condominium\Provider\ProviderCategoryValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class ProviderCategoryRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Provider
  */
-class ProviderCategoryRepositoryEloquent extends BaseRepository implements ProviderCategoryRepository
+class ProviderCategoryRepositoryEloquent extends BaseRepository implements ProviderCategoryRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getAllActive()
     {

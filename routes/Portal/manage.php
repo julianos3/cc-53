@@ -34,7 +34,7 @@ Route::group(['prefix' => 'manage', 'as' => 'manage.'], function () {
 
         Route::group(['prefix' => 'completed', 'as' => 'completed.'], function () {
             Route::get('/{id}', ['as' => 'index', 'uses' => 'Portal\Manage\Maintenance\MaintenanceCompletedController@index']);
-            Route::get('create', ['as' => 'create', 'uses' => 'Portal\Manage\Maintenance\MaintenanceCompletedController@create']);
+            Route::get('{id}/create', ['as' => 'create', 'uses' => 'Portal\Manage\Maintenance\MaintenanceCompletedController@create']);
             Route::post('store', ['as' => 'store', 'uses' => 'Portal\Manage\Maintenance\MaintenanceCompletedController@store']);
             Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'Portal\Manage\Maintenance\MaintenanceCompletedController@edit']);
             Route::post('update/{id}', ['as' => 'update', 'uses' => 'Portal\Manage\Maintenance\MaintenanceCompletedController@update']);

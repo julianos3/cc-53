@@ -8,6 +8,35 @@
 </div>
 
 <div class="row">
+    @if($dados['image'])
+        <div class="col-md-6 height-100">
+            <a href="{{ route('portal.condominium.image', ['id' => $dados->id, 'image' => $dados['image']]) }}" class="zoom-light-box" data-effect="mfp-zoom-in">
+                <img class="img-responsive margin-right-15 height-100 img-thumbnail" src="{{ route('portal.condominium.image', ['id' => $dados->id, 'image' => $dados['image']]) }}" />
+            </a>
+        </div>
+    @endif
+    <div class="col-md-6">
+        <div class="form-group">
+            {!! Form::label('image', 'Imagem de Perfil') !!}
+            <div class="input-group input-group-file">
+                <input type="text" class="form-control" readonly="">
+                <span class="input-group-btn">
+                      <span class="btn btn-success btn-file waves-effect waves-light">
+                        <i class="icon md-upload" aria-hidden="true"></i>
+                        <input type="file" name="image" >
+                      </span>
+                </span>
+                <p class="errors">{!!$errors->first('image')!!}</p>
+                @if(Session::has('error'))
+                    <p class="errors">{!! Session::get('error') !!}</p>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <label class="control-label"
@@ -110,3 +139,4 @@
 </div>
 
 {!! Form::hidden('route', 'edit', ['class'=>'form-control']) !!}
+{!! Form::hidden('condominium_id', $dados->id) !!}

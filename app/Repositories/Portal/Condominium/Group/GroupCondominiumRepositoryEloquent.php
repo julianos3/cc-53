@@ -6,13 +6,16 @@ use CentralCondo\Entities\Portal\Condominium\Group\GroupCondominium;
 use CentralCondo\Validators\Portal\Condominium\Group\GroupCondominiumValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class GroupCondominiumRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Group
  */
-class GroupCondominiumRepositoryEloquent extends BaseRepository implements GroupCondominiumRepository
+class GroupCondominiumRepositoryEloquent extends BaseRepository implements GroupCondominiumRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getGroup($id)
     {

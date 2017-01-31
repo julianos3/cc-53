@@ -457,50 +457,6 @@ class RepositoryServiceProvider extends ServiceProvider
             \CentralCondo\Repositories\Portal\Notification\NotificationRepositoryEloquent::class
         );
         */
-
-
-        $this->app->bind(\CentralCondo\Repositories\PostRepository::class, \CentralCondo\Repositories\PostRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserRoleRepository::class, \CentralCondo\Repositories\UserRoleRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserRepository::class, \CentralCondo\Repositories\UserRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserRoleCondominiumRepository::class, \CentralCondo\Repositories\UserRoleCondominiumRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\PortalCondominiumFinalityRepository::class, \CentralCondo\Repositories\PortalCondominiumFinalityRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\FinalityRepository::class, \CentralCondo\Repositories\FinalityRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\StateRepository::class, \CentralCondo\Repositories\StateRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\CityRepository::class, \CentralCondo\Repositories\CityRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\CondominiumRepository::class, \CentralCondo\Repositories\CondominiumRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserCondominiumRepository::class, \CentralCondo\Repositories\UserCondominiumRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\BlockNomemclatureRepository::class, \CentralCondo\Repositories\BlockNomemclatureRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\BlockRepository::class, \CentralCondo\Repositories\BlockRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UnitTypeRepository::class, \CentralCondo\Repositories\UnitTypeRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UnitRepository::class, \CentralCondo\Repositories\UnitRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserUnitRoleRepository::class, \CentralCondo\Repositories\UserUnitRoleRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserUnitRepository::class, \CentralCondo\Repositories\UserUnitRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\SecurityCamRepository::class, \CentralCondo\Repositories\SecurityCamRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\GroupCondominiumRepository::class, \CentralCondo\Repositories\GroupCondominiumRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserGroupCondominiumRepository::class, \CentralCondo\Repositories\UserGroupCondominiumRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\ProviderCategoryRepository::class, \CentralCondo\Repositories\ProviderCategoryRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\ProviderRepository::class, \CentralCondo\Repositories\ProviderRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\ContractStatusRepository::class, \CentralCondo\Repositories\ContractStatusRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\ContractRepository::class, \CentralCondo\Repositories\ContractRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\ContractFileRepository::class, \CentralCondo\Repositories\ContractFileRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\PeriodicityRepository::class, \CentralCondo\Repositories\PeriodicityRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\MaintenanceRepository::class, \CentralCondo\Repositories\MaintenanceRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\MaintenanceCompletedRepository::class, \CentralCondo\Repositories\MaintenanceCompletedRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\ReserveAreaRepository::class, \CentralCondo\Repositories\ReserveAreaRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\DiaryRepository::class, \CentralCondo\Repositories\DiaryRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\MessageRepository::class, \CentralCondo\Repositories\MessageRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\MessageReplyRepository::class, \CentralCondo\Repositories\MessageReplyRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\MessageGroupRepository::class, \CentralCondo\Repositories\MessageGroupRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserMessageRepository::class, \CentralCondo\Repositories\UserMessageRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\MessageRepository::class, \CentralCondo\Repositories\MessageRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\CalledCategoryRepository::class, \CentralCondo\Repositories\CalledCategoryRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\CalledStatusRepository::class, \CentralCondo\Repositories\CalledStatusRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\CalledRepository::class, \CentralCondo\Repositories\CalledRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\CalledHistoricRepository::class, \CentralCondo\Repositories\CalledHistoricRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\NotificationRepository::class, \CentralCondo\Repositories\NotificationRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\CommunicationRepository::class, \CentralCondo\Repositories\CommunicationRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\CommunicationGroupRepository::class, \CentralCondo\Repositories\CommunicationGroupRepositoryEloquent::class);
-        $this->app->bind(\CentralCondo\Repositories\UserCommunicationRepository::class, \CentralCondo\Repositories\UserCommunicationRepositoryEloquent::class);
         //:end-bindings:
     }
 }

@@ -12,6 +12,8 @@ class ProviderValidator extends LaravelValidator
         'condominium_id' => 'required',
         'provider_category_id' => 'required',
         'name' => 'required|min:3',
+        'phone' => 'required',
+        'email' => 'required|email',
         'active' => 'required'
    ];
 }

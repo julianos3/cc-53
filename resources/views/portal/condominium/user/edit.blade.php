@@ -30,60 +30,9 @@
                     {!! Form::model($dados, ['route'=> ['portal.condominium.user.update', $userCondominium->id], 'files' => true]) !!}
                     <div class="example-wrap margin-lg-0">
                         <div class="nav-tabs-horizontal">
-                            <ul class="nav nav-tabs nav-tabs-line" data-plugin="nav-tabs" role="tablist">
-                                <li class="active" role="presentation">
-                                    <a data-toggle="tab" href="javascript:void(0);" aria-controls="tabDadosPessoais" role="tab">
-                                        Dados Pessoais
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="{{ route('portal.condominium.user.unit', ['id'=> $id]) }}" aria-controls="tabUnit" role="tab">
-                                        Unidades
-                                    </a>
-                                </li>
-                                <!--
-                                <li role="presentation">
-                                    <a data-toggle="tab" href="#exampleTabsLineThree" aria-controls="exampleTabsLineThree" role="tab">
-                                        Veículos
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a data-toggle="tab" href="#exampleTabsLineFour" aria-controls="exampleTabsLineFour" role="tab">
-                                        Animais
-                                    </a>
-                                </li>
-                                -->
-                                <li class="dropdown" role="presentation">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        Dropdown
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li class="active" role="presentation">
-                                            <a data-toggle="tab" href="#exampleTabsLineOne" aria-controls="exampleTabsLineOne" role="tab">
-                                                Dados pessoais
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a data-toggle="tab" href="#exampleTabsLineTwo" aria-controls="exampleTabsLineTwo" role="tab">
-                                                Unidades
-                                            </a>
-                                        </li>
-                                        <!--
-                                        <li role="presentation">
-                                            <a data-toggle="tab" href="#exampleTabsLineThree" aria-controls="exampleTabsLineThree" role="tab">
-                                                Veículos
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a data-toggle="tab" href="#exampleTabsLineFour" aria-controls="exampleTabsLineFour" role="tab">
-                                                Animais
-                                            </a>
-                                        </li>
-                                        -->
-                                    </ul>
-                                </li>
-                            </ul>
+
+                            @include('portal.condominium.user._menu')
+
                             <div class="tab-content padding-top-20">
                                 <div class="tab-pane active" id="tabDadosPessoais" role="tabpanel">
                                     @include('portal.condominium.user.edit._form_dados_pessoais')

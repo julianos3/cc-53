@@ -112,6 +112,48 @@ class UserCondominiumService
         }
     }
 
+    public function configUpdate(array $data, $id)
+    {
+        if (isset($data['user_id'])) {
+            return $this->userService->configUpdate($data, $data['user_id']);
+        }
+
+        return false;
+    }
+
+    public function newPassword($userId)
+    {
+        if (isset($userId)) {
+            $password = $this->generatePassword();
+            $data['password_clear'] = $password;
+            $data['password'] = bcrypt($password);
+
+            return $this->userService->updateNewPassword($data, $userId);
+        }
+        return false;
+    }
+
+    public function generatePassword($tamanho = 6, $maiusculas = true, $numeros = true, $simbolos = false)
+    {
+        $lmin = 'abcdefghijklmnopqrstuvwxyz';
+        $lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $num = '1234567890';
+        $simb = '!@#$%*-';
+        $retorno = '';
+        $caracteres = '';
+        $caracteres .= $lmin;
+        if ($maiusculas) $caracteres .= $lmai;
+        if ($numeros) $caracteres .= $num;
+        if ($simbolos) $caracteres .= $simb;
+        $len = strlen($caracteres);
+        for ($n = 1; $n <= $tamanho; $n++) {
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand - 1];
+        }
+
+        return $retorno;
+    }
+
     public function destroy($id)
     {
         //verifica se existe unidades vinculadas ao usuário
@@ -275,27 +317,6 @@ class UserCondominiumService
 
     }
 
-    public function generatePassword($tamanho = 6, $maiusculas = true, $numeros = true, $simbolos = false)
-    {
-        $lmin = 'abcdefghijklmnopqrstuvwxyz';
-        $lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $num = '1234567890';
-        $simb = '!@#$%*-';
-        $retorno = '';
-        $caracteres = '';
-        $caracteres .= $lmin;
-        if ($maiusculas) $caracteres .= $lmai;
-        if ($numeros) $caracteres .= $num;
-        if ($simbolos) $caracteres .= $simb;
-        $len = strlen($caracteres);
-        for ($n = 1; $n <= $tamanho; $n++) {
-            $rand = mt_rand(1, $len);
-            $retorno .= $caracteres[$rand - 1];
-        }
-
-        return $retorno;
-    }
-
     public function newUserMail($userCondominiumId, $password)
     {
         Event::fire(new SendMailNewUserWellcome($userCondominiumId, $password));
@@ -308,6 +329,7 @@ class UserCondominiumService
 
     public function userUnitCreate(array $data)
     {
+        //dd($data);
         //verifica se unidade já esta vinculada a este usuario do condominio
         $verifica = $this->usersUnitRepository->findWhere([
             'user_condominium_id' => $data['user_condominium_id'],
@@ -318,9 +340,9 @@ class UserCondominiumService
             $response = trans('Unidade já vinculada ao integrante');
             return redirect()->back()->withErrors($response)->withInput();
         } else {
-            $this->usersUnitService->create($data);
-            $response = trans("Unidade cadastrada com sucesso!");
-            return redirect()->back()->with('status', trans($response));
+            return $this->usersUnitService->create($data);
+            //$response = trans("Unidade cadastrada com sucesso!");
+            //return redirect()->back()->with('status', trans($response));
         }
     }
 

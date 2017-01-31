@@ -19,7 +19,7 @@
 @if($paginaAlterar)
 <div class="row">
     <div class="col-md-12">
-        @if($dados['all_user'] == 's')
+        @if($dados['all_user'] == 'y')
             <label for="destination">Enviado a todos os integrantes do condomínio</label>
         @else
             <label for="destination"><strong>Enviado a todos os integrantes dos grupos:</strong></label><br />

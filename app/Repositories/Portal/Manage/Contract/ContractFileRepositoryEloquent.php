@@ -7,13 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Manage\Contract\ContractFileRepository;
 use CentralCondo\Entities\Portal\Manage\Contract\ContractFile;
 use CentralCondo\Validators\Portal\Manage\Contract\ContractFileValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class ContractFileRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Manage\Contract
  */
-class ContractFileRepositoryEloquent extends BaseRepository implements ContractFileRepository
+class ContractFileRepositoryEloquent extends BaseRepository implements ContractFileRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     /**
      * Specify Model class name
      *

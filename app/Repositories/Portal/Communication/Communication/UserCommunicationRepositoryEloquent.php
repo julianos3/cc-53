@@ -8,13 +8,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Communication\Communication\UserCommunicationRepository;
 use CentralCondo\Entities\Portal\Communication\Communication\UserCommunication;
 use CentralCondo\Validators\Portal\Communication\Communication\UserCommunicationValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class UserCommunicationRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Communication\Communication
  */
-class UserCommunicationRepositoryEloquent extends BaseRepository implements UserCommunicationRepository
+class UserCommunicationRepositoryEloquent extends BaseRepository implements UserCommunicationRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getAllCondominium()
     {

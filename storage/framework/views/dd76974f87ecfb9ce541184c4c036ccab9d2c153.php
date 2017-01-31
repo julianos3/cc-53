@@ -4,16 +4,14 @@
     <div class="page animsition">
         <div class="page-header">
             <h1 class="page-title"><?php echo e($config['title']); ?></h1>
-            <ol class="breadcrumb col-sm-2" data-plugin="breadcrumb">
+            <ol class="breadcrumb" data-plugin="breadcrumb">
                 <li><a href="<?php echo e(route('portal.home.index')); ?>">Home</a></li>
                 <li><a href="<?php echo e(route('portal.condominium.index')); ?>">Condomínio</a></li>
                 <li><a href="<?php echo e(route('portal.condominium.block.index')); ?>">Blocos</a></li>
                 <li class="active">Cadastrar</li>
             </ol>
             <div class="page-header-actions">
-                <a href="<?php echo e(route('portal.condominium.block.index')); ?>"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip"
-                   data-original-title="Voltar">
+                <a href="<?php echo e(route('portal.condominium.block.index')); ?>" class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip" data-original-title="Voltar">
                     <i class="icon wb-arrow-left" aria-hidden="true"></i>
                     Voltar
                 </a>

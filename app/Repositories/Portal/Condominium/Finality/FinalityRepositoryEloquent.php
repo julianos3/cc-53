@@ -7,13 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Condominium\Finality\FinalityRepository;
 use CentralCondo\Entities\Portal\Condominium\Finality\Finality;
 use CentralCondo\Validators\Portal\Condominium\Finality\FinalityValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class FinalityRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Finality
  */
-class FinalityRepositoryEloquent extends BaseRepository implements FinalityRepository
+class FinalityRepositoryEloquent extends BaseRepository implements FinalityRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     public function getAll()
     {
         $dados = $this->findWhere(['active' => 'y']);

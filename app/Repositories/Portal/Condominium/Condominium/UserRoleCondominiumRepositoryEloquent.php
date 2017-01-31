@@ -7,13 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserRoleCondominiumRepository;
 use CentralCondo\Entities\Portal\Condominium\Condominium\UserRoleCondominium;
 use CentralCondo\Validators\Portal\Condominium\Condominium\UserRoleCondominiumValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class UserRoleCondominiumRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Condominium
  */
-class UserRoleCondominiumRepositoryEloquent extends BaseRepository implements UserRoleCondominiumRepository
+class UserRoleCondominiumRepositoryEloquent extends BaseRepository implements UserRoleCondominiumRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     public function getAll()
     {
         $dados = $this->orderBy('name', 'asc')->findWhere(['active' => 'y']);

@@ -52,6 +52,9 @@ class ProviderController extends Controller
     public function index()
     {
         $config['title'] = "Fornecedores";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'provider';
+
         $dados = $this->repository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
 
@@ -61,9 +64,30 @@ class ProviderController extends Controller
     public function create()
     {
         $config['title'] = "Novo Fornecedor";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'provider';
         $providerCategory = $this->providerCategoryRepository->getAllActive();
 
         return view('portal.condominium.provider.create', compact('config', 'providerCategory'));
+    }
+
+    public function createAjax()
+    {
+        $providerCategory = $this->providerCategoryRepository->getAllActive();
+
+        return view('portal.condominium.provider.ajax.create', compact('providerCategory'));
+    }
+
+    public function listAllSelect()
+    {
+        $providers = $this->repository->getAllCondominium();
+
+        return view('portal.condominium.provider.ajax.listAllSelect', compact('providers'));
+    }
+
+    public function storeAjax(ProviderRequest $request)
+    {
+        return $this->service->createAjax($request->all());
     }
 
     public function store(ProviderRequest $request)
@@ -74,6 +98,8 @@ class ProviderController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Fornecedor";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'provider';
         $dados = $this->repository->getProvider($id);
         $providerCategory = $this->providerCategoryRepository->getAllActive();
 

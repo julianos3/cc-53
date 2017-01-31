@@ -12,6 +12,8 @@ use CentralCondo\Services\Portal\Communication\Notification\NotificationService;
 use CentralCondo\Services\Portal\User\UserService;
 use CentralCondo\Services\Util\UtilObjeto;
 use CentralCondo\Validators\Portal\Condominium\Condominium\CondominiumValidator;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -39,6 +41,10 @@ class CondominiumService
 
     protected $notificationService;
 
+    protected $filesystem;
+
+    protected $storage;
+
     public function __construct(CondominiumRepository $repository,
                                 CondominiumValidator $validator,
                                 UserCondominiumService $userCondominiumService,
@@ -48,7 +54,10 @@ class CondominiumService
                                 UnitRepository $unitRepository,
                                 UnitTypeRepository $unitTypeRepository,
                                 UtilObjeto $utilObjeto,
-                                NotificationService $notificationService, UserCondominiumRepository $userCondominiumRepository)
+                                NotificationService $notificationService,
+                                UserCondominiumRepository $userCondominiumRepository,
+                                Filesystem $filesystem,
+                                Storage $storage)
     {
         $this->repository = $repository;
         $this->validator = $validator;
@@ -61,6 +70,9 @@ class CondominiumService
         $this->utilObjeto = $utilObjeto;
         $this->notificationService = $notificationService;
         $this->userCondominiumRepository = $userCondominiumRepository;
+        $this->filesystem = $filesystem;
+        $this->storage = $storage;
+        $this->path = 'portal/' . session()->get('condominium_id') . '/condominium/condominium/';
     }
 
     public function update(array $data, $id)
@@ -157,8 +169,6 @@ class CondominiumService
                 'city_id' => $data['city_id']
             ]);
 
-            //dd($condominium);
-
             if ($condominium->toArray()) {
                 //cadastra usuario no condominio
                 $users['user_id'] = Auth::user()->id;
@@ -246,12 +256,40 @@ class CondominiumService
         }
 
         try {
-            $id = session()->get('condominium_id');
+            if(isset($data['condominium_id'])) {
+                $id = $data['condominium_id'];
+            }else{
+                $id = session()->get('condominium_id');
+            }
+
+            $deleteImage = false;
+            if(!empty($data['image']) && !empty($data['image'])) {
+                $validator = 'png,gif,jpeg';
+                $result = $this->utilObjeto->upload($data['image'], $this->path, $validator);
+                //dd($result);
+                $data['image'] = $result['file'].'.'.$result['extension'];
+
+                $image = $this->getFileName($id);
+
+                //verifica se trocou a imagem
+                if (empty($data['image'])) {
+                    $data['image'] = $image;
+                } else {
+                    $deleteImage = true;
+                }
+            }
 
             $this->validator->with($data)->passesOrFail();
             $dados = $this->repository->update($data, $id);
 
             if ($dados) {
+
+                if ($deleteImage && !isset($image)) {
+                    $image = explode('.', $image);
+                    if (!$this->storage->exists($this->path . $image[0])) {
+                        $this->storage->delete($this->path . $image[0]);
+                    }
+                }
 
                 if (isset($data['route']) && $data['route'] == 'edit') {
 
@@ -270,6 +308,12 @@ class CondominiumService
         }
     }
 
+    public function getFileName($id)
+    {
+        $dados = $this->repository->skipPresenter()->find($id);
+        return $dados['image'];
+    }
+
     public function createUnits(array $data)
     {
         try {
@@ -286,12 +330,6 @@ class CondominiumService
             return redirect()->back()->with("Unidades cadastradas com sucesso!")->withInput();
 
         } catch (ValidatorException $e) {
-
-            $response = response()->json([
-                'error' => true,
-                'message' => $e->getMessageBag()
-            ]);
-
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -299,12 +337,19 @@ class CondominiumService
     public function createApartamentos($data, $id)
     {
         //CADASTRO BLOCOS
-
         $nomemclature = $this->blockNomemclatureRepository->getId($data['block_nomemclature_id']);
-        $unitType = $this->unitTypeRepository->getId($data['unit_type_id']);
-        $labelUnitType = $unitType['label'] . " ";
         $legenda = substr($nomemclature['label'], 0, -1);
         $multiplicador = strlen($data['number_init']);
+
+        if ($multiplicador == 2) {
+            $numMul = 10;
+        } elseif ($multiplicador == 3) {
+            $numMul = 100;
+        } elseif ($multiplicador == 4) {
+            $numMul = 1000;
+        } else {
+            $numMul = 10;
+        }
 
         if ($nomemclature['type'] == 'l') {
             $contBlock = 'A';
@@ -314,7 +359,6 @@ class CondominiumService
 
         for ($i = 1; $i <= $data['qtde_block']; $i++) {
 
-            //cadastrei o bloco
             if ($nomemclature['type'] == 'l') {
                 $block['name'] = $legenda . ' ' . $contBlock;
             } else {
@@ -325,44 +369,27 @@ class CondominiumService
             $dadosBlock = $this->blockRepository->create($block);
             if ($dadosBlock) {
 
-                $numeroInit = $data['number_init']; //10
-                /*
-                                print_r($data['unidade_andar']);
-                                print_r('-');
-                                print_r($data['number_andar']);
-                                die;
-                */
+                $numeroInit = $data['number_init'];
 
+                $multiplicadorAux = 0;
                 for ($andar = 1; $andar <= $data['number_andar']; $andar++) {
+                    if ($andar > 1) {
+                        $multiplicadorAux += $numMul;
+                    }
                     for ($unidade = 1; $unidade <= $data['unidade_andar']; $unidade++) {
 
-                        $nomeAP = '';
-                        if ($multiplicador == 1) {
-                            if ($andar == 1 && $unidade == 1) {
-                                $nomeAP = $data['number_init'];
-                            } else {
-                                $nomeAP = $numeroInit + 1;
-                            }
+                        if ($unidade == 1 && $andar > 1) {
+                            $numeroInit = $data['number_init'] + $multiplicadorAux;
+                        }
+
+                        if ($unidade == 1) {
+                            $nomeAP = $numeroInit;
                         } else {
-                            if ($andar == 1 && $unidade == 1) {
-                                $nomeAP = $numeroInit;
-                            } else {
-                                if ($andar > 1 && $unidade == 1) {
-                                    if ($data['number_init'] % 2 == 0) {
-                                        $numeroInit = ($data['number_init'] * $andar);
-                                    } else {
-                                        $numeroInit = ($data['number_init'] * $andar) - ($andar - 1);
-                                    }
-                                    //$numeroInit = ($data['number_init'] * $andar) - ($andar - 1);
-                                    $nomeAP = $numeroInit;
-                                } else {
-                                    $nomeAP = $numeroInit + 1;
-                                }
-                            }
+                            $nomeAP = $numeroInit + 1;
                         }
 
                         $numeroInit = $nomeAP;
-                        $unit['name'] = $labelUnitType . $nomeAP;
+                        $unit['name'] = $nomeAP;
                         $unit['floor'] = $andar;
                         $unit['block_id'] = $dadosBlock['id'];
                         $unit['unit_id'] = 0;
@@ -370,9 +397,6 @@ class CondominiumService
                         $unit['condominium_id'] = session()->get('condominium_id');
 
                         $dadosUnit = $this->unitRepository->create($unit);
-                        if ($dadosUnit) {
-                        }
-
                     }
                 }
             }
@@ -387,9 +411,6 @@ class CondominiumService
     {
         //CADASTRO BLOCOS
         $nomemclature = $this->blockNomemclatureRepository->getId($data['block_nomemclature_id']);
-        $unitType = $this->unitTypeRepository->getId($data['unit_type_id']);
-        $labelUnitType = $unitType['label'] . " ";
-
         $legenda = substr($nomemclature['label'], 0, -1);
 
         if ($nomemclature['type'] == 'l') {
@@ -421,7 +442,7 @@ class CondominiumService
                     }
 
                     $numeroInit = $nomeAP;
-                    $unit['name'] = $labelUnitType . $nomeAP;
+                    $unit['name'] = $nomeAP;
                     $unit['block_id'] = $dadosBlock['id'];
                     $unit['unit_id'] = 0;
                     $unit['unit_type_id'] = $data['unit_type_id'];

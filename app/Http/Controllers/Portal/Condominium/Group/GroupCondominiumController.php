@@ -62,6 +62,8 @@ class GroupCondominiumController extends Controller
     public function index()
     {
         $config['title'] = 'Grupos';
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'group';
 
         if ($this->userCondominiumRepository->checkAdm(session()->get('user_role_condominium'))) {
             $dados = $this->repository->getAllCondominium();
@@ -77,6 +79,9 @@ class GroupCondominiumController extends Controller
     public function create()
     {
         $config['title'] = 'Novo Grupo';
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'group';
+
         return view('portal.condominium.group.create', compact('config'));
     }
 
@@ -88,6 +93,9 @@ class GroupCondominiumController extends Controller
     public function edit($id)
     {
         $config['title'] = 'Editar Grupo';
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'group';
+
         $dados = $this->repository->getGroup($id);
 
         return view('portal.condominium.group.edit', compact('config', 'dados'));

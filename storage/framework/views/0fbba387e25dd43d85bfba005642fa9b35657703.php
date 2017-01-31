@@ -178,13 +178,26 @@
                                                                 data-toggle="tooltip"
                                                                 data-original-title="Adicionar">
                                                             <i class="icon wb-plus" aria-hidden="true"></i>
-                                                            Adicionar
+                                                            Adicionar Unidades
                                                         </button>
                                                     </div>
                                                 </div>
                                             </form>
 
                                             <?php if(!$unit->isEmpty()): ?>
+                                                <div class="row">
+                                                    <div class="col-md-12 text-right">
+                                                        <br/>
+                                                        <a href="<?php echo e(route('portal.condominium.unitBlockClear')); ?>"
+                                                           class="btn btn-danger"
+                                                           data-toggle="tooltip"
+                                                           data-original-title="Limpar">
+                                                            <i class="icon wb-trash" aria-hidden="true"></i>
+                                                            Limpar Unidades
+                                                        </a>
+                                                        <br/><br/>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <table class="tablesaw table-striped table-bordered table-hover"
@@ -204,7 +217,7 @@
                                                                     </th>
                                                                     <th data-tablesaw-sortable-col
                                                                         data-tablesaw-priority="1">
-                                                                        <abbr title="Rotten Tomato Rating" class="text-center">Andar</abbr>
+                                                                        <abbr title="Andar">Andar</abbr>
                                                                     </th>
                                                                     <th data-tablesaw-sortable-col
                                                                         data-tablesaw-priority="4" class="text-center col-md-2">Ação
@@ -237,7 +250,7 @@
                                                            data-toggle="tooltip"
                                                            data-original-title="Limpar">
                                                             <i class="icon wb-trash" aria-hidden="true"></i>
-                                                            Limpar
+                                                            Limpar Unidades
                                                         </a>
                                                         <br/><br/>
                                                     </div>
@@ -254,6 +267,7 @@
                                                         Voltar
                                                     </a>
                                                 </div>
+                                                <?php if(!$unit->isEmpty()): ?>
                                                 <div class="col-xs-6 text-right">
                                                     <a href="<?php echo e(route('portal.condominium.create.finish')); ?>"
                                                        class="btn btn-success" data-toggle="tooltip"
@@ -262,6 +276,18 @@
                                                         <i class="icon wb-arrow-right" aria-hidden="true"></i>
                                                     </a>
                                                 </div>
+                                                <?php else: ?>
+                                                    <div class="col-xs-6 text-right">
+                                                        <button disabled
+                                                           class="btn btn-success" data-toggle="tooltip"
+                                                           data-original-title="Avançar">
+                                                            Avançar
+                                                            <i class="icon wb-arrow-right" aria-hidden="true"></i>
+                                                        </button>
+                                                        <br /><br />
+                                                        <p class="alert-info text-center">Informar as unidades do condomínio.</p>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>

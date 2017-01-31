@@ -40,7 +40,6 @@
                                         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
                                             data-tablesaw-priority="persist">Serviço
                                         </th>
-                                        <th data-tablesaw-sortable-col data-tablesaw-priority="1">Fornecedor</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="2">Status</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="3">Data Início</th>
                                         <th data-tablesaw-sortable-col data-tablesaw-priority="4">Data Fim</th>
@@ -53,7 +52,6 @@
                                     @foreach($dados  as $row)
                                         <tr>
                                             <td>{{ $row->name }}</td>
-                                            <td>{{ $row->provider->name }}</td>
                                             <td>{{ $row->contractStatus->name }}</td>
                                             <td>{{ date('d/m/Y', strtotime($row->start_date)) }}</td>
                                             <td>{{ date('d/m/Y', strtotime($row->end_date)) }}</td>

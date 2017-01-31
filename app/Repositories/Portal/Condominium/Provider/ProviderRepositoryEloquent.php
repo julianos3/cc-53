@@ -6,13 +6,16 @@ use CentralCondo\Entities\Portal\Condominium\Provider\Provider;
 use CentralCondo\Validators\Portal\Condominium\Provider\ProviderValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class ProviderRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Provider
  */
-class ProviderRepositoryEloquent extends BaseRepository implements ProviderRepository
+class ProviderRepositoryEloquent extends BaseRepository implements ProviderRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getProvider($id)
     {

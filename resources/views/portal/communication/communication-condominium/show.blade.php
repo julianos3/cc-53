@@ -43,11 +43,11 @@
                         </div>
                         <div class="col-md-4">
                             <label for="codigo"><strong>Enviado por e-mail?</strong></label>
-                            <p class="form-control-static">@if($dados->send_mail == 's') Sim @else Não @endif</p>
+                            <p class="form-control-static">@if($dados->send_mail == 'y') Sim @else Não @endif</p>
                         </div>
                         <div class="col-md-4">
                             <label for="codigo"><strong>Todos os usuários?</strong></label>
-                            <p class="form-control-static">@if($dados->all_user == 's') Sim @else Somente Grupos @endif</p>
+                            <p class="form-control-static">@if($dados->all_user == 'y') Sim @else Somente Grupos @endif</p>
                         </div>
                     </div>
                     <hr>

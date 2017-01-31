@@ -62,6 +62,9 @@ class UnitController extends Controller
     public function index()
     {
         $config['title'] = trans("Unidades");
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'unit';
 
         //session()->get('condominium_id');
         $dados = $this->repository->unitAllCondominium();
@@ -73,6 +76,10 @@ class UnitController extends Controller
     public function create()
     {
         $config['title'] = "Nova Unidade";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'unit';
+
         $block = $this->blockRepository->getAllCondominium();
         $type = $this->unitTypeRepository->getTypes();
 
@@ -87,6 +94,9 @@ class UnitController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Unidade";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'unit';
 
         $dados = $this->repository->getUnit($id);
         $block = $this->blockRepository->getAllCondominium();
@@ -122,6 +132,10 @@ class UnitController extends Controller
     public function garage()
     {
         $config['title'] = "Garagem";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'garage';
+
         $dados = $this->repository->garageAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
 
@@ -131,6 +145,10 @@ class UnitController extends Controller
     public function garageCreate()
     {
         $config['title'] = "Nova Garagem";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'garage';
+
         $unit = $this->repository->unitAllCondominium();
 
         return view('portal.condominium.unit.garage.create', compact('config', 'unit'));
@@ -144,6 +162,10 @@ class UnitController extends Controller
     public function garageEdit($id)
     {
         $config['title'] = "Alterar Garagem";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'myCondominium';
+        $config['activeMenuN3'] = 'garage';
+
         $dados = $this->repository->getUnit($id);
         $unit = $this->repository->unitAllCondominium();
 

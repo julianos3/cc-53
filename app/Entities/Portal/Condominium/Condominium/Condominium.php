@@ -12,6 +12,7 @@ use CentralCondo\Entities\Portal\Condominium\Diary\Diary;
 use CentralCondo\Entities\Portal\Condominium\Finality\Finality;
 use CentralCondo\Entities\Portal\Condominium\Group\GroupCondominium;
 use CentralCondo\Entities\Portal\Condominium\SecurityCam\SecurityCam;
+use CentralCondo\Entities\Portal\Condominium\Subscriptions\Subscriptions;
 use CentralCondo\Entities\Portal\Condominium\Unit\Unit;
 use CentralCondo\Entities\Portal\Manage\Contract\Contract;
 use CentralCondo\Entities\Portal\Manage\Maintenance\Maintenance;
@@ -20,10 +21,11 @@ use CentralCondo\Entities\Portal\User\User;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Laravel\Cashier\Billable;
 
 class Condominium extends Model implements Transformable
 {
-    use TransformableTrait;
+    use TransformableTrait, Billable;
 
     protected $table = 'condominium';
 
@@ -39,7 +41,12 @@ class Condominium extends Model implements Transformable
         'complement',
         'cnpj',
         'address_site',
-        'active'
+        'image',
+        'active',
+        'stripe_id',
+        'card_brand',
+        'card_last_four',
+        'trial_ends_at'
     ];
 
     public function finality()
@@ -121,4 +128,10 @@ class Condominium extends Model implements Transformable
     {
         return $this->belongsTo(Communication::class);
     }
+
+    public function subscriptions()
+    {
+        return $this->belongsTo(Subscriptions::class);
+    }
+
 }

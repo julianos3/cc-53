@@ -47,7 +47,7 @@
                                         ?>
                                         <?php if($imgAvatar): ?>
                                         <a class="avatar avatar-lg" href="<?php echo e(route('portal.condominium.user.show',['id' => $row->id])); ?>">
-                                            <img src="<?php echo e($imgAvatar); ?>" alt="<?php echo e($row->user->name); ?>">
+                                            <img src="<?php echo e($imgAvatar); ?>" class="img-responsive img-circle" alt="<?php echo e($row->user->name); ?>">
                                         </a>
                                         <?php endif; ?>
                                         <h5 class="profile-user"><?php echo e($row->user->name); ?></h5>

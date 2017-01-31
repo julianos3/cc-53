@@ -7,13 +7,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Communication\Called\CalledCategoryRepository;
 use CentralCondo\Entities\Portal\Communication\Called\CalledCategory;
 use CentralCondo\Validators\Portal\Communication\Called\CalledCategoryValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class CalledCategoryRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Communication\Called
  */
-class CalledCategoryRepositoryEloquent extends BaseRepository implements CalledCategoryRepository
+class CalledCategoryRepositoryEloquent extends BaseRepository implements CalledCategoryRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     /**
      * @return mixed

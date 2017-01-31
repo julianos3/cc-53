@@ -7,13 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Manage\ReserveArea\ReserveAreaRepository;
 use CentralCondo\Entities\Portal\Manage\ReserveArea\ReserveArea;
 use CentralCondo\Validators\Portal\Manage\ReserveArea\ReserveAreaValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class ReserveAreaRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Manage\ReserveArea
  */
-class ReserveAreaRepositoryEloquent extends BaseRepository implements ReserveAreaRepository
+class ReserveAreaRepositoryEloquent extends BaseRepository implements ReserveAreaRepository, CacheableInterface
 {
+    use CacheableRepository;
+
     public function getAllCondominium()
     {
         $condominiumId = session()->get('condominium_id');

@@ -326,12 +326,31 @@
         });
     });
 
+    $('.btnCreateModal').bind('click', function () {
+        var route = $(this).attr('data-route');
+        var title = $(this).attr('data-title');
+
+        $.get(route, function (result) {
+            $('.modal-title').html(title);
+            $('.modal-body').html(result);
+            createAjaxProvider();
+        });
+    });
+
     $('.btnShowConfirm').bind('click', function () {
         $('.close').click();
         var route = $(this).attr('data-route');
         var msg = $(this).attr('data-msg');
         $('.page-title').html(msg);
         $('.btnConfirm').prop("href", route);
+    });
+
+    $('.btnShowWarning').bind('click', function () {
+        $('.close').click();
+        var route = $(this).attr('data-route');
+        var msg = $(this).attr('data-msg');
+        $('.modal-body p').html(msg);
+        $('.btnWarning').prop("href", route);
     });
 
     $('.communicationDestination').bind('click', function () {
@@ -364,6 +383,22 @@
         });
     });
 
+    $('.zoom-light-box').magnificPopup({
+        type: 'image',
+        removalDelay: 500,
+        preloader: true,
+        callbacks: {
+            beforeOpen: function() {
+                this.st.image.markup = this.st.image.markup.replace('mfp-figure', 'mfp-figure mfp-with-anim');
+                this.st.mainClass = this.st.el.attr('data-effect');
+            }
+        },
+        closeOnContentClick: true,
+        midClick: true
+    });
+
+    //createAjaxProvider();
+
 })(document, window, jQuery);
 
 function showNotification() {
@@ -371,3 +406,42 @@ function showNotification() {
         $('.showNotification').html(result);
     });
 }
+
+function createAjaxProvider(){
+    $('#createAjaxProvider').submit(function () {
+        var data = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            data: data,
+            url: "/portal/condominium/provider/storeAjax",
+            success: function (result) {
+                getProviderSelect();
+                $('.close').click();
+            }
+        });
+        return false;
+    });
+}
+
+function getProviderSelect() {
+    $.get('/portal/condominium/provider/listAllSelect', function (result) {
+        $('#provider_id').html(result)
+    });
+}
+
+$.components.register("input-group-file", {
+    api: function() {
+        $(document).on("change", ".input-group-file [type=file]", function() {
+            var $this = $(this);
+            var $text = $(this).parents('.input-group-file').find('.form-control');
+            var value = "";
+
+            $.each($this[0].files, function(i, file) {
+                value += file.name + ", ";
+            });
+            value = value.substring(0, value.length - 2);
+
+            $text.val(value);
+        });
+    }
+});

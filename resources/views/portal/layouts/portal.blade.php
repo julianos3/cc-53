@@ -22,19 +22,21 @@
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/slidepanel/slidePanel.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/flag-icon-css/flag-icon.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/waves/waves.css') }}">
-    <link rel="stylesheet" href="{{ asset('portal/assets/css/structure/breadcrumbs.css') }}">
-    <link rel="stylesheet" href="{{ asset('portal/global/vendor/jquery-wizard/jquery-wizard.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/formvalidation/formValidation.css') }}">
-    <link rel="stylesheet" href="{{ asset('portal/assets/css/forms/masks.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/filament-tablesaw/tablesaw.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/assets/css/uikit/modals.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/assets/pages/css/profile.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/bootstrap-select/bootstrap-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('portal/global/vendor/magnific-popup/magnific-popup.css') }}">
 
     <!--PAGES-->
     <link rel="stylesheet" href="{{ asset('portal/assets/pages/css/user.css') }}">
+    @if(isset($config['page']) && $config['page'] == 'diary')
+    <link rel="stylesheet" href="{{ asset('portal/assets/pages/css/diary.css') }}">
+    <link rel="stylesheet" href="{{ asset('portal/global/vendor/fullcalendar/fullcalendar.css') }}">
+    @endif
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ asset('portal/global/fonts/material-design/material-design.min.css') }}">
@@ -55,7 +57,7 @@
         Breakpoints();
     </script>
 </head>
-<body class="page-user page-profile @if(session()->get('condominium_id') == '') padding-top-0 @endif">
+<body class="page-user page-profile @if(isset($config['page']) && $config['page'] == 'diary') app-calendar @endif @if(session()->get('user_id') == '') padding-top-0 @endif">
 <!--[if lt IE 8]>
 <p class="browserupgrade">
     Você esta usando um navegador <strong>desatualizado.</strong> Por favor,
@@ -63,7 +65,7 @@
 </p>
 <![endif]-->
 
-@if(session()->get('condominium_id') != '')
+@if(session()->get('user_id') != '')
     @include('portal.layouts.topo')
     @include('portal.layouts.menu')
 @endif
@@ -103,6 +105,8 @@
 <script src="{{ asset('portal/global/vendor/filament-tablesaw/tablesaw.js') }}"></script>
 <script src="{{ asset('portal/global/vendor/filament-tablesaw/tablesaw-init.js') }}"></script>
 <script src="{{ asset('portal/global/vendor/bootstrap-select/bootstrap-select.js') }}"></script>
+<script src="{{ asset('portal/global/vendor/magnific-popup/jquery.magnific-popup.js') }}"></script>
+
 <!-- Scripts -->
 <script src="{{ asset('portal/global/js/core.min.js') }}"></script>
 <script src="{{ asset('portal/assets/js/site.js') }}"></script>
@@ -129,6 +133,13 @@
 
 <script src="{{ asset('portal/global/vendor/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
 <script src="{{ asset('portal/global/js/components/bootstrap-datepicker.js') }}"></script>
+<script src="{{ asset('portal/global/js/components/magnific-popup.js') }}"></script>
+
+@if(isset($config['page']) && $config['page'] == 'diary')
+<script src="{{ asset('portal/global/vendor/fullcalendar/fullcalendar.js') }}"></script>
+<script src="{{ asset('portal/global/js/plugins/action-btn.js') }}"></script>
+<script src="{{ asset('portal/assets/pages/js/diary.js') }}"></script>
+@endif
 <script>
     (function (document, window, $) {
         'use strict';

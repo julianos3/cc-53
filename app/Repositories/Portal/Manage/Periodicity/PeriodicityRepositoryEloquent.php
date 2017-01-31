@@ -7,13 +7,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Manage\Periodicity\PeriodicityRepository;
 use CentralCondo\Entities\Portal\Manage\Periodicity\Periodicity;
 use CentralCondo\Validators\Portal\Manage\Periodicity\PeriodicityValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class PeriodicityRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Manage\Periodicity
  */
-class PeriodicityRepositoryEloquent extends BaseRepository implements PeriodicityRepository
+class PeriodicityRepositoryEloquent extends BaseRepository implements PeriodicityRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getAll()
     {

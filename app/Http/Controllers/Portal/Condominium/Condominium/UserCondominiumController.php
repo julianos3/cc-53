@@ -106,6 +106,8 @@ class UserCondominiumController extends Controller
     public function index()
     {
         $config['title'] = trans('Integrantes');
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'user';
 
         $dados = $this->repository->getAllCondominiumActive();
         $dados = $this->utilObjeto->paginate($dados);
@@ -116,6 +118,9 @@ class UserCondominiumController extends Controller
     public function create()
     {
         $config['title'] = "Novo integrante";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'user';
+
         $role = $this->userRoleCondominiumRepository->getAll();
         $userRole = $this->usersUnitRoleRepository->findWhere(['active' => 'y']);
         $block = $this->blockRepository->getAllCondominium();
@@ -131,6 +136,9 @@ class UserCondominiumController extends Controller
     public function show($id)
     {
         $config['title'] = "Perfil Integrante";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'user';
+
         $dados = $this->repository->getUserCondominiumId($id);
 
         return view('portal.condominium.user.show', compact('config', 'dados'));
@@ -139,6 +147,10 @@ class UserCondominiumController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Integrante";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'user';
+        $config['subMenuActive'] = 'user';
+
         $dados = $this->repository->getUserCondominiumIdUser($id);
         $userRoleCondominium = $dados['user_role_condominium_id'];
         $userCondominium = $dados;
@@ -162,6 +174,9 @@ class UserCondominiumController extends Controller
     public function unit($id)
     {
         $config['title'] = "Unidades Integrantes";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'user';
+        $config['subMenuActive'] = 'unit';
 
         $dados = $this->repository->getUserCondominiumIdUser($id);
 
@@ -169,7 +184,29 @@ class UserCondominiumController extends Controller
         $userRole = $this->usersUnitRoleRepository->findWhere(['active' => 'y']);
         $userCondominiumId = $dados->id;
 
-        return view('portal.condominium.user.unit', compact('config', 'dados', 'block', 'userRole', 'userCondominiumId'));
+        return view('portal.condominium.user.unit', compact('config', 'id', 'dados', 'block', 'userRole', 'userCondominiumId'));
+    }
+
+    public function config($id)
+    {
+        $config['title'] = "Configurações";
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'user';
+        $config['subMenuActive'] = 'config';
+
+        $dados = $this->repository->getUserCondominiumIdUser($id);
+
+        return view('portal.condominium.user.config.index', compact('config', 'dados'));
+    }
+
+    public function configUpdate(UserCondominiumRequest $request, $id)
+    {
+        return $this->service->configUpdate($request->all(), $id);
+    }
+
+    public function newPassword($id, $userId)
+    {
+        return $this->service->newPassword($userId);
     }
 
     public function userUnitCreate(UserCondominiumRequest $request)
@@ -190,6 +227,8 @@ class UserCondominiumController extends Controller
     public function password()
     {
         $config['title'] = 'Alterar Senha';
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'user';
 
         return view('portal.condominium.user.password', compact('config'));
     }
@@ -202,6 +241,8 @@ class UserCondominiumController extends Controller
     public function approvalAll()
     {
         $config['title'] = 'Usuários para aprovação';
+        $config['activeMenu'] = 'system';
+        $config['activeMenuN2'] = 'approval';
         $dados = $this->repository->getUserCondominiumsNotActive();
 
         return view('portal.condominium.user.approval', compact('config', 'dados'));

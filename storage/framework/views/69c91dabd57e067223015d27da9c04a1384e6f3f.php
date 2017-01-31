@@ -1,6 +1,6 @@
 <div class="modal fade modal-success" id="modalCompleted" aria-hidden="true" aria-labelledby="modalCompleted"
      role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-center">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <?php echo Form::open(['route'=>'portal.manage.maintenance.completed.store']); ?>
 

@@ -26,8 +26,8 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], 
     Route::get('city/list/{id}', ['as' => 'city.list', 'uses' => 'Portal\CityController@getCity']);
     Route::get('state/getUfId/{uf}', ['as' => 'city.list', 'uses' => 'Portal\StateController@getUfId']);
 
-    include_once ('Portal/condominium.php');
-    include_once ('Portal/manage.php');
-    include_once ('Portal/communication.php');
+    include_once('Portal/condominium.php');
+    include_once('Portal/manage.php');
+    include_once('Portal/communication.php');
     
 });

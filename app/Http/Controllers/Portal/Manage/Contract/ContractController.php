@@ -70,6 +70,8 @@ class ContractController extends Controller
     public function index()
     {
         $config['title'] = "Contratos";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'contract';
 
         $dados = $this->repository->getAllCondominium();//$dados = $this->repository->all();
         $dados = $this->utilObjeto->paginate($dados);
@@ -80,6 +82,8 @@ class ContractController extends Controller
     public function create()
     {
         $config['title'] = "Cadastrar Contrato";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'contract';
         $status = $this->contractStatusRepository->getAllActive();
         $providers = $this->providersRepository->getAllCondominiumActive();
 
@@ -94,6 +98,8 @@ class ContractController extends Controller
     public function edit($id)
     {
         $config['title'] = "Alterar Cotrato";
+        $config['activeMenu'] = 'manage';
+        $config['activeMenuN2'] = 'contract';
 
         $dados = $this->repository->getContract($id);
 
@@ -114,7 +120,6 @@ class ContractController extends Controller
 
     public function show($id)
     {
-
         $dados = $this->repository->getContract($id);
 
         $dados['start_date'] = date('d/m/Y', strtotime($dados['start_date']));

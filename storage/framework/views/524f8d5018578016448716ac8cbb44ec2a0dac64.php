@@ -25,6 +25,7 @@
                     <?php echo $__env->make('success._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('errors._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('portal.modals.delete', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php echo $__env->make('portal.modals.create', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                     <?php echo Form::model($dados, ['route'=>['portal.manage.contract.update', $dados->id], 'files' => true]); ?>
 

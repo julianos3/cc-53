@@ -8,13 +8,16 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
 use CentralCondo\Validators\Portal\Condominium\Condominium\UserCondominiumValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class UserCondominiumRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Condominium
  */
-class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCondominiumRepository
+class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCondominiumRepository, CacheableInterface
 {
+    use CacheableRepository;
 
     public function getUserAdm()
     {

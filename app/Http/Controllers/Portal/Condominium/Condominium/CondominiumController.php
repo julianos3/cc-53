@@ -23,6 +23,7 @@ use CentralCondo\Services\Portal\Condominium\Unit\UserUnitService;
 use CentralCondo\Services\Portal\User\UserService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 
 class CondominiumController extends Controller
 {
@@ -97,6 +98,8 @@ class CondominiumController extends Controller
     public function index()
     {
         $config['title'] = 'Meus Condomínios';
+        $config['activeMenu'] = 'system';
+        $config['activeMenuN2'] = 'condominium';
         $dados = $this->userCondominiumRepostory->getUserCondominiums();
 
         return view('portal.condominium.index', compact('dados', 'config'));
@@ -235,6 +238,8 @@ class CondominiumController extends Controller
     public function edit($id)
     {
         $config['title'] = 'Editar condomínio';
+        $config['activeMenu'] = 'system';
+        $config['activeMenuN2'] = 'condominium';
 
         $dados = $this->repository->getCondominiumId($id);
         $state = $this->stateRepository->orderBy('name', 'asc')->all();
@@ -242,6 +247,16 @@ class CondominiumController extends Controller
         $finality = $this->finalityRepository->getAll();
 
         return view('portal.condominium.edit.edit', compact('config', 'dados', 'state', 'city', 'finality'));
+    }
+
+    public function showImage($id)
+    {
+        $dados = $this->repository->find($id);
+        $path = 'portal/condominium/condominium/';
+        $imagem = explode('.',$dados['image']);
+        $file = Storage::get($path.$imagem[0]);
+
+        return response($file, 200)->header('Content-Type', 'image');
     }
 
 }

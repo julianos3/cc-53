@@ -9,6 +9,7 @@ use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
 use CentralCondo\Entities\Portal\Condominium\Group\GroupCondominium;
 use CentralCondo\Entities\Portal\Condominium\Group\UserGroupCondominium;
 use CentralCondo\Entities\Portal\Condominium\SecurityCam\SecurityCam;
+use CentralCondo\Http\Controllers\Portal\Home\HomeController;
 use CentralCondo\Policies\Portal\Communication\Called\CalledPolicy;
 use CentralCondo\Policies\Portal\Communication\Message\MessagePublicPolicy;
 use CentralCondo\Policies\Portal\Communication\Message\MessageReplyPolicy;
@@ -16,6 +17,7 @@ use CentralCondo\Policies\Portal\Condominium\Group\GroupCondominiumPolicy;
 use CentralCondo\Policies\Portal\Condominium\Condominium\UserCondominiumPolicy;
 use CentralCondo\Policies\Portal\Condominium\SecurityCam\SecurityCamPolicy;
 use CentralCondo\Policies\Portal\Condominium\Group\UserGroupCondominiumPolicy;
+use CentralCondo\Policies\Portal\Home\HomePolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

@@ -12,8 +12,8 @@
                 <p class="page-title">Deseja realmente excluir este item?</p>
             </div>
             <div class="modal-footer">
+                <a href="javascript:void(0);" type="button" class="btn btn-danger btnConfirmeDelete">Sim, Excluir</a>
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-                <a href="javascript:void(0);" type="button" class="btn btn-danger btnConfirmeDelete">Excluir</a>
             </div>
         </div>
     </div>

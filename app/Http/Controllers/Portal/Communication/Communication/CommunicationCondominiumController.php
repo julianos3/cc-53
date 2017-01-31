@@ -80,6 +80,8 @@ class CommunicationCondominiumController extends Controller
     public function index()
     {
         $config['title'] = 'Comunicados';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication-condominium';
 
         $dados = $this->repository->getAllCondominium();
         $dados = $this->utilObjeto->paginate($dados);
@@ -90,6 +92,8 @@ class CommunicationCondominiumController extends Controller
     public function create()
     {
         $config['title'] = 'Novo Comunicado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication-condominium';
         $groupCondominium = $this->groupCondominiumRepository->getAllCondominium();
 
         return view('portal.communication.communication-condominium.create', compact('config', 'groupCondominium'));
@@ -103,6 +107,8 @@ class CommunicationCondominiumController extends Controller
     public function edit($id)
     {
         $config['title'] = 'Alterar Comunicado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication-condominium';
 
         $dados = $this->repository->getId($id);
         $dados['date_display'] = date('d/m/Y', strtotime($dados['date_display']));
@@ -126,6 +132,8 @@ class CommunicationCondominiumController extends Controller
     public function show($id)
     {
         $config['title'] = 'Visualizar Comunicado';
+        $config['activeMenu'] = 'communication';
+        $config['activeMenuN2'] = 'communication-condominium';
         $dados = $this->repository->getId($id);
 
         return view('portal.communication.communication-condominium.show', compact('config', 'dados'));
