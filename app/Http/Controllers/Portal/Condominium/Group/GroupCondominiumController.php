@@ -57,6 +57,7 @@ class GroupCondominiumController extends Controller
         $this->condominiumRepository = $condominiumRepository;
         $this->utilObjeto = $utilObjeto;
         $this->userCondominiumRepository = $userCondominiumRepository;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

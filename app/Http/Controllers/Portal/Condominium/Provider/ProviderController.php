@@ -47,6 +47,7 @@ class ProviderController extends Controller
         $this->service = $service;
         $this->providerCategoryRepository = $providerCategoryRepository;
         $this->utilObjeto = $utilObjeto;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

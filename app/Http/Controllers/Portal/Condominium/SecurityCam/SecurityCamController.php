@@ -47,6 +47,7 @@ class SecurityCamController extends Controller
         $this->service = $service;
         $this->condominiumRepository = $condominiumRepository;
         $this->utilObjeto = $utilObjeto;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => CentralCondo\User::class,
+        'model' => CentralCondo\Entities\Portal\Condominium\Condominium\Condominium::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

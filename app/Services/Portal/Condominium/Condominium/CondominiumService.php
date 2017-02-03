@@ -2,6 +2,7 @@
 
 namespace CentralCondo\Services\Portal\Condominium\Condominium;
 
+use Carbon\Carbon;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockNomemclatureRepository;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
@@ -9,6 +10,7 @@ use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepo
 use CentralCondo\Repositories\Portal\Condominium\Unit\UnitRepository;
 use CentralCondo\Repositories\Portal\Condominium\Unit\UnitTypeRepository;
 use CentralCondo\Services\Portal\Communication\Notification\NotificationService;
+use CentralCondo\Services\Portal\Condominium\Subscriptions\SubscriptionsService;
 use CentralCondo\Services\Portal\User\UserService;
 use CentralCondo\Services\Util\UtilObjeto;
 use CentralCondo\Validators\Portal\Condominium\Condominium\CondominiumValidator;
@@ -45,6 +47,8 @@ class CondominiumService
 
     protected $storage;
 
+    protected $subscriptionsService;
+
     public function __construct(CondominiumRepository $repository,
                                 CondominiumValidator $validator,
                                 UserCondominiumService $userCondominiumService,
@@ -57,7 +61,7 @@ class CondominiumService
                                 NotificationService $notificationService,
                                 UserCondominiumRepository $userCondominiumRepository,
                                 Filesystem $filesystem,
-                                Storage $storage)
+                                Storage $storage, SubscriptionsService $subscriptionsService)
     {
         $this->repository = $repository;
         $this->validator = $validator;
@@ -72,6 +76,7 @@ class CondominiumService
         $this->userCondominiumRepository = $userCondominiumRepository;
         $this->filesystem = $filesystem;
         $this->storage = $storage;
+        $this->subscriptionsService = $subscriptionsService;
         $this->path = 'portal/' . session()->get('condominium_id') . '/condominium/condominium/';
     }
 
@@ -113,6 +118,8 @@ class CondominiumService
 
                 if ($dados) {
                     $this->userService->userSessionCondominion();
+
+                    //criar conta do usuário no stripe
 
                     return redirect(route('portal.condominium.create.info'));
                 }
@@ -192,6 +199,9 @@ class CondominiumService
                 //cadastra condominio e segue nas demais informações do condominio
                 $data['finality_id'] = 1;
                 $data['user_id'] = Auth::user()->id;
+
+                $data['trial_ends_at'] = Carbon::now()->addDays(15);
+
                 $this->validator->with($data)->passesOrFail();
                 $dados = $this->repository->create($data);
                 if ($dados) {

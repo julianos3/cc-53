@@ -4,6 +4,7 @@ namespace CentralCondo\Services\Portal\User;
 
 use CentralCondo\Events\Portal\User\SendMailNewPassword;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
+use CentralCondo\Repositories\Portal\Condominium\Subscriptions\SubscriptionsRepository;
 use CentralCondo\Repositories\Portal\User\UserRepository;
 use CentralCondo\Validators\Portal\User\UserValidator;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
@@ -26,17 +27,20 @@ class UserService
 
     protected $usersCondominiumRepository;
 
+    protected $subscriptionsRepository;
+
     public function __construct(UserRepository $repository,
                                 UserValidator $validator,
                                 UserCondominiumRepository $usersCondominiumRepository,
                                 Filesystem $filesystem,
-                                Storage $storage)
+                                Storage $storage, SubscriptionsRepository $subscriptionsRepository)
     {
         $this->repository = $repository;
         $this->validator = $validator;
         $this->usersCondominiumRepository = $usersCondominiumRepository;
         $this->filesystem = $filesystem;
         $this->storage = $storage;
+        $this->subscriptionsRepository = $subscriptionsRepository;
         $this->condominium_id = session()->get('condominium_id');
         $this->path = 'user' . session()->get('user_id') . '/';
     }
@@ -125,80 +129,6 @@ class UserService
     {
         $user = $this->repository->skipPresenter()->find($id);
         return $user['imagem'];
-    }
-
-    public function userSessionCondominion()
-    {
-
-        //verifica se usuario possui mais de um condominio vinculado
-        //se possui mais de um irá para um tela de escolha de condominio
-        //se possui 1 irá salvar na session o id do condominio
-        //se não possui nenhum condominio vai para a tela de cadastro de condominio
-
-        $usersCondominium = $this->usersCondominiumRepository
-            ->with(['user', 'condominium'])
-            ->findWhere([
-                'user_id' => Auth::user()->id
-            ]);
-
-        if (count($usersCondominium) > 1) {
-            //multiplos condominios
-            //salva todos os condominios na session
-            foreach ($usersCondominium as $row) {
-                $this->getCondominiumSession($row);
-            }
-
-        } elseif (count($usersCondominium) == 1) {
-            $this->getCondominiumSession($usersCondominium[0]);
-        }
-
-        return true;
-    }
-
-    public function getCondominiumSession($dados)
-    {
-        if ($dados) {
-            $image = $this->userSessionImage($dados);
-
-            $admin = 'n';
-            if ($this->usersCondominiumRepository->checkAdm($dados->user_role_condominium_id)) {
-                $admin = 'y';
-            }
-
-            session([
-                'user_id' => $dados->user->id,
-                'user_condominium_id' => $dados->id,
-                'user_role_condominium' => $dados->user_role_condominium_id,
-                'condominium_id' => $dados->condominium_id,
-                'name' => $dados->condominium->name,
-                'active' => $dados->active,
-                'image' => $image,
-                'admin' => $admin
-            ]);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public function userSessionImage($dados)
-    {
-        $image = '';
-        if ($this->storage->exists($this->path . $dados->user->image)) {
-            $image = $dados->user->imagem;
-        }
-
-        if (isset($dados->user->imagem)) {
-            $image = route('portal.condominium.user.image', [
-                'id' => Auth::user()->id,
-                'image' => $dados->user->imagem
-            ]);
-        } else {
-            $image = asset('portal/assets/images/user-not-image.jpg');
-        }
-
-        return $image;
     }
 
     public function configUpdate(array $data, $id)
@@ -304,6 +234,102 @@ class UserService
         } else {
             return redirect()->back()->withErrors($error)->withInput();
         }
+    }
+
+    public function userSessionCondominion()
+    {
+
+        //verifica se usuario possui mais de um condominio vinculado
+        //se possui mais de um irá para um tela de escolha de condominio
+        //se possui 1 irá salvar na session o id do condominio
+        //se não possui nenhum condominio vai para a tela de cadastro de condominio
+
+        $usersCondominium = $this->usersCondominiumRepository
+            ->with(['user', 'condominium'])
+            ->findWhere([
+                'user_id' => Auth::user()->id
+            ]);
+
+        if (count($usersCondominium) > 1) {
+            //multiplos condominios
+            //salva todos os condominios na session
+            foreach ($usersCondominium as $row) {
+                $this->getCondominiumSession($row);
+            }
+
+        } elseif (count($usersCondominium) == 1) {
+            $this->getCondominiumSession($usersCondominium[0]);
+        }
+
+        return true;
+    }
+
+    public function getCondominiumSession($dados)
+    {
+        if ($dados) {
+            $image = $this->userSessionImage($dados);
+
+            $admin = 'n';
+            if ($this->usersCondominiumRepository->checkAdm($dados->user_role_condominium_id)) {
+                $admin = 'y';
+            }
+
+            //assinatura
+            $subscription_id = null;
+            $subscription_name = null;
+            $stripe_plan = null;
+            $ends_at = null;
+            $subscriptions = $this->subscriptionsRepository->orderBy('id', 'desc')->findWhere([
+                'condominium_id' => $dados->condominium_id
+            ]);
+            if ($subscriptions->toArray()) {
+                $subscriptions = $subscriptions[0];
+
+                $subscription_id = $subscriptions->id;
+                $subscription_name = $subscriptions->name;
+                $stripe_plan = $subscriptions->stripe_plan;
+                $ends_at = $subscriptions->ends_at;
+            }
+
+            session([
+                'user_id' => $dados->user->id,
+                'user_condominium_id' => $dados->id,
+                'user_role_condominium' => $dados->user_role_condominium_id,
+                'condominium_id' => $dados->condominium_id,
+                'name' => $dados->condominium->name,
+                'active' => $dados->active,
+                'subscription_id' => $subscription_id,
+                'subscription_name' => $subscription_name,
+                'stripe_plan' => $stripe_plan,
+                'ends_at' => $ends_at,
+                'trial_ends_at' => $dados->condominium->trial_ends_at,
+                'image' => $image,
+                'admin' => $admin,
+            ]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function userSessionImage($dados)
+    {
+        $image = '';
+        if ($this->storage->exists($this->path . $dados->user->image)) {
+            $image = $dados->user->imagem;
+        }
+
+        if (isset($dados->user->imagem)) {
+            $image = route('portal.condominium.user.image', [
+                'id' => Auth::user()->id,
+                'image' => $dados->user->imagem
+            ]);
+        } else {
+            $image = asset('portal/assets/images/user-not-image.jpg');
+        }
+
+        return $image;
     }
 
     public function addSession($condominiumId)

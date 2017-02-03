@@ -38,6 +38,7 @@ class MessagePublicController extends Controller
         $this->repository = $repository;
         $this->service = $service;
         $this->utilObjeto = $utilObjeto;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

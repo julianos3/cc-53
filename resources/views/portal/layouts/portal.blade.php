@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/bootstrap-select/bootstrap-select.css') }}">
     <link rel="stylesheet" href="{{ asset('portal/global/vendor/magnific-popup/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('portal/global/vendor/card/card.css') }}">
 
     <!--PAGES-->
     <link rel="stylesheet" href="{{ asset('portal/assets/pages/css/user.css') }}">
@@ -106,6 +107,7 @@
 <script src="{{ asset('portal/global/vendor/filament-tablesaw/tablesaw-init.js') }}"></script>
 <script src="{{ asset('portal/global/vendor/bootstrap-select/bootstrap-select.js') }}"></script>
 <script src="{{ asset('portal/global/vendor/magnific-popup/jquery.magnific-popup.js') }}"></script>
+<script src="{{ asset('portal/global/vendor/card/jquery.card.js') }}"></script>
 
 <!-- Scripts -->
 <script src="{{ asset('portal/global/js/core.min.js') }}"></script>
@@ -149,5 +151,54 @@
         });
     })(document, window, jQuery);
 </script>
+
+@if(isset($config['stripe']))
+<!-- stripe -->
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+<script type="text/javascript">
+    Stripe.setPublishableKey('{{ env('STRIPE_KEY') }}');
+
+    $(function() {
+        var $form = $('#payment-form');
+        $form.submit(function(event) {
+            // Disable the submit button to prevent repeated clicks:
+            $form.find('.submit').prop('disabled', true);
+
+            // Request a token from Stripe:
+            Stripe.card.createToken($form, stripeResponseHandler);
+
+            // Prevent the form from being submitted:
+            return false;
+        });
+    });
+
+    function stripeResponseHandler(status, response) {
+        // Grab the form:
+        var $form = $('#payment-form');
+
+        if (response.error) { // Problem!
+
+            // Show the errors on the form:
+            $form.find('.payment-errors').text(response.error.message);
+            $form.find('.submit').prop('disabled', false); // Re-enable submission
+
+        } else { // Token was created!
+
+            // Get the token ID:
+            var token = response.id;
+
+            // Insert the token ID into the form so it gets submitted to the server:
+            $form.append($('<input type="hidden" name="stripeToken">').val(token));
+
+            // Submit the form:
+            $form.get(0).submit();
+        }
+    };
+
+</script>
+    @endif
+
+
 </body>
 </html>

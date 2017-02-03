@@ -33,12 +33,14 @@
                                 Perfil
                             </a>
                         </li>
+                        @if(session()->get('admin') == 'y')
                         <li role="presentation">
-                            <a href="javascript:void(0)" role="menuitem">
+                            <a href="{{ route('portal.condominium.subscriptions.index') }}" role="menuitem">
                                 <i class="icon wb-calendar" aria-hidden="true"></i>
                                 Assinatura
                             </a>
                         </li>
+                        @endif
                         <li role="presentation">
                             <a href="{{ route('portal.condominium.user.password') }}" role="menuitem">
                                 <i class="icon md-key" aria-hidden="true"></i>

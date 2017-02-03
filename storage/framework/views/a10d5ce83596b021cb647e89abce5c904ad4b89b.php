@@ -4,7 +4,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <title><?php echo e($title); ?> - Central Condo</title>
+    <title><?php echo e($title); ?> - <?php echo e(config('app.name')); ?></title>
 
     <style type="text/css">
         .ReadMsgBody {width: 100%; background-color: #ffffff;}

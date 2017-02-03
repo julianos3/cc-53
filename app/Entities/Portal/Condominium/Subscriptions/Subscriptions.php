@@ -6,6 +6,7 @@ use CentralCondo\Entities\Portal\Condominium\Condominium\Condominium;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Laravel\Cashier\Billable;
 
 class Subscriptions extends Model implements Transformable
 {
@@ -15,18 +16,17 @@ class Subscriptions extends Model implements Transformable
 
     protected $fillable = [
         'condominium_id',
-        'user_condominium_id',
         'name',
         'stripe_id',
         'stripe_plan',
         'quantity',
         'trial_ends_at',
-        'ends_at'
+        'ends_at',
+        'trial_ends_at'
     ];
 
-    public function condominium()
-    {
-        return $this->belongsTo(Condominium::class);
-    }
+    protected $dates = [
+        'trial_ends_at'
+    ];
 
 }

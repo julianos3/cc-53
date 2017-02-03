@@ -57,6 +57,7 @@ class MaintenanceController extends Controller
         $this->periodicityRepository = $periodicityRepository;
         $this->providersRepository = $providersRepository;
         $this->utilObjeto = $utilObjeto;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

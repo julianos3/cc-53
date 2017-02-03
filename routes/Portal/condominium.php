@@ -106,6 +106,7 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
         Route::post('/user/store', ['as' => 'user.store', 'uses' => 'Portal\Condominium\Group\UserGroupCondominiumController@store']);
         Route::get('/{idGroup}/destroy/{id}', ['as' => 'user.destroy', 'uses' => 'Portal\Condominium\Group\UserGroupCondominiumController@destroy']);
     });
+
     //PROVIDERS
     Route::group(['prefix' => 'provider', 'as' => 'provider.'], function () {
         Route::get('', ['as' => 'index', 'uses' => 'Portal\Condominium\Provider\ProviderController@index']);
@@ -129,6 +130,12 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
         Route::get('destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Condominium\Diary\DiaryController@destroy']);
     });
 
-
+    //SUBSCRIPTIONS
+    Route::group(['prefix' => 'subscriptions', 'as' => 'subscriptions.'], function () {
+        Route::get('', ['as' => 'index', 'uses' => 'Portal\Condominium\Subscriptions\SubscriptionsController@index']);
+        Route::post('store', ['as' => 'store', 'uses' => 'Portal\Condominium\Subscriptions\SubscriptionsController@store']);
+        Route::get('cancel', ['as' => 'cancel', 'uses' => 'Portal\Condominium\Subscriptions\SubscriptionsController@cancel']);
+        Route::get('resume', ['as' => 'resume', 'uses' => 'Portal\Condominium\Subscriptions\SubscriptionsController@resume']);
+    });
 
 });

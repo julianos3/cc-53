@@ -247,6 +247,12 @@ class RepositoryServiceProvider extends ServiceProvider
             \CentralCondo\Repositories\Portal\CityRepository::class,
             \CentralCondo\Repositories\Portal\CityRepositoryEloquent::class
         );
+
+        /**
+         * SUBSCRIPTIONS
+         */
+        $this->app->bind(\CentralCondo\Repositories\Portal\Condominium\Subscriptions\SubscriptionsRepository::class, \CentralCondo\Repositories\Portal\Condominium\Subscriptions\SubscriptionsRepositoryEloquent::class);
+
         /*
         # CONDOMINIUM
         $this->app->bind(

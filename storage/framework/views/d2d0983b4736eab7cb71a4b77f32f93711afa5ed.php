@@ -33,12 +33,14 @@
                                 Perfil
                             </a>
                         </li>
+                        <?php if(session()->get('admin') == 'y'): ?>
                         <li role="presentation">
-                            <a href="javascript:void(0)" role="menuitem">
+                            <a href="<?php echo e(route('portal.condominium.subscriptions.index')); ?>" role="menuitem">
                                 <i class="icon wb-calendar" aria-hidden="true"></i>
                                 Assinatura
                             </a>
                         </li>
+                        <?php endif; ?>
                         <li role="presentation">
                             <a href="<?php echo e(route('portal.condominium.user.password')); ?>" role="menuitem">
                                 <i class="icon md-key" aria-hidden="true"></i>

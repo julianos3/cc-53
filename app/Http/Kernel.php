@@ -30,6 +30,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \CentralCondo\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            //\CentralCondo\Http\Middleware\CheckSubscription::class,
         ],
 
         'api' => [
@@ -52,5 +53,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \CentralCondo\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'checkSubscriptions' => \CentralCondo\Http\Middleware\CheckSubscription::class,
     ];
 }

@@ -65,6 +65,7 @@ class ContractController extends Controller
         $this->providersRepository = $providersRepository;
         $this->contractFileRepository = $contractFileRepository;
         $this->utilObjeto = $utilObjeto;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

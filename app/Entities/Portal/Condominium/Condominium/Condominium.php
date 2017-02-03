@@ -49,6 +49,10 @@ class Condominium extends Model implements Transformable
         'trial_ends_at'
     ];
 
+    protected $dates = [
+        'trial_ends_at'
+    ];
+
     public function finality()
     {
         return $this->belongsTo(Finality::class);
@@ -127,11 +131,6 @@ class Condominium extends Model implements Transformable
     public function communication()
     {
         return $this->belongsTo(Communication::class);
-    }
-
-    public function subscriptions()
-    {
-        return $this->belongsTo(Subscriptions::class);
     }
 
 }

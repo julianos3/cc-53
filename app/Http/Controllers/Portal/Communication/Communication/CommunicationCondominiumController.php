@@ -75,6 +75,7 @@ class CommunicationCondominiumController extends Controller
         $this->userCommunicationRepository = $userCommunicationRepository;
         $this->userCondominiumRepository = $userCondominiumRepository;
         $this->utilObjeto = $utilObjeto;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

@@ -57,6 +57,7 @@ class UnitController extends Controller
         $this->blockRepository = $blockRepository;
         $this->unitTypeRepository = $unitTypeRepository;
         $this->utilObjeto = $utilObjeto;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

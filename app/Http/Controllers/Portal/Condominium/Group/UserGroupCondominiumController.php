@@ -47,6 +47,7 @@ class UserGroupCondominiumController extends Controller
         $this->service = $service;
         $this->userCondominiumRepository = $userCondominiumRepository;
         $this->utilObjeto = $utilObjeto;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index($groupId)

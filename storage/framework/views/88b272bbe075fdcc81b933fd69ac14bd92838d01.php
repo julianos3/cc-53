@@ -147,7 +147,7 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="site-menubar-section">
+                <div class="site-menubar-section none">
                     <h5>
                         Perfil
                         <span class="pull-right">30%</span>

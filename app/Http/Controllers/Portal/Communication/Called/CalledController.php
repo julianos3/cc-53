@@ -64,6 +64,7 @@ class CalledController extends Controller
         $this->calledStatusCategory = $calledStatusRepository;
         $this->utilObjeto = $utilObjeto;
         $this->userCodominiumRepository = $userCodominiumRepository;
+        $this->middleware('checkSubscriptions');
     }
 
     public function index()

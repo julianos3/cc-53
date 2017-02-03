@@ -32,7 +32,10 @@ class UnitRepositoryEloquent extends BaseRepository implements UnitRepository, C
     public function getAllCondominium()
     {
         $condominiumId = session()->get('condominium_id');
-        $dados = $this->with(['unitType', 'block'])->orderBy('name', 'asc')->findWhere(['condominium_id' => $condominiumId]);
+        $dados = $this->with(['unitType', 'block'])->orderBy('name', 'asc')->findWhere([
+            'condominium_id' => $condominiumId,
+            ['unit_type_id', '!=', '3']
+        ]);
 
         return $dados;
     }
