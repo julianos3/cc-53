@@ -26,7 +26,7 @@ class Unit extends Model implements Transformable
 
     public function condominium()
     {
-        return $this->belongsTo(Condominium::class);
+        return $this->belongsToMany(Condominium::class);
     }
 
     public function unitType()

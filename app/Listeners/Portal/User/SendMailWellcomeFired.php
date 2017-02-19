@@ -2,12 +2,9 @@
 
 namespace CentralCondo\Listeners\Portal\User;
 
-use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
 use CentralCondo\Events\Portal\User\SendMailWellcome;
 use CentralCondo\Events\SomeEvent;
-use CentralCondo\User;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use CentralCondo\Repositories\Portal\User\UserRepository;
 use Illuminate\Support\Facades\Mail;
 
 class SendMailWellcomeFired
@@ -18,40 +15,36 @@ class SendMailWellcomeFired
      * @return void
      */
 
-    protected $userCondominium;
+    protected $userRepository;
 
-    public function __construct(UserCondominium $userCondominium)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->userCondominium = $userCondominium;
+        $this->userRepository = $userRepository;
     }
 
     /**
      * Handle the event.
      *
-     * @param  SomeEvent  $event
+     * @param  SomeEvent $event
      * @return void
      */
     public function handle(SendMailWellcome $event)
     {
-        $users = $this->userCondominium->with(['user', 'condominium'])->find(['id' => $event->user_condominium_id]);
-        if ($users->toArray()) {
-            foreach ($users as $row) {
-                $title = 'Bem Vindo ao seu novo condomínio';
-                $name = $row->user->name;
-                $nameCondominium = $row->condominium->name;
+        $user = $this->userRepository->find($event->user_id);
+        if ($user->toArray()) {
+            $title = 'Bem Vindo ao seu novo condomínio';
+            $name = $user->name;
 
-                Mail::queue('vendor.emails.portal.user.wellcome',
-                    [
-                        'title' => $title,
-                        'name' => $name,
-                        'nameCondominium' => $nameCondominium
-                    ], function ($message) use ($row) {
-                        $message->from('suporte@centralcondo.com.br', 'Bem vindo | Central Condo - Seu Condomínio nas nuvens');
-                        $message->subject('Central Condo - Seu Condomínio nas nuvens');
-                        $message->priority(1);
-                        $message->to($row->user->email, $row->user->name);
-                    });
-            }
+            Mail::queue('portal.vendor.emails.user.wellcome',
+                [
+                    'title' => $title,
+                    'name' => $name
+                ], function ($message) use ($user) {
+                    $message->from('suporte@centralcondo.com.br', 'Bem vindo | Central Condo - Seu Condomínio nas nuvens');
+                    $message->subject('Central Condo - Seu Condomínio nas nuvens');
+                    $message->priority(1);
+                    $message->to($user->email, $user->name);
+                });
         }
     }
 }

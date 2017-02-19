@@ -27,17 +27,24 @@
 <hr>
 @if($dados['calledHistoric'])
     <h4>Andamento:</h4>
+    <?php
+    $total = $dados['calledHistoric']->count();
+    $cont = 0;
+    ?>
     @foreach($dados['calledHistoric']  as $row)
+        <?php $cont++; ?>
         <div class="row">
             <div class="col-md-12">
                 CRIADO EM {{ date('d/m/Y h:i', strtotime($row['created_at'])) }}
-                POR {{ $row['userCondominium']['user']['name']}}
+                POR <strong>{{ $row['userCondominium']['user']['name']}}</strong>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                {{ $row['description'] }}<br />
-                ----------------------------------------------------------------------------------------------------
+                {!! nl2br($row->description) !!}<br />
+                @if($total > $cont)
+                    ----------------------------------------------------------------------------------------------------
+                @endif
             </div>
         </div>
 

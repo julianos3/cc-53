@@ -77,7 +77,7 @@ class UserGroupCondominiumController extends Controller
 
     public function store(UserGroupCondominiumRequest $request)
     {
-        return $this->service->create($request->all());
+        return $this->service->createArray($request->all());
     }
 
     public function destroy($groupId, $id)

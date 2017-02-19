@@ -23,8 +23,17 @@ class CheckSubscription
      */
     public function handle($request, Closure $next)
     {
+
         $condominium = $this->condominiumRepositoy->find(session()->get('condominium_id'));
-        if ($request->user()->condominium() && !$condominium->subscribed(session()->get('subscription_name'))) {
+        if(session()->get('subscription_id')) {
+            if ($request->user()->condominium() && !$condominium->subscribed(session()->get('subscription_name'))) {
+                if (session()->get('admin') == 'y') {
+                    return redirect(route('portal.condominium.subscriptions.index'));
+                } else {
+                    return redirect(route('portal.home.index'));
+                }
+            }
+        }elseif(!$condominium->onGenericTrial()){
             if (session()->get('admin') == 'y') {
                 return redirect(route('portal.condominium.subscriptions.index'));
             } else {

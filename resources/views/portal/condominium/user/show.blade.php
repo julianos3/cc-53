@@ -33,8 +33,8 @@
                                 }
                                 ?>
                                 @if($imgAvatar)
-                                    <a class="avatar avatar-lg" href="javascript:void(0);">
-                                        <img src="{{ $imgAvatar }}" alt="{{ $dados->user->name }}">
+                                    <a class="avatar cover avatar-lg" href="javascript:void(0);">
+                                        <div class="cover-background" style="background-image: url('{{ $imgAvatar }}')"></div>
                                     </a>
                                 @endif
                                 <h4 class="profile-user">{{$dados->user->name}}</h4>

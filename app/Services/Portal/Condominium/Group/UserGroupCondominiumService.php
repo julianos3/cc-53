@@ -28,6 +28,33 @@ class UserGroupCondominiumService
         $this->condominium_id = session()->get('condominium_id');
     }
 
+    public function createArray(array $data)
+    {
+        if(is_array($data['users'])){
+            foreach ($data['users'] as $user){
+                $verifica = '';
+                $verifica = $this->repository->findWhere([
+                    'user_condominium_id' => $user,
+                    'group_id' => $data['group_id']
+                ]);
+
+                if($verifica->isEmpty()){
+
+                    $dataUser['user_condominium_id'] = $user;
+                    $dataUser['user_condominium_id'] = $user;
+                    $dataUser['group_id'] = $data['group_id'];
+
+                    $this->validator->with($dataUser)->passesOrFail();
+                    $dados = $this->repository->create($dataUser);
+
+                }
+            }
+        }
+
+        $response = trans("Integrantes adicionados com sucesso!");
+        return redirect()->back()->with('status', trans($response));
+    }
+
     public function create(array $data)
     {
         //verifica se integrante ja esta cadastrado no grupo

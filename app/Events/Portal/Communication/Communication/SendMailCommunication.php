@@ -14,14 +14,18 @@ class SendMailCommunication
     use InteractsWithSockets, SerializesModels;
 
     public $communicationId;
+
+    public $action;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($communicationId)
+    public function __construct($communicationId, $action)
     {
         $this->communicationId = $communicationId;
+        $this->action = $action;
     }
 
     /**

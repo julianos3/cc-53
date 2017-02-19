@@ -7,7 +7,6 @@ use CentralCondo\Repositories\Portal\Communication\Called\CalledRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Services\Portal\Communication\Notification\NotificationService;
 use CentralCondo\Validators\Portal\Communication\Called\CalledValidator;
-use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -65,9 +64,6 @@ class CalledService
         $this->calledHistoricRepository = $calledHistoricRepository;
         $this->userCodominiumRepository = $userCodominiumRepository;
         $this->notificationService = $notificationService;
-        $this->condominium_id = session()->get('condominium_id');
-        $this->user_condominium_id = session()->get('user_condominium_id');
-        $this->user_role_condominium = session()->get('user_role_condominium');
     }
 
     /**
@@ -106,6 +102,30 @@ class CalledService
         } catch (ValidatorException $e) {
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
+    }
+
+    public function registerNotification($calledId)
+    {
+        if (isset($calledId)) {
+
+            $users = $this->userCodominiumRepository->getUserAdm();
+            if ($users->toArray()) {
+
+                $communication['name'] = 'Novo chamado #' . $calledId;
+                $communication['route'] = route('portal.communication.called.view', ['id' => $calledId]);
+                foreach ($users as $row) {
+
+                    $communication['condominium_id'] = session()->get('condominium_id');
+                    $communication['user_condominium_id'] = $row->id;
+
+                    $this->notificationService->create($communication);
+                }
+
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     public function update(array $data, $id)
@@ -147,6 +167,19 @@ class CalledService
         }
     }
 
+    public function registerNotificationUpdate($calledId, $userCondominiumId)
+    {
+        if (isset($calledId) && isset($userCondominiumId)) {
+            $communication['name'] = 'Nova interação no chamado #' . $calledId;
+            $communication['route'] = route('portal.communication.called.view', ['id' => $calledId]);
+            $communication['condominium_id'] = session()->get('condominium_id');
+            $communication['user_condominium_id'] = $userCondominiumId;
+
+            $this->notificationService->create($communication);
+        }
+        return false;
+    }
+
     public function destroy($id)
     {
         //excluir historic
@@ -165,43 +198,6 @@ class CalledService
             $response = trans("Erro ao remover Chamado!");
             return redirect()->back()->withErrors($response)->withInput();
         }
-    }
-
-    public function registerNotification($calledId)
-    {
-        if (isset($calledId)) {
-
-            $users = $this->userCodominiumRepository->getUserAdm();
-            if($users->toArray()){
-
-                $communication['name'] = 'Novo chamado #' . $calledId;
-                $communication['route'] = route('portal.communication.called.view', ['id' => $calledId]);
-                foreach($users as $row){
-
-                    $communication['condominium_id'] = session()->get('condominium_id');
-                    $communication['user_condominium_id'] = $row->id;
-
-                    $this->notificationService->create($communication);
-                }
-
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-
-    public function registerNotificationUpdate($calledId, $userCondominiumId)
-    {
-        if(isset($calledId) && isset($userCondominiumId)){
-            $communication['name'] = 'Nova interação no chamado #' . $calledId;
-            $communication['route'] = route('portal.communication.called.view', ['id' => $calledId]);
-            $communication['condominium_id'] = session()->get('condominium_id');
-            $communication['user_condominium_id'] = $userCondominiumId;
-
-            $this->notificationService->create($communication);
-        }
-        return false;
     }
 
 }

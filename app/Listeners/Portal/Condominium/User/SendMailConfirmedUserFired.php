@@ -3,9 +3,7 @@
 namespace CentralCondo\Listeners\Portal\Condominium\User;
 
 use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
-use CentralCondo\Events\Portal\Condominium\User\SendMailAddCondominium;
 use CentralCondo\Events\Portal\Condominium\User\SendMailConfirmedUser;
-use CentralCondo\Events\SomeEvent;
 use Illuminate\Support\Facades\Mail;
 
 class SendMailConfirmedUserFired
@@ -16,8 +14,15 @@ class SendMailConfirmedUserFired
      * @return void
      */
 
+    /**
+     * @var UserCondominium
+     */
     protected $userCondominium;
 
+    /**
+     * SendMailConfirmedUserFired constructor.
+     * @param UserCondominium $userCondominium
+     */
     public function __construct(UserCondominium $userCondominium)
     {
         $this->userCondominium = $userCondominium;
@@ -28,25 +33,24 @@ class SendMailConfirmedUserFired
      */
     public function handle(SendMailConfirmedUser $event)
     {
-        $users = $this->userCondominium->with(['user', 'condominium'])->find(['id' => $event->user_condominium_id]);
-        if ($users->toArray()) {
-            foreach ($users as $row) {
-                $title = 'Aprovação do seu novo condomínio';
-                $name = $row->user->name;
-                $nameCondominium = $row->condominium->name;
+        $user = $this->userCondominium->with(['user', 'condominium'])->find($event->user_condominium_id);
+        if ($user->toArray()) {
+            $title = 'Aprovação do seu novo condomínio';
+            $name = $user->user->name;
+            $nameCondominium = $user->condominium->name;
 
-                Mail::queue('portal.vendor.emails.condominium.user.confirmed-condominium',
-                    [
-                        'title' => $title,
-                        'name' => $name,
-                        'nameCondominium' => $nameCondominium
-                    ], function ($message) use ($row) {
-                        $message->from('suporte@centralcondo.com.br', 'Central Condo - Seu Condomínio nas nuvens');
-                        $message->subject('Central Condo - Seu Condomínio nas nuvens');
-                        $message->priority(1);
-                        $message->to($row->user->email, $row->user->name);
-                    });
-            }
+            Mail::queue('portal.vendor.emails.condominium.user.confirmed-condominium',
+                [
+                    'title' => $title,
+                    'name' => $name,
+                    'nameCondominium' => $nameCondominium
+                ], function ($message) use ($user, $title) {
+                    $message->from('suporte@centralcondo.com.br', 'Central Condo - Seu Condomínio nas nuvens');
+                    $message->subject($title);
+                    $message->priority(1);
+                    $message->to($user->user->email, $user->user->name);
+                });
+
         }
     }
 }

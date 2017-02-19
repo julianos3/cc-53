@@ -60,7 +60,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <?php echo e($row['description']); ?><br />
+                <?php echo nl2br($row->description); ?><br />
                 <?php if($total > $cont): ?>
                 ----------------------------------------------------------------------------------------------------
                 <?php endif; ?>

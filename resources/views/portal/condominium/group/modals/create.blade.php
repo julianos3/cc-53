@@ -1,6 +1,6 @@
 <div class="modal fade modal-success" id="modalGroupCreate" aria-hidden="true" aria-labelledby="modalGroupCreate"
      role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-center">
+    <div class="modal-dialog">
         <div class="modal-content">
             {!! Form::open(['route'=>'portal.condominium.group.store']) !!}
             <div class="modal-header">
@@ -14,7 +14,10 @@
             </div>
             <div class="modal-footer text-right">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-                {!! Form::button('Salvar', ['type' => 'submit', 'class'=>'btn btn-raised btn-primary waves-effect waves-light']) !!}
+                <button type="submit" data-toggle="tooltip" data-original-title="Cadastrar Grupo" class="btn btn-success waves-effect waves-light">
+                    <i class="icon md-check" aria-hidden="true"></i>
+                    Cadastrar Grupo
+                </button>
             </div>
             {!! Form::close() !!}
         </div>

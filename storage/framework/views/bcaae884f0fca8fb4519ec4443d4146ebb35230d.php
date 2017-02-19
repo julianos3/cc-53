@@ -8,19 +8,14 @@
                 <li><a href="<?php echo e(route('portal.condominium.index')); ?>">Condomínio</a></li>
                 <li class="active">Cadastrar</li>
             </ol>
-            <div class="page-header-actions">
-                <a href="<?php echo e(route('portal.condominium.index')); ?>"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip"
-                   data-original-title="Voltar">
-                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
-                    Voltar
-                </a>
-            </div>
         </div>
-
         <div class="page-content container-fluid">
             <div class="panel">
                 <div class="panel-body">
+                    <?php
+                    $urlBack = route('portal.condominium.index');
+                    ?>
+                    <?php echo $__env->make('portal.layouts.btn_black', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo Form::model($dados, ['route'=>['portal.condominium.update.info', $dados->id], 'files' => true]); ?>
 
                         <?php echo $__env->make('success._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

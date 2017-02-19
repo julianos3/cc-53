@@ -96,7 +96,7 @@ class CommunicationService
 
                 //envia email para os usuarios
                 if ($dados['send_mail'] == 'y') {
-                    $this->sendMail($dados['id']);
+                    $this-> sendMail($dados['id'], 'create');
                 }
 
                 $response = [
@@ -190,10 +190,10 @@ class CommunicationService
         return false;
     }
 
-    public function sendMail($communicationId)
+    public function sendMail($communicationId, $action)
     {
         if ($communicationId) {
-            Event::fire(new SendMailCommunication($communicationId));
+            Event::fire(new SendMailCommunication($communicationId, $action));
 
             return true;
         }
@@ -217,6 +217,10 @@ class CommunicationService
             if ($dados) {
 
                 $this->updateCommunication($dados['id']);
+
+                if ($dados['send_mail'] == 'y') {
+                    $this-> sendMail($dados['id'], 'update');
+                }
 
                 $response = [
                     'message' => 'Comunicado alterado com sucesso!',

@@ -27,6 +27,7 @@
                       </span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
+                        <?php if(session()->get('condominium_id') != ''): ?>
                         <li role="presentation">
                             <a href="<?php echo e(route('portal.condominium.user.edit', ['id' => session()->get('user_condominium_id')])); ?>" role="menuitem">
                                 <i class="icon wb-user" aria-hidden="true"></i>
@@ -53,6 +54,7 @@
                                 Configurações
                             </a>
                         </li>
+                        <?php endif; ?>
                         <li class="divider" role="presentation"></li>
                         <li role="presentation">
                             <a href="<?php echo e(url('/logout')); ?>" role="menuitem"

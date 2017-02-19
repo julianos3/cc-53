@@ -13,15 +13,15 @@ class SendMailWellcome
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $userCondominiumId;
+    public $userId;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($userCondominiumId)
+    public function __construct($userId)
     {
-        $this->user_condominium_id = $userCondominiumId;
+        $this->user_id = $userId;
     }
 
     /**

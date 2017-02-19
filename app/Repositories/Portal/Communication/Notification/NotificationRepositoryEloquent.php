@@ -14,9 +14,8 @@ use Prettus\Repository\Traits\CacheableRepository;
  * Class NotificationRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Communication\Notification
  */
-class NotificationRepositoryEloquent extends BaseRepository implements NotificationRepository, CacheableInterface
+class NotificationRepositoryEloquent extends BaseRepository implements NotificationRepository
 {
-    use CacheableRepository;
     /**
      * Specify Model class name
      *
@@ -37,7 +36,6 @@ class NotificationRepositoryEloquent extends BaseRepository implements Notificat
 
         return NotificationValidator::class;
     }
-
 
     /**
      * Boot up the repository, pushing criteria

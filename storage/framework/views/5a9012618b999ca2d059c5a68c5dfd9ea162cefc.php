@@ -23,7 +23,7 @@
                     <td style="font-size: 1.2em; line-height: 1.4em; color: #9a9b9f; font-weight: normal; text-align: left; font-family: Arial; vertical-align: top; padding:30px 0 20px 15px">
                         <p style="mso-table-lspace:0;mso-table-rspace:0; margin:0">
                             Saudações da Equipe <strong><?php echo e(config('app.name')); ?></strong><br/>
-                            (51) 3030.3030 | <a href="<?php echo e(config('app.url')); ?>" style="color: #9a9b9f; text-decoration: none;" title="<?php echo e(config('app.name')); ?>">www.centralcondo.com.br</a>
+                            (51) 99285.1726 | <a href="<?php echo e(config('app.url')); ?>" style="color: #9a9b9f; text-decoration: none;" title="<?php echo e(config('app.name')); ?>">www.centralcondo.com.br</a>
                         </p>
                     </td>
                 </tr>

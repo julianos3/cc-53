@@ -38,7 +38,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label class="font-weight-bold">Descrição:</label>
-            <p><?php echo $dados->description; ?></p>
+            <p><?php echo nl2br($dados->description); ?></p>
         </div>
     </div>
 </div>

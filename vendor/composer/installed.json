@@ -4790,5 +4790,51 @@
             "profiler",
             "webprofiler"
         ]
+    },
+    {
+        "name": "artistas/laravel-pagseguro",
+        "version": "1.2.1",
+        "version_normalized": "1.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/artistas/laravel-pagseguro.git",
+            "reference": "52a02d09471396a19f6a7ccfc9ff4a6b30022fa2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/artistas/laravel-pagseguro/zipball/52a02d09471396a19f6a7ccfc9ff4a6b30022fa2",
+            "reference": "52a02d09471396a19f6a7ccfc9ff4a6b30022fa2",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x",
+            "php": ">=5.5.9"
+        },
+        "time": "2017-02-01 23:11:43",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Artistas\\PagSeguro\\": "src/Artistas/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fernando Henrique Bandeira",
+                "email": "fernando.bandeira94@gmail.com"
+            }
+        ],
+        "description": "PagSeguro Checkout Transparente e Pagamento Recorrente(Assinaturas) no Laravel 5.*",
+        "keywords": [
+            "Pagseguro",
+            "assinaturas",
+            "laravel",
+            "recorrente",
+            "transparente"
+        ]
     }
 ]

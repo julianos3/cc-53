@@ -40,7 +40,7 @@
         <?php if($dados->send_mail == 'y'): ?>
         Comunicados enviados por e-mails!<br />
         <?php endif; ?>
-        Ao editar o comunicado será enviada uma notificação para os usuários vinculados.
+        Ao editar o comunicado será enviada uma notificação para os integrantes vinculados.
     </div>
 </div>
 <?php else: ?>
@@ -63,9 +63,16 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="groups">Grupos:</label>
+            <!--
             <select data-plugin="selectpicker" class="form-control selectGroup" name="groups[]" multiple data-selected-text-format="count > 3">
                 <?php $__currentLoopData = $groupCondominium; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                 <option value="<?php echo e($row->id); ?>"><?php echo e($row->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+            </select>
+            -->
+            <select data-plugin="selectpicker" class="form-control selectGroup" name="groups[]" multiple data-selected-text-format="count > 3">
+                <?php $__currentLoopData = $groupCondominium; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                    <option value="<?php echo e($row->id); ?>"><?php echo e($row->name); ?></option>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
             </select>
         </div>

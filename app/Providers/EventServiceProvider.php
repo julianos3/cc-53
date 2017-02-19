@@ -31,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         'CentralCondo\Events\Portal\Condominium\User\SendMailNotConfirmedUser' => [
             'CentralCondo\Listeners\Portal\Condominium\User\SendMailNotConfirmedUserFired'
         ],
+        'CentralCondo\Events\Portal\Condominium\User\SendMailNewUser' => [
+            'CentralCondo\Listeners\Portal\Condominium\User\SendMailNewUserFired'
+        ],
         'CentralCondo\Events\Portal\Communication\Communication\SendMailCommunication' => [
             'CentralCondo\Listeners\Portal\Communication\Communication\SendMailCommunicationFired'
         ],

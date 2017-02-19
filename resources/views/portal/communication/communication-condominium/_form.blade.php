@@ -35,7 +35,7 @@
         @if($dados->send_mail == 'y')
         Comunicados enviados por e-mails!<br />
         @endif
-        Ao editar o comunicado será enviada uma notificação para os usuários vinculados.
+        Ao editar o comunicado será enviada uma notificação para os integrantes vinculados.
     </div>
 </div>
 @else
@@ -58,9 +58,16 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="groups">Grupos:</label>
+            <!--
             <select data-plugin="selectpicker" class="form-control selectGroup" name="groups[]" multiple data-selected-text-format="count > 3">
                 @foreach($groupCondominium as $row)
                 <option value="{{ $row->id }}">{{ $row->name }}</option>
+                @endforeach
+            </select>
+            -->
+            <select data-plugin="selectpicker" class="form-control selectGroup" name="groups[]" multiple data-selected-text-format="count > 3">
+                @foreach($groupCondominium as $row)
+                    <option value="{{ $row->id }}">{{ $row->name }}</option>
                 @endforeach
             </select>
         </div>

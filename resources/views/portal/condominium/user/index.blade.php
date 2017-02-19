@@ -46,8 +46,8 @@
                                         }
                                         ?>
                                         @if($imgAvatar)
-                                        <a class="avatar avatar-lg" href="{{ route('portal.condominium.user.show',['id' => $row->id]) }}">
-                                            <img src="{{ $imgAvatar }}" class="img-responsive img-circle" alt="{{ $row->user->name }}">
+                                        <a class="avatar cover avatar-lg" href="{{ route('portal.condominium.user.show',['id' => $row->id]) }}">
+                                            <div class="cover-background" style="background-image: url('{{ $imgAvatar }}')"></div>
                                         </a>
                                         @endif
                                         <h5 class="profile-user">{{ $row->user->name }}</h5>

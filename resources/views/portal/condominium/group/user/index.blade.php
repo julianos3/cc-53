@@ -11,33 +11,38 @@
                 <li><a href="{{ route('portal.condominium.group.index') }}">Grupos</a></li>
                 <li class="active">Integrantes</li>
             </ol>
-            <div class="page-header-actions">
-                <a href="{{ route('portal.condominium.group.index') }}"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip"
-                   data-original-title="Voltar">
-                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
-                    Voltar
-                </a>
-            </div>
         </div>
         <div class="page-content">
             <div class="panel">
                 <div class="panel-body">
 
+                    <div class="row">
+                        @if(session()->get('admin') == 'y')
+                        <div class="col-md-6 padding-bottom-10">
+                            <a href="javascript:void(0);"
+                               data-original-title="Cadastrar"
+                               data-target="#modalGroupUser" data-toggle="modal"
+                               class="btn btn-primary waves-effect waves-light">
+                                <i class="icon wb-plus" aria-hidden="true"></i>
+                                Cadastrar
+                            </a>
+                        </div>
+                        @endif
+                        <div class="@if(session()->get('admin') == 'y') col-md-6 @else col-md-12 @endif padding-bottom-10 text-right">
+                            <a href="{{ route('portal.condominium.group.index') }}"
+                               data-toggle="tooltip"
+                               data-original-title="Voltar" title="Voltar"
+                               class="btn btn-dark waves-effect waves-light">
+                                <i class="icon md-arrow-left" aria-hidden="true"></i>
+                                Voltar
+                            </a>
+                        </div>
+                    </div>
+
                     @include('success._check')
                     @include('errors._check')
                     @include('portal.modals.delete')
                     @include('portal.condominium.group.user.modals.create')
-
-                    @if(session()->get('admin') == 'y')
-                    <a href="javascript:void(0);"
-                       data-original-title="Cadastrar"
-                       data-target="#modalGroupUser" data-toggle="modal"
-                       class="btn btn-primary waves-effect waves-light">
-                        <i class="icon wb-plus" aria-hidden="true"></i>
-                        Cadastrar
-                    </a>
-                    @endif
 
                     @if(!$dados->isEmpty())
                         <div class="row">
@@ -87,7 +92,7 @@
                             <div class="col-md-12 text-center">
                                 <h4 class="page-title">
                                     <br />
-                                    Nenhum usário adicionado a este grupo.
+                                    Nenhum integrante adicionado a este grupo.
                                 </h4>
                             </div>
                         </div>

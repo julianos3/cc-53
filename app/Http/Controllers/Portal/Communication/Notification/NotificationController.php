@@ -1,6 +1,6 @@
 <?php
 
-namespace CentralCondo\Http\Controllers\Portal\Communication\   Notification;
+namespace CentralCondo\Http\Controllers\Portal\Communication\Notification;
 
 use CentralCondo\Http\Controllers\Controller;
 use CentralCondo\Repositories\Portal\Communication\Notification\NotificationRepository;
@@ -56,7 +56,7 @@ class NotificationController extends Controller
         return view('portal.communication.notification.index', compact('config', 'dados'));
     }
 
-    public function show()
+    public function listTop()
     {
         $notification = $this->repository
             ->orderBy('created_at', 'desc')
@@ -64,21 +64,17 @@ class NotificationController extends Controller
             ->findWhere([
                 'condominium_id' => session()->get('condominium_id'),
                 'user_condominium_id' => session()->get('user_condominium_id'),
-                'view' => 'n'
+                'view' => 'n',
+                //'click' => 'n'
             ]);
+        $notification = $this->utilObjeto->paginate($notification);
 
-        $totalClick = 0;
-        if ($notification->toArray()) {
-            foreach ($notification as $row) {
-                if ($row->click == 'n') {
-                    $totalClick++;
-                }
-            }
-        }
+        return $notification;
+    }
 
-        $notification = $this->utilObjeto->paginate($notification, 4);
-
-        return view('portal.communication.notification.show', compact('notification', 'totalClick'));
+    public function show()
+    {
+        return view('portal.communication.notification.show', compact('notification'));
     }
 
     public function destroy($id)

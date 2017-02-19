@@ -81,7 +81,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ $row['description'] }}<br />
+                                    {!! nl2br($row->description) !!}<br />
                                     @if($total > $cont)
                                         ----------------------------------------------------------------------------------------------------
                                     @endif

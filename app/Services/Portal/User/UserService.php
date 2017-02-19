@@ -3,6 +3,7 @@
 namespace CentralCondo\Services\Portal\User;
 
 use CentralCondo\Events\Portal\User\SendMailNewPassword;
+use CentralCondo\Events\Portal\User\SendMailWellcome;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Repositories\Portal\Condominium\Subscriptions\SubscriptionsRepository;
 use CentralCondo\Repositories\Portal\User\UserRepository;
@@ -57,6 +58,9 @@ class UserService
                 $dados = $this->repository->createUser($data);
 
                 if ($dados) {
+                    //enviar email de boas vindas
+                    Event::fire(new SendMailWellcome($dados['id']));
+
                     //cria o auth do usuário cadastrado
                     Auth::login($dados);
 

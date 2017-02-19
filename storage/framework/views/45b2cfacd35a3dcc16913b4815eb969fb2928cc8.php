@@ -27,19 +27,25 @@
 <hr>
 <?php if($dados['calledHistoric']): ?>
     <h4>Andamento:</h4>
+    <?php
+    $total = $dados['calledHistoric']->count();
+    $cont = 0;
+    ?>
     <?php $__currentLoopData = $dados['calledHistoric']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+        <?php $cont++; ?>
         <div class="row">
             <div class="col-md-12">
                 CRIADO EM <?php echo e(date('d/m/Y h:i', strtotime($row['created_at']))); ?>
 
-                POR <?php echo e($row['userCondominium']['user']['name']); ?>
-
+                POR <strong><?php echo e($row['userCondominium']['user']['name']); ?></strong>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <?php echo e($row['description']); ?><br />
-                ----------------------------------------------------------------------------------------------------
+                <?php echo nl2br($row->description); ?><br />
+                <?php if($total > $cont): ?>
+                    ----------------------------------------------------------------------------------------------------
+                <?php endif; ?>
             </div>
         </div>
 

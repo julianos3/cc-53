@@ -10,19 +10,14 @@
                 <li><a href="<?php echo e(route('portal.condominium.user.index')); ?>">Integrantes</a></li>
                 <li class="active">Configurações</li>
             </ol>
-            <div class="page-header-actions">
-                <a href="<?php echo e(route('portal.condominium.user.index')); ?>"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round"
-                   data-toggle="tooltip"
-                   data-original-title="Voltar">
-                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
-                    Voltar
-                </a>
-            </div>
         </div>
         <div class="page-content">
             <div class="panel">
                 <div class="panel-body">
+                    <?php
+                    $urlBack = route('portal.condominium.user.index');
+                    ?>
+                    <?php echo $__env->make('portal.layouts.btn_black', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('success._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('errors._check', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->make('portal.modals.warning', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -59,8 +54,10 @@
                         </div>
                     </div>
                     <div class="form-group text-right">
-                        <?php echo Form::button('Salvar Configurações', ['type' => 'submit', 'class'=>'btn btn-raised btn-primary waves-effect waves-light']); ?>
-
+                        <button type="submit" data-toggle="tooltip" data-original-title="Atualizar Configurações" class="btn btn-success waves-effect waves-light">
+                            <i class="icon md-check" aria-hidden="true"></i>
+                            Atualizar Configurações
+                        </button>
                     </div>
 
                     <?php echo Form::close(); ?>

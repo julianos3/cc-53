@@ -2,12 +2,8 @@
 
 namespace CentralCondo\Listeners\Portal\Communication\Communication;
 
-use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
 use CentralCondo\Events\Portal\Communication\Communication\SendMailCommunication;
-use CentralCondo\Events\Portal\Condominium\User\SendMailAddCondominium;
-use CentralCondo\Events\SomeEvent;
 use CentralCondo\Repositories\Portal\Communication\Communication\UserCommunicationRepository;
-use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use Illuminate\Support\Facades\Mail;
 
 class SendMailCommunicationFired
@@ -18,8 +14,15 @@ class SendMailCommunicationFired
      * @return void
      */
 
+    /**
+     * @var UserCommunicationRepository
+     */
     protected $userCommunicationRepository;
 
+    /**
+     * SendMailCommunicationFired constructor.
+     * @param UserCommunicationRepository $userCommunicationRepository
+     */
     public function __construct(UserCommunicationRepository $userCommunicationRepository)
     {
         $this->userCommunicationRepository = $userCommunicationRepository;
@@ -30,29 +33,40 @@ class SendMailCommunicationFired
      */
     public function handle(SendMailCommunication $event)
     {
-        $users = $this->userCommunicationRepository->with(['userCondominium'])->findWhere(['communication_id' => $event->communicationId]);
+        $users = $this->userCommunicationRepository
+            ->with(['userCondominium'])
+            ->findWhere([
+                'communication_id' => $event->communicationId
+            ]);
 
-        $title = 'Comunicado';
-        $content = 'Novo Comunicado';
-        $message = 'Aqui vai o conteúdo do comunicado.';
-
-        foreach ($users as $row) {
-            $name = $row->userCondominium->user->name;
-            $nameCondominium = $row->userCondominium->condominium->name;
-
-            Mail::queue('portal.vendor.emails.communication.communication.new-communication',
-                [
-                    'title' => $title,
-                    'name' => $name,
-                    'nameCondominium' => $nameCondominium
-                ], function ($message) use ($row) {
-                    $message->from('suporte@centralcondo.com.br', 'Novo Comunicado');
-                    $message->subject('Central Condo - Seu Condomínio nas nuvens');
-                    $message->priority(1);
-                    $message->to($row->userCondominium->user->email, $row->userCondominium->user->name);
-                });
-
+        if ($event->action == 'create') {
+            $title = 'Novo Comunicado';
+            $routeEmail = 'portal.vendor.emails.communication.communication.new-communication';
+        } else {
+            $title = 'Alteração no Comunicado';
+            $routeEmail = 'portal.vendor.emails.communication.communication.update-communication';
         }
 
+        foreach ($users as $row) {
+            if ($row->userCondominium->user->notification_email == 'y') {
+                $name = $row->userCondominium->user->name;
+                $nameCondominium = $row->userCondominium->condominium->name;
+
+                Mail::queue($routeEmail,
+                    [
+                        'title' => $title,
+                        'name' => $name,
+                        'nameCondominium' => $nameCondominium,
+                        'id' => $event->communicationId,
+                        'route' => route('portal.communication.communication.view', ['id' => $event->communicationId])
+                    ], function ($message) use ($row, $title) {
+                        $message->from('suporte@centralcondo.com.br', 'Central Condo - Seu Condomínio nas nuvens');
+                        $message->subject($title);
+                        $message->priority(1);
+                        $message->to($row->userCondominium->user->email, $row->userCondominium->user->name);
+                    });
+            }
+        }
     }
+
 }

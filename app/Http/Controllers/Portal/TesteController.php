@@ -31,9 +31,12 @@ class TesteController extends Controller
 
     public function index()
     {
+        return view('portal.teste.index');
+        /*
         $dados = $this->subscriptionsRepository->find(1);
 
-        if ($dados->onGenericTrial()) {
+        if ($dados->onGener
+        return view('portal.teste.index');icTrial()) {
             dd('esta');
         }
         dd('não');

@@ -2,13 +2,12 @@
 
 namespace CentralCondo\Repositories\Portal\Condominium\Condominium;
 
-use Illuminate\Support\Facades\Auth;
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
 use CentralCondo\Validators\Portal\Condominium\Condominium\UserCondominiumValidator;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Traits\CacheableRepository;
 
 /**
@@ -19,10 +18,38 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
 {
     use CacheableRepository;
 
-    public function getUserAdm()
+    public function getUserAdmSendMail($condominiumId = "")
     {
-        $condominiumId = session()->get('condominium_id');
-        $dados = $this->scopeQuery(function($query) use ($condominiumId){
+        if (!isset($condominiumId)) {
+            $condominiumId = session()->get('condominium_id');
+        }
+        $dados = $this->scopeQuery(function ($query) use ($condominiumId) {
+            return $query->leftjoin('user_role_condominium', 'user_condominium.user_role_condominium_id', '=', 'user_role_condominium.id')
+                ->where('user_condominium.condominium_id', $condominiumId)
+                ->where('user_condominium.active', 'y')
+                ->where('user_role_condominium.admin', 'y');
+        })->all();
+
+        if ($dados->toArray()) {
+            return $dados;
+        }
+
+        return false;
+    }
+
+    public function getUserAdm($condominiumId = "")
+    {
+        if (isset($condominiumId)) {
+            $condominiumId = session()->get('condominium_id');
+        }
+        $dados = $this->scopeQuery(function ($query) use ($condominiumId) {
+            return $query->leftjoin('user_role_condominium', 'user_condominium.user_role_condominium_id', '=', 'user_role_condominium.id')
+                ->where('user_condominium.condominium_id', $condominiumId)
+                ->where('user_condominium.active', 'y')
+                ->where('user_role_condominium.admin', 'y');
+        })->all();
+        /*
+        $dados = $this->scopeQuery(function ($query) use ($condominiumId) {
             return $query->where('condominium_id', $condominiumId)
                 ->where('user_role_condominium_id', 1)
                 ->orWhere('user_role_condominium_id', 2)
@@ -30,8 +57,9 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
                 ->orWhere('user_role_condominium_id', 7)
                 ->orWhere('user_role_condominium_id', 9);
         })->all();
+        */
 
-        if($dados->toArray()){
+        if ($dados->toArray()) {
             return $dados;
         }
 
@@ -40,9 +68,10 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
 
     public function checkAdm($userRoleCondominium)
     {
-        if(isset($userRoleCondominium)){
-            if($userRoleCondominium == 1 || $userRoleCondominium == 2 || $userRoleCondominium == 3
-                || $userRoleCondominium == 7 || $userRoleCondominium == 9){
+        if (isset($userRoleCondominium)) {
+            if ($userRoleCondominium == 1 || $userRoleCondominium == 2 || $userRoleCondominium == 3
+                || $userRoleCondominium == 7 || $userRoleCondominium == 9
+            ) {
                 return true;
             }
         }
@@ -56,6 +85,17 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
             ->findWhere([
                 'condominium_id' => session()->get('condominium_id'),
                 'active' => 'n'
+            ]);
+
+        return $dados;
+    }
+
+    public function getUserCondominiumsActive()
+    {
+        $dados = $this->with(['user', 'condominium'])
+            ->findWhere([
+                'user_id' => Auth::user()->id,
+                'active' => 'y'
             ]);
 
         return $dados;
@@ -147,10 +187,10 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 

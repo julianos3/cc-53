@@ -11,17 +11,13 @@
                 <li><a href="<?php echo e(route('portal.condominium.security-cam.index')); ?>">Câmeras de Segurança</a></li>
                 <li class="active"><?php echo e($config['title']); ?></li>
             </ol>
-            <div class="page-header-actions">
-                <a href="<?php echo e(route('portal.condominium.security-cam.index')); ?>"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip"
-                   data-original-title="Voltar">
-                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
-                    Voltar
-                </a>
-            </div>
         </div>
 
         <div class="page-content container-fluid">
+        <?php
+        $urlBack = route('portal.condominium.security-cam.index');
+        ?>
+        <?php echo $__env->make('portal.layouts.btn_black', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php if(!$dados->isEmpty()): ?>
             <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
             <div class="col-lg-4 col-sm-6">
@@ -29,7 +25,9 @@
                     <div class="widget-content">
                         <div class="padding-20 padding-top-10">
                             <h4><?php echo e($row->name); ?></h4>
+                            <!--
                             <iframe width="100%" src="<?php echo e($row->url); ?>" frameborder="0" allowfullscreen></iframe>
+                            -->
                         </div>
                     </div>
                 </div>

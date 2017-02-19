@@ -1,35 +1,15 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
-|
-*/
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('site/home');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
-//REGISTER CONDOMINIUM
-Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => 'auth'], function () {
-    Route::get('/home', ['as' => 'home.index', 'uses' => 'Portal\Home\HomeController@index']);
-
-    Route::get('city/list/{id}', ['as' => 'city.list', 'uses' => 'Portal\CityController@getCity']);
-    Route::get('state/getUfId/{uf}', ['as' => 'city.list', 'uses' => 'Portal\StateController@getUfId']);
+Route::get('/home', 'Site\HomeController@index');
+Route::get('/funcionalidades', 'Site\FuncionalidadesController@index');
+Route::get('/beneficios', 'Site\BeneficiosController@index');
+Route::get('/blog', 'Site\BlogController@index');
+Route::get('/contato', 'Site\ContatoController@index');
 
 
-    include_once('Portal/condominium.php');
-    include_once('Portal/manage.php');
-    include_once('Portal/communication.php');
-    Route::get('/opa', ['as' => 'opa', 'uses' => 'Portal\TesteController@index']);
-    
-});
+
+include_once('Portal/portal.php');

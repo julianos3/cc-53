@@ -4,9 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bd5662160c50713c033e3c61f423cc2b",
-    "content-hash": "72df12e76780ec57975ad2233dbd3e47",
+    "hash": "5e17b97773cbff19fca64d4a590515a4",
+    "content-hash": "5e0344f4467f6e3a58c3f355144dfdab",
     "packages": [
+        {
+            "name": "artistas/laravel-pagseguro",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artistas/laravel-pagseguro.git",
+                "reference": "52a02d09471396a19f6a7ccfc9ff4a6b30022fa2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artistas/laravel-pagseguro/zipball/52a02d09471396a19f6a7ccfc9ff4a6b30022fa2",
+                "reference": "52a02d09471396a19f6a7ccfc9ff4a6b30022fa2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Artistas\\PagSeguro\\": "src/Artistas/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fernando Henrique Bandeira",
+                    "email": "fernando.bandeira94@gmail.com"
+                }
+            ],
+            "description": "PagSeguro Checkout Transparente e Pagamento Recorrente(Assinaturas) no Laravel 5.*",
+            "keywords": [
+                "Pagseguro",
+                "assinaturas",
+                "laravel",
+                "recorrente",
+                "transparente"
+            ],
+            "time": "2017-02-01 23:11:43"
+        },
         {
             "name": "barryvdh/laravel-debugbar",
             "version": "v2.3.1",

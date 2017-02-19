@@ -1,8 +1,8 @@
 <div class="form-group">
-    <label for="Block">Usuarios Condominio:</label>
-    <select class="form-control" name="user_condominium_id">
+    <label for="Block">Selecione os integrantes:</label>
+    <select data-plugin="selectpicker" class="form-control selectGroup" name="users[]" multiple data-selected-text-format="count > 3">
         @foreach($usersCondominium as $row)
-            <option value="{{ $row->id }}" @if (isset($idUser) && $row->id === $idUser) selected @endif>{{ $row->user->name }}</option>
+            <option value="{{ $row->id }}">{{ $row->user->name }}</option>
         @endforeach
     </select>
 </div>

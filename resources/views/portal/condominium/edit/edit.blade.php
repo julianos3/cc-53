@@ -8,19 +8,14 @@
                 <li><a href="{{ route('portal.condominium.index') }}">Condomínio</a></li>
                 <li class="active">Cadastrar</li>
             </ol>
-            <div class="page-header-actions">
-                <a href="{{ route('portal.condominium.index') }}"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip"
-                   data-original-title="Voltar">
-                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
-                    Voltar
-                </a>
-            </div>
         </div>
-
         <div class="page-content container-fluid">
             <div class="panel">
                 <div class="panel-body">
+                    <?php
+                    $urlBack = route('portal.condominium.index');
+                    ?>
+                    @include('portal.layouts.btn_black')
                     {!! Form::model($dados, ['route'=>['portal.condominium.update.info', $dados->id], 'files' => true]) !!}
                         @include('success._check')
                         @include('errors._check')

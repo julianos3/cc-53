@@ -1,5 +1,6 @@
 <?php
 Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
+
     //CONDOMINIUM
     Route::get('/', ['as' => 'index', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@index']);
     Route::get('/create', ['as' => 'create', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@create']);
@@ -19,27 +20,28 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
     Route::get('/image/{id}/{image}', ['as' => 'image', 'uses' => 'Portal\Condominium\Condominium\CondominiumController@showImage']);
 
     //USER
-    Route::get('user', ['as' => 'user.index', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@index']);
-    Route::get('user/create', ['as' => 'user.create', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@create']);
-    Route::post('user/store', ['as' => 'user.store', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@store']);
-    Route::get('user/edit/{id}', ['as' => 'user.edit', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@edit']);
-    Route::post('user/update/{id}', ['as' => 'user.update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@update']);
-    Route::post('user/password/update', ['as' => 'user.password.update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@updatePassword']);
-    Route::get('user/password', ['as' => 'user.password', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@password']);
-    Route::get('user/destroy/{id}', ['as' => 'user.destroy', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@destroy']);
-    Route::get('user/destroy-active/{id}', ['as' => 'user.destroy-active', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@destroyActive']);
-    Route::get('user/show/{id}', ['as' => 'user.show', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@show']);
-    Route::get('user/unit/{id}', ['as' => 'user.unit', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@unit']);
-    Route::post('user/unit/create', ['as' => 'user.unit.create', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@userUnitCreate']);
-    Route::get('user/image/{id}/{image}', ['as' => 'user.image', 'uses' => 'Portal\User\UsersController@showImage']);
-    Route::get('user/approval/{id}', ['as' => 'user.approval', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@showUserNotActive']);
-    Route::get('user/approval/{id}', ['as' => 'user.approval.show', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@showUserNotActive']);
-    Route::get('user/approval/confirm/{id}', ['as' => 'user.approval.confirm', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@confirmNotActive']);
-    Route::get('user/approval', ['as' => 'user.approval.all', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@approvalAll']);
-    Route::get('user/config/{id}', ['as' => 'user.config', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@config']);
-    Route::post('user/config/update/{id}', ['as' => 'user.config.update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@configUpdate']);
-    Route::get('user/newPassword/{id}/{userId}', ['as' => 'user.newPassword', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@newPassword']);
-
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+        Route::get('', ['as' => 'index', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@index']);
+        Route::get('create', ['as' => 'create', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@create']);
+        Route::post('store', ['as' => 'store', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@store']);
+        Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@edit']);
+        Route::post('update/{id}', ['as' => 'update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@update']);
+        Route::post('password/update', ['as' => 'password.update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@updatePassword']);
+        Route::get('password', ['as' => 'password', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@password']);
+        Route::get('destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@destroy']);
+        Route::get('destroy-active/{id}', ['as' => 'destroy-active', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@destroyActive']);
+        Route::get('show/{id}', ['as' => 'show', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@show']);
+        Route::get('unit/{id}', ['as' => 'unit', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@unit']);
+        Route::post('unit/create', ['as' => 'unit.create', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@userUnitCreate']);
+        Route::get('image/{id}/{image}', ['as' => 'image', 'uses' => 'Portal\User\UsersController@showImage']);
+        Route::get('approval/{id}', ['as' => 'approval', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@showUserNotActive']);
+        Route::get('approval/{id}', ['as' => 'approval.show', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@showUserNotActive']);
+        Route::get('approval/confirm/{id}', ['as' => 'approval.confirm', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@confirmNotActive']);
+        Route::get('approval', ['as' => 'approval.all', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@approvalAll']);
+        Route::get('config/{id}', ['as' => 'config', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@config']);
+        Route::post('config/update/{id}', ['as' => 'config.update', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@configUpdate']);
+        Route::get('newPassword/{id}/{userId}', ['as' => 'newPassword', 'uses' => 'Portal\Condominium\Condominium\UserCondominiumController@newPassword']);
+    });
 
     //UNIT
     Route::group(['prefix' => 'unit', 'as' => 'unit.'], function () {

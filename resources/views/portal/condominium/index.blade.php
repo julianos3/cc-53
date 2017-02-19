@@ -18,7 +18,7 @@
                     <div class="widget widget-shadow text-center">
                         <div class="widget-header">
                             <div class="widget-header-content">
-                                <a class="avatar avatar-lg" href="javascript:void(0)">
+                                <a class="avatar cover avatar-lg" href="javascript:void(0)">
                                     <?php
                                     if($row->condominium->image){
                                         $image = route('portal.condominium.image', ['id' => $row->condominium->id, 'image' => $row->condominium->image]);
@@ -26,7 +26,7 @@
                                         $image = asset('portal/assets/images/condominium-not-image.png');
                                     }
                                     ?>
-                                    <img src="{!! $image !!}" class="img-responsive img-circle" alt="{{ $row->condominium->name }}">
+                                    <div class="cover-background" style="background-image: url('{{ $image }}')"></div>
                                 </a>
                                 <h5 class="profile-user">{{ $row->condominium->name }}</h5>
                                 <p class="profile-job">{{ $row->condominium->finality->name }}</p>

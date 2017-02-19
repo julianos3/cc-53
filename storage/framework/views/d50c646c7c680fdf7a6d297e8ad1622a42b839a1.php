@@ -33,8 +33,8 @@
                                 }
                                 ?>
                                 <?php if($imgAvatar): ?>
-                                    <a class="avatar avatar-lg" href="javascript:void(0);">
-                                        <img src="<?php echo e($imgAvatar); ?>" alt="<?php echo e($dados->user->name); ?>">
+                                    <a class="avatar cover avatar-lg" href="javascript:void(0);">
+                                        <div class="cover-background" style="background-image: url('<?php echo e($imgAvatar); ?>')"></div>
                                     </a>
                                 <?php endif; ?>
                                 <h4 class="profile-user"><?php echo e($dados->user->name); ?></h4>

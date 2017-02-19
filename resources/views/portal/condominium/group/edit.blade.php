@@ -10,6 +10,9 @@
 </div>
 <div class="modal-footer text-right">
     <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-    {!! Form::button('Salvar', ['type' => 'submit', 'class'=>'btn btn-raised btn-primary waves-effect waves-light']) !!}
+    <button type="submit" data-toggle="tooltip" data-original-title="Atualizar Grupo" class="btn btn-success waves-effect waves-light">
+        <i class="icon md-check" aria-hidden="true"></i>
+        Atualizar Grupo
+    </button>
 </div>
 {!! Form::close() !!}

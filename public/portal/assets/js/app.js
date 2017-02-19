@@ -373,9 +373,11 @@
         }
     });
 
+    /*
     $(window).load(function () {
         showNotification();
     });
+    */
 
     $('.showNotification').bind('click', function () {
         $.get('/portal/communication/notification/click', function (result) {

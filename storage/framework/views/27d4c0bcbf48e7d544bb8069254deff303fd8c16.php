@@ -10,18 +10,14 @@
                 <li><a href="<?php echo e(route('portal.communication.communication-condominium.index')); ?>">Comunicados</a></li>
                 <li class="active">Visualizar</li>
             </ol>
-            <div class="page-header-actions">
-                <a href="<?php echo e(route('portal.communication.communication-condominium.index')); ?>"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip"
-                   data-original-title="Voltar">
-                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
-                    Voltar
-                </a>
-            </div>
         </div>
         <div class="page-content container-fluid">
             <div class="panel">
                 <div class="panel-body">
+                    <?php
+                    $urlBack = route('portal.communication.communication-condominium.index');
+                    ?>
+                    <?php echo $__env->make('portal.layouts.btn_black', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <div class="row">
                         <div class="col-md-4">
                             <label for="codigo"><strong>Código</strong></label>
@@ -52,13 +48,15 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="codigo"><strong>Título</strong></label>
                             <p class="form-control-static"><?php echo e($dados->name); ?></p>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <label for="codigo"><strong>Descrição</strong></label>
-                            <p class="form-control-static"><?php echo e($dados->description); ?></p>
+                            <p class="form-control-static"><?php echo nl2br($dados->description); ?></p>
                         </div>
                     </div>
                     <?php if($dados->all_user == 'n'): ?>

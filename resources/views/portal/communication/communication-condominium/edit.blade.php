@@ -10,18 +10,14 @@
                 <li><a href="{{ route('portal.communication.communication-condominium.index') }}">Comunicados</a></li>
                 <li class="active">Alterar</li>
             </ol>
-            <div class="page-header-actions">
-                <a href="{{ route('portal.communication.communication-condominium.index') }}"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip"
-                   data-original-title="Voltar">
-                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
-                    Voltar
-                </a>
-            </div>
         </div>
         <div class="page-content container-fluid">
             <div class="panel">
                 <div class="panel-body">
+                    <?php
+                    $urlBack = route('portal.communication.communication-condominium.index');
+                    ?>
+                    @include('portal.layouts.btn_black')
                     @include('success._check')
                     @include('errors._check')
                     <?php $paginaAlterar = true; ?>
@@ -31,7 +27,10 @@
                     @include('portal.communication.communication-condominium._form')
 
                     <div class="form-group text-right">
-                        {!! Form::button('Salvar', ['type' => 'submit', 'class'=>'btn btn-raised btn-primary waves-effect waves-light']) !!}
+                        <button type="submit" data-toggle="tooltip" data-original-title="Atualizar Comunicado" class="btn btn-success waves-effect waves-light">
+                            <i class="icon md-check" aria-hidden="true"></i>
+                            Atualizar Comunicado
+                        </button>
                     </div>
 
                     {!! Form::close() !!}

@@ -11,17 +11,13 @@
                 <li><a href="{{ route('portal.condominium.security-cam.index') }}">Câmeras de Segurança</a></li>
                 <li class="active">{{ $config['title'] }}</li>
             </ol>
-            <div class="page-header-actions">
-                <a href="{{ route('portal.condominium.security-cam.index') }}"
-                   class="btn btn-sm btn-icon btn-dark waves-effect waves-light waves-round" data-toggle="tooltip"
-                   data-original-title="Voltar">
-                    <i class="icon wb-arrow-left" aria-hidden="true"></i>
-                    Voltar
-                </a>
-            </div>
         </div>
 
         <div class="page-content container-fluid">
+        <?php
+        $urlBack = route('portal.condominium.security-cam.index');
+        ?>
+        @include('portal.layouts.btn_black')
         @if(!$dados->isEmpty())
             @foreach($dados  as $row)
             <div class="col-lg-4 col-sm-6">

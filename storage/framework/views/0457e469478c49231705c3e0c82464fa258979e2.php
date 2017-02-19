@@ -31,7 +31,7 @@
                         <ul class="list-group">
                             <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                 <li class="list-group-item">
-                                    <div class="media media-lg">
+                                    <div class="media media-lg well padding-10">
                                         <div class="media-left">
                                             <a class="avatar" href="javascript:void(0)">
                                                 <?php
@@ -52,7 +52,7 @@
                                             </h4>
                                             <small><?php echo e(date('d/m/Y H:i:s', strtotime($row->created_at))); ?></small>
                                             <div class="media-body">
-                                                <p><?php echo e($row->message); ?></p>
+                                                <p><?php echo nl2br($row->message); ?></p>
                                                 <button title="Comentar"
                                                         class="btn btn-icon bg-warning waves-effect waves-light btnComentarMsgPublic"
                                                         data-target="#modalComment" data-toggle="modal"
@@ -68,42 +68,43 @@
                                                 </button>
                                                 <?php endif; ?>
                                             </div>
-                                            <?php if($row->messageReply->toArray()): ?>
-                                                <?php $__currentLoopData = $row->messageReply; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reply): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                                                    <div class="profile-brief margin-top-10">
-                                                        <div class="media">
-                                                            <div class="media-left">
-                                                                <?php
-                                                                if($reply->userCondominium->user->imagem){
-                                                                    $imgAvatar = route('portal.condominium.user.image', ['id' => $reply->userCondominium->user->id, 'image' => $reply->userCondominium->user->imagem]);
-                                                                }else{
-                                                                    $imgAvatar = asset('portal/global/portraits/1.jpg');
-                                                                }
-                                                                ?>
-                                                                <a class="avatar" href="javascript:void(0)" style="height: 50px; background: url('<?php echo e($imgAvatar); ?>') top center; background-size: cover;"></a>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading"><?php echo e($reply->userCondominium->user->name); ?></h4>
-                                                                <small><?php echo e(date('d/m/Y H:i:s', strtotime($reply->created_at))); ?></small>
-                                                                <p>
-                                                                    <?php echo e($reply->message); ?>
 
-                                                                    <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('delete', $reply)): ?>
-                                                                    <a class="btnDelete"
-                                                                       data-target="#modalDelete" data-toggle="modal"
-                                                                       data-id="<?php echo e($reply->id); ?>"
-                                                                       data-route="<?php echo e(route('portal.communication.message.public.reply.destroy', ['id' => $reply->id])); ?>"
-                                                                       href="javascript:void(0);"
-                                                                       title="Excluir">Excluir</a>
-                                                                    <?php endif; ?>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-                                            <?php endif; ?>
                                         </div>
                                     </div>
+                                    <?php if($row->messageReply->toArray()): ?>
+                                        <?php $__currentLoopData = $row->messageReply; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reply): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                            <div class="profile-brief margin-top-10">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <?php
+                                                        if($reply->userCondominium->user->imagem){
+                                                            $imgAvatar = route('portal.condominium.user.image', ['id' => $reply->userCondominium->user->id, 'image' => $reply->userCondominium->user->imagem]);
+                                                        }else{
+                                                            $imgAvatar = asset('portal/global/portraits/1.jpg');
+                                                        }
+                                                        ?>
+                                                        <a class="avatar" href="javascript:void(0)" style="height: 50px; background: url('<?php echo e($imgAvatar); ?>') top center; background-size: cover;"></a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading"><?php echo e($reply->userCondominium->user->name); ?></h4>
+                                                        <small><?php echo e(date('d/m/Y H:i:s', strtotime($reply->created_at))); ?></small>
+                                                        <p>
+                                                            <?php echo nl2br($reply->message); ?>
+
+                                                            <?php if (app('Illuminate\Contracts\Auth\Access\Gate')->check('delete', $reply)): ?>
+                                                                <a class="btnDelete"
+                                                                   data-target="#modalDelete" data-toggle="modal"
+                                                                   data-id="<?php echo e($reply->id); ?>"
+                                                                   data-route="<?php echo e(route('portal.communication.message.public.reply.destroy', ['id' => $reply->id])); ?>"
+                                                                   href="javascript:void(0);"
+                                                                   title="Excluir">Excluir</a>
+                                                            <?php endif; ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                                    <?php endif; ?>
                                 </li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                         </ul>

@@ -13,5 +13,3 @@
 <div class="alert alert-info">
     O envio de e-mail é muito importante para que você fique por dentro do que ocorre no <strong>Central Condo.</strong>
 </div>
-
-

@@ -31,7 +31,7 @@
                         <ul class="list-group">
                             @foreach($dados  as $row)
                                 <li class="list-group-item">
-                                    <div class="media media-lg">
+                                    <div class="media media-lg well padding-10">
                                         <div class="media-left">
                                             <a class="avatar" href="javascript:void(0)">
                                                 <?php
@@ -51,7 +51,7 @@
                                             </h4>
                                             <small>{{ date('d/m/Y H:i:s', strtotime($row->created_at)) }}</small>
                                             <div class="media-body">
-                                                <p>{{ $row->message }}</p>
+                                                <p>{!! nl2br($row->message) !!}</p>
                                                 <button title="Comentar"
                                                         class="btn btn-icon bg-warning waves-effect waves-light btnComentarMsgPublic"
                                                         data-target="#modalComment" data-toggle="modal"
@@ -67,41 +67,42 @@
                                                 </button>
                                                 @endcan
                                             </div>
-                                            @if($row->messageReply->toArray())
-                                                @foreach($row->messageReply as $reply)
-                                                    <div class="profile-brief margin-top-10">
-                                                        <div class="media">
-                                                            <div class="media-left">
-                                                                <?php
-                                                                if($reply->userCondominium->user->imagem){
-                                                                    $imgAvatar = route('portal.condominium.user.image', ['id' => $reply->userCondominium->user->id, 'image' => $reply->userCondominium->user->imagem]);
-                                                                }else{
-                                                                    $imgAvatar = asset('portal/global/portraits/1.jpg');
-                                                                }
-                                                                ?>
-                                                                <a class="avatar" href="javascript:void(0)" style="height: 50px; background: url('{{ $imgAvatar }}') top center; background-size: cover;"></a>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">{{ $reply->userCondominium->user->name }}</h4>
-                                                                <small>{{ date('d/m/Y H:i:s', strtotime($reply->created_at)) }}</small>
-                                                                <p>
-                                                                    {{ $reply->message }}
-                                                                    @can('delete', $reply)
-                                                                    <a class="btnDelete"
-                                                                       data-target="#modalDelete" data-toggle="modal"
-                                                                       data-id="{{ $reply->id }}"
-                                                                       data-route="{{ route('portal.communication.message.public.reply.destroy', ['id' => $reply->id]) }}"
-                                                                       href="javascript:void(0);"
-                                                                       title="Excluir">Excluir</a>
-                                                                    @endcan
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            @endif
+
                                         </div>
                                     </div>
+                                    @if($row->messageReply->toArray())
+                                        @foreach($row->messageReply as $reply)
+                                            <div class="profile-brief margin-top-10">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <?php
+                                                        if($reply->userCondominium->user->imagem){
+                                                            $imgAvatar = route('portal.condominium.user.image', ['id' => $reply->userCondominium->user->id, 'image' => $reply->userCondominium->user->imagem]);
+                                                        }else{
+                                                            $imgAvatar = asset('portal/global/portraits/1.jpg');
+                                                        }
+                                                        ?>
+                                                        <a class="avatar" href="javascript:void(0)" style="height: 50px; background: url('{{ $imgAvatar }}') top center; background-size: cover;"></a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">{{ $reply->userCondominium->user->name }}</h4>
+                                                        <small>{{ date('d/m/Y H:i:s', strtotime($reply->created_at)) }}</small>
+                                                        <p>
+                                                            {!! nl2br($reply->message) !!}
+                                                            @can('delete', $reply)
+                                                                <a class="btnDelete"
+                                                                   data-target="#modalDelete" data-toggle="modal"
+                                                                   data-id="{{ $reply->id }}"
+                                                                   data-route="{{ route('portal.communication.message.public.reply.destroy', ['id' => $reply->id]) }}"
+                                                                   href="javascript:void(0);"
+                                                                   title="Excluir">Excluir</a>
+                                                            @endcan
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </li>
                         @endforeach
                         </ul>

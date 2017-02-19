@@ -22,6 +22,6 @@
 <div class="row">
     <div class="col-md-12">
         <label for="codigo"><strong>Descrição</strong></label>
-        <p class="form-control-static">{{ nl2br($dados->description) }}</p>
+        <p class="form-control-static">{!! nl2br($dados->description) !!}</p>
     </div>
 </div>

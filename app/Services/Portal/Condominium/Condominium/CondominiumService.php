@@ -3,6 +3,7 @@
 namespace CentralCondo\Services\Portal\Condominium\Condominium;
 
 use Carbon\Carbon;
+use CentralCondo\Events\Portal\Condominium\User\SendMailNewUser;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockNomemclatureRepository;
 use CentralCondo\Repositories\Portal\Condominium\Block\BlockRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
@@ -14,9 +15,11 @@ use CentralCondo\Services\Portal\Condominium\Subscriptions\SubscriptionsService;
 use CentralCondo\Services\Portal\User\UserService;
 use CentralCondo\Services\Util\UtilObjeto;
 use CentralCondo\Validators\Portal\Condominium\Condominium\CondominiumValidator;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class CondominiumService
@@ -175,6 +178,7 @@ class CondominiumService
                 //  'district' => $data['district'],
                 'city_id' => $data['city_id']
             ]);
+            //dd($data);
 
             if ($condominium->toArray()) {
                 //cadastra usuario no condominio
@@ -184,10 +188,12 @@ class CondominiumService
                 $users['active'] = 'n';
 
                 $this->userCondominiumService->create($users);
-                $this->userService->userSessionCondominion();
+                if ($users['active'] == 'y') {
+                    $this->userService->userSessionCondominion();
+                }
 
                 //notificar sindico que existe novo condomino aguardando aprovação de acesso
-                $this->notificationNewUser();
+                $this->notificationNewUser($users['condominium_id']);
 
                 session([
                     'finish' => 'y'
@@ -200,10 +206,11 @@ class CondominiumService
                 $data['finality_id'] = 1;
                 $data['user_id'] = Auth::user()->id;
 
-                $data['trial_ends_at'] = Carbon::now()->addDays(15);
-
-                $this->validator->with($data)->passesOrFail();
+                //$data['trial_ends_at'] = Carbon::now()->addDays(15);
+                //dd($data);
+                $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
                 $dados = $this->repository->create($data);
+                //dd($dados);
                 if ($dados) {
 
                     //cadastro do usuario no condominio
@@ -232,25 +239,28 @@ class CondominiumService
         }
     }
 
-    public function notificationNewUser()
+    public function notificationNewUser($condominiumId)
     {
         //busca todos os adm e envia notificação para aprovacao
-        $users = $this->userCondominiumRepository->getUserAdm();
+        $users = $this->userCondominiumRepository->getUserAdm($condominiumId);
+        //dd($users);
         if ($users->toArray()) {
 
-            $communication['name'] = 'Novo usuário para aprovação no condomínio ' . session()->get('name');
+            $communication['name'] = 'Novo integrante para aprovação no condomínio, ' . Auth::user()->name;
             $communication['route'] = route('portal.condominium.user.approval.all');
-            foreach ($users as $row) {
+            foreach ($users as $user) {
 
-                if ($row->id != session()->get('user_condominium_id')) {
+                $communication['condominium_id'] = $condominiumId;
+                $communication['user_condominium_id'] = $user->id;
 
-                    $communication['condominium_id'] = session()->get('condominium_id');
-                    $communication['user_condominium_id'] = $row->id;
-
-                    $this->notificationService->create($communication);
-                }
+                $this->notificationService->create($communication);
             }
 
+        }
+
+        if($condominiumId) {
+            //envia e-mail para os sindicos informando que existe novo integrante para aprovação
+            Event::fire(new SendMailNewUser($condominiumId, Auth::user()->name));
         }
 
         return true;
@@ -266,18 +276,19 @@ class CondominiumService
         }
 
         try {
-            if(isset($data['condominium_id'])) {
+            if (isset($data['condominium_id'])) {
                 $id = $data['condominium_id'];
-            }else{
+            } else {
                 $id = session()->get('condominium_id');
             }
+            //dd(session()->get('condominium_id'));
 
             $deleteImage = false;
-            if(!empty($data['image']) && !empty($data['image'])) {
+            if (!empty($data['image']) && !empty($data['image'])) {
                 $validator = 'png,gif,jpeg';
                 $result = $this->utilObjeto->upload($data['image'], $this->path, $validator);
                 //dd($result);
-                $data['image'] = $result['file'].'.'.$result['extension'];
+                $data['image'] = $result['file'] . '.' . $result['extension'];
 
                 $image = $this->getFileName($id);
 
@@ -289,7 +300,7 @@ class CondominiumService
                 }
             }
 
-            $this->validator->with($data)->passesOrFail();
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
             $dados = $this->repository->update($data, $id);
 
             if ($dados) {

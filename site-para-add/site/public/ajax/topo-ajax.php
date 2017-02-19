@@ -1,0 +1,7 @@
+<?php
+session_start();
+ob_start();
+include "../../../config/define.php";
+include "../../../config/conecta.php";
+include "../../../config/classes.php";
+include "../../../config/funcoes.php";

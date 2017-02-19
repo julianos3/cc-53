@@ -202,7 +202,7 @@ class CondominiumController extends Controller
 
         $this->userCondominiumService->update($user, $userCondominiumId->id);
 
-        Event::fire(new SendMailWellcome($userCondominiumId->id));
+        //Event::fire(new SendMailWellcome($userCondominiumId->id));
 
         $unit['user_condominium_id'] = $userCondominiumId->id;
         $unit['unit_id'] = $data['unit_id'];
