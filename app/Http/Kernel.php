@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'guest' => \CentralCondo\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'checkSubscriptions' => \CentralCondo\Http\Middleware\CheckSubscription::class,
+        'admin.user' => \CentralCondo\Http\Middleware\AdminRedirectlAuthenticated::class,
     ];
 }

@@ -70,22 +70,63 @@ $(document).ready(function(){
         scrollPage($this.attr('href'));
         return false;
     });
-    $("#fContact").submit(function(){
+
+    $("#fContact").submit(function () {
+        var data = $(this).serialize();
+        console.log(data);
+
+        $.ajax({
+            type: "POST",
+            data: data,
+            url: "http://www.centralcondo.com.br/contato/store",
+            beforeSend: function () {
+                $('#fContact .def-msg').html("<strong class='color-orange f-size-14 def-100 m-top-10'>Enviando...</strong>");
+            },
+            success: function (result) {
+                if (result.success) {
+                    $('#fContact .def-msg').html("<strong class='color-green f-size-14 def-100 m-top-10'>" + result.message + "</strong>");
+                    $('input[type=text],input[type=email], textarea, select').val('');
+                } else {
+
+                    var arr = result.message;
+                    var msgError = '';
+                    $.each(arr, function (index, value) {
+                        if (value.length != 0) {
+                            msgError = msgError + value + '<br />';
+                        }
+                    });
+
+                    $('#fContact .def-msg').html("<strong class='color-red f-size-14 def-100 m-top-10'>" + msgError + "</strong>");
+                }
+            }
+        });
+        return false;
+    });
+
+    $("#fNewsletter").submit(function () {
         var data = $(this).serialize();
         $.ajax({
             type: "POST",
             data: data,
-            url: "/explum/site/public/contato-ajax.php",
-            dataType: "html",
-            beforeSend:  function() {
-                $('#fContact .def-msg').html("<strong class='color-white f-w-600'>Enviando...</strong>");
+            url: "http://www.centralcondo.com.br/newsletter/store",
+            beforeSend: function () {
+                $('#fNewsletter .def-msg').html("<strong class='color-white f-size-14 def-100 m-top-10'>Enviando...</strong>");
             },
-            success: function(result){
-                if(result == 'Mensagem enviada com sucesso.'){
-                    $('#fContact .def-msg').html("<strong class='color-white f-w-600'>"+result+"</strong>");
+            success: function (result) {
+                if (result.success) {
+                    $('#fNewsletter .def-msg').html("<strong class='color-white f-size-14 def-100 m-top-10'>" + result.message + "</strong>");
                     $('input[type=text],input[type=email], textarea, select').val('');
-                }else{
-                    $('#fContact .def-msg').html("<strong class='color-red f-w-600'>"+result+"</strong>");
+                } else {
+
+                    var arr = result.message;
+                    var msgError = '';
+                    $.each(arr, function (index, value) {
+                        if (value.length != 0) {
+                            msgError = msgError + value + '<br />';
+                        }
+                    });
+
+                    $('#fNewsletter .def-msg').html("<strong class='color-white f-size-14 def-100 m-top-10'>" + msgError + "</strong>");
                 }
             }
         });

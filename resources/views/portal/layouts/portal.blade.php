@@ -66,7 +66,7 @@
         Breakpoints();
     </script>
 </head>
-<body class="page-user page-profile  @if(session()->get('user_id') == '') padding-top-0 @endif">
+<body class="page-user page-profile  @if(session()->get('user_id') == '') padding-top-0 @endif ">
 
 <!--[if lt IE 8]>
 <p class="browserupgrade">
@@ -119,6 +119,26 @@
 <script src="{{ asset('portal/assets/js/sections/gridmenu.min.js') }}"></script>
 <script src="{{ asset('portal/assets/js/sections/sidebar.min.js') }}"></script>
 <script src="{{ asset('portal/global/js/components/components.js') }}"></script>
+
+<!--
+Diary
+-->
+
+  <link rel="stylesheet" href="{{ asset('portal/global/vendor/fullcalendar/fullcalendar.css') }}">
+  <link rel="stylesheet" href="{{ asset('portal/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('portal/assets/pages/css/calendar.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('portal/global/vendor/bootstrap-touchspin/bootstrap-touchspin.css') }}  ">
+  <link rel="stylesheet" href="{{ asset('portal/global/vendor/jquery-selective/jquery-selective.css') }}">
+
+  <script src="{{ asset('portal/global/vendor/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('portal/global/vendor/jquery-selective/jquery-selective.min.js') }}"></script>
+  <script src="{{ asset('portal/global/vendor/bootbox/bootbox.js') }}"></script>
+  <script src="{{ asset('portal/global/vendor/fullcalendar/fullcalendar.js') }}"></script>
+  <script src="{{ asset('portal/global/vendor/fullcalendar/lang/pt-br.js') }}"></script>
+  <script src="{{ asset('portal/global/js/plugins/action-btn.js') }}"></script>
+  <script src="{{ asset('portal/assets/pages/js/calendar.js') }}"></script>
+
 <script>
     (function(document, window, $) {
         'use strict';

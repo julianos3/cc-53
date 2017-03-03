@@ -5,10 +5,14 @@ namespace CentralCondo\Listeners\Portal\User;
 use CentralCondo\Events\Portal\User\SendMailWellcome;
 use CentralCondo\Events\SomeEvent;
 use CentralCondo\Repositories\Portal\User\UserRepository;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendMailWellcomeFired
+class SendMailWellcomeFired implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
      * Create the event listener.
      *

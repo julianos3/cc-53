@@ -12,7 +12,9 @@ class DiaryValidator extends LaravelValidator
         'condominium_id' => 'required',
         'user_condominium_id' => 'required',
         'reserve_area_id' => 'required',
-        'reason' => 'required|min:3',
-        'all_day' => 'required'
+        //'reason' => 'required|min:3',
+        'date' => 'required',
+        'start_time' => 'required',
+        'end_time' => 'required'
    ];
 }

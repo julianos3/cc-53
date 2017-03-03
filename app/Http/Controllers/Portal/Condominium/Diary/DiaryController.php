@@ -2,15 +2,15 @@
 
 namespace CentralCondo\Http\Controllers\Portal\Condominium\Diary;
 
+use Carbon\Carbon;
 use CentralCondo\Http\Controllers\Controller;
+use CentralCondo\Http\Requests\Portal\Condominium\Diary\DiaryRequest;
 use CentralCondo\Repositories\Portal\Condominium\Diary\DiaryRepository;
-use Illuminate\Http\Request;
+use CentralCondo\Repositories\Portal\Manage\ReserveArea\ReserveAreaRepository;
+use CentralCondo\Services\Portal\Condominium\Diary\DiaryService;
 
-use CentralCondo\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use CentralCondo\Http\Requests\DiaryCreateRequest;
-use CentralCondo\Http\Requests\DiaryUpdateRequest;
 
 
 class DiaryController extends Controller
@@ -21,170 +21,84 @@ class DiaryController extends Controller
      */
     protected $repository;
 
-    public function __construct(DiaryRepository $repository)
+    /**
+     * @var ReserveAreaRepository
+     */
+    protected $reserveAreaRepository;
+
+    /**
+     * @var DiaryService
+     */
+    protected $service;
+
+    /**
+     * DiaryController constructor.
+     * @param DiaryRepository $repository
+     * @param ReserveAreaRepository $reserveAreaRepository
+     * @param DiaryService $service
+     */
+    public function __construct(DiaryRepository $repository,
+                                ReserveAreaRepository $reserveAreaRepository,
+                                DiaryService $service)
     {
         $this->repository = $repository;
+        $this->reserveAreaRepository = $reserveAreaRepository;
+        $this->service = $service;
     }
 
     public function index()
     {
         $config['title'] = trans('Agenda');
         $config['page'] = 'diary';
-        //$config['js'] = 'diary';
+        $config['activeMenu'] = 'condominium';
+        $config['activeMenuN2'] = 'diary';
 
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $dados = $this->repository->all();
+        $reserveAreas = $this->reserveAreaRepository->getAllCondominiumActive();
+
+        return view('portal.condominium.diary.index', compact('config', 'reserveAreas'));
+    }
+
+    public function all()
+    {
+        $dados = $this->repository->getAllCondominium();
+
+        foreach ($dados as $key => $row) {
+            $date = $row['date'] . ' ' . $row['start_date'];
+            $dados[$key]['date'] = Carbon::parse($date)->toDateString();
+        }
 
         if (request()->wantsJson()) {
-
             return response()->json([
-                'data' => $dados,
+                'event' => $dados,
             ]);
         }
-
-        return view('portal.condominium.diary.index', compact('config', 'dados'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  DiaryCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(DiaryCreateRequest $request)
-    {
-
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $diary = $this->repository->create($request->all());
-
-            $response = [
-                'message' => 'Diary created.',
-                'data'    => $diary->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $diary = $this->repository->find($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $diary,
-            ]);
-        }
-
-        return view('diaries.show', compact('diary'));
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        $dados = $this->repository->getDiary($id);
+        $reserveAreas = $this->reserveAreaRepository->getAllCondominiumActive();
+        $dados['date'] = date('d/m/Y', strtotime($dados->date));
 
-        $diary = $this->repository->find($id);
-
-        return view('diaries.edit', compact('diary'));
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  DiaryUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     */
-    public function update(DiaryUpdateRequest $request, $id)
-    {
-
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $diary = $this->repository->update($id, $request->all());
-
-            $response = [
-                'message' => 'Diary updated.',
-                'data'    => $diary->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        if ($dados->user_condominium_id == session()->get('user_condominium_id') || session()->get('admin') == 'y') {
+            return view('portal.condominium.diary.modals.edit', compact('dados', 'reserveAreas'));
+        } else {
+            return view('portal.condominium.diary.modals.show', compact('dados', 'reserveAreas'));
         }
     }
 
+    public function store(DiaryRequest $request)
+    {
+        return $this->service->create($request->all());
+    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function update(DiaryRequest $request, $id)
+    {
+        return $this->service->update($request->all(), $id);
+    }
+
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Diary deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'Diary deleted.');
+        return $this->service->destroy($id);
     }
 }

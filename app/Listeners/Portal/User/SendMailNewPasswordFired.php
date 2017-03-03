@@ -4,10 +4,14 @@ namespace CentralCondo\Listeners\Portal\User;
 
 use CentralCondo\Events\Portal\User\SendMailNewPassword;
 use CentralCondo\User;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\InteractsWithQueue;
 
-class SendMailNewPasswordFired
+class SendMailNewPasswordFired implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
      * @var User
      */

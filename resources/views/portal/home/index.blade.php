@@ -13,7 +13,6 @@
         <div class="page-content container-fluid">
             <div class="row" data-plugin="matchHeight" data-by-row="true">
                 @include('portal.home.inc.alert_condominium')
-                @include('portal.home.inc.subscriptions')
                 @include('portal.home.inc.statistics')
                 @include('portal.home.inc.called')
                 @include('portal.home.inc.communication')

@@ -140,4 +140,14 @@ Route::group(['prefix' => 'condominium', 'as' => 'condominium.'], function () {
         Route::get('resume', ['as' => 'resume', 'uses' => 'Portal\Condominium\Subscriptions\SubscriptionsController@resume']);
     });
 
+    Route::group(['prefix' => 'diary', 'as' => 'diary.'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'Portal\Condominium\Diary\DiaryController@index']);
+        Route::get('/all', ['as' => 'all', 'uses' => 'Portal\Condominium\Diary\DiaryController@all']);
+        Route::get('create', ['as' => 'create', 'uses' => 'Portal\Condominium\Diary\DiaryController@create']);
+        Route::post('store', ['as' => 'store', 'uses' => 'Portal\Condominium\Diary\DiaryController@store']);
+        Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'Portal\Condominium\Diary\DiaryController@edit']);
+        Route::post('update/{id}', ['as' => 'update', 'uses' => 'Portal\Condominium\Diary\DiaryController@update']);
+        Route::get('destroy/{id}', ['as' => 'destroy', 'uses' => 'Portal\Condominium\Diary\DiaryController@destroy']);
+    });
+
 });

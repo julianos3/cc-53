@@ -37,7 +37,7 @@
                             <tr>
                                 <td style="padding:20px" class="center">
                                     <a href="http://www.centralcondo.com.br" title="Central Condo">
-                                        <img src="http://localhost:8000/portal/assets/images/email/logo.png" style="display: block;" alt="Central Condo" title="Central Condo" border="0" />
+                                        <img src="http://www.centralcondo.com.br/portal/assets/images/email/logo.png" style="display: block;" alt="Central Condo" title="Central Condo" border="0" />
                                     </a>
                                 </td>
                             </tr>
@@ -50,7 +50,7 @@
                 <tr>
                     <td valign="middle" align="center" bgcolor="#ffffff">
                         <a href="http://www.centralcondo.com.br" title="Central Condo">
-                            <img  class="deviceWidth" src="http://localhost:8000/portal/assets/images/email/recuperacao-senha.png" alt="Recuperação de Senha" title="Recuperação de Senha" border="0" style="display: block;" />
+                            <img  class="deviceWidth" src="http://www.centralcondo.com.br/portal/assets/images/email/recuperacao-senha.png" alt="Recuperação de Senha" title="Recuperação de Senha" border="0" style="display: block;" />
                         </a>
                     </td>
                 </tr>
@@ -95,7 +95,7 @@
                             <tr>
                                 <td valign="middle" align="left" class="center" style="padding:20px 10px 0 20px">
                                     <a href="http://www.centralcondo.com.br" title="Central Condo">
-                                        <img src="http://localhost:8000/portal/assets/images/email/logo-2.png" alt="Central Condo" title="Central Condo" border="0" class="deviceWidth" />
+                                        <img src="http://www.centralcondo.com.br/portal/assets/images/email/logo-2.png" alt="Central Condo" title="Central Condo" border="0" class="deviceWidth" />
                                     </a>
                                 </td>
                             </tr>

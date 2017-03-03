@@ -239,20 +239,27 @@ class RepositoryServiceProvider extends ServiceProvider
         /**
          * DEMAIS
          */
-        $this->app->bind(
-            \CentralCondo\Repositories\Portal\StateRepository::class,
-            \CentralCondo\Repositories\Portal\StateRepositoryEloquent::class
-        );
-        $this->app->bind(
-            \CentralCondo\Repositories\Portal\CityRepository::class,
-            \CentralCondo\Repositories\Portal\CityRepositoryEloquent::class
-        );
+        $this->app->bind(\CentralCondo\Repositories\Portal\StateRepository::class, \CentralCondo\Repositories\Portal\StateRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Portal\CityRepository::class, \CentralCondo\Repositories\Portal\CityRepositoryEloquent::class);
 
         /**
          * SUBSCRIPTIONS
          */
         $this->app->bind(\CentralCondo\Repositories\Portal\Condominium\Subscriptions\SubscriptionsRepository::class, \CentralCondo\Repositories\Portal\Condominium\Subscriptions\SubscriptionsRepositoryEloquent::class);
 
+        /**
+         * SITE
+         */
+        $this->app->bind(\CentralCondo\Repositories\Site\NewsletterRepository::class, \CentralCondo\Repositories\Site\NewsletterRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Site\ContactRepository::class, \CentralCondo\Repositories\Site\ContactRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Site\BlogRepository::class, \CentralCondo\Repositories\Site\BlogRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Admin\AdminUsersRepository::class, \CentralCondo\Repositories\Admin\AdminUsersRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Admin\AdminPasswordResetsRepository::class, \CentralCondo\Repositories\Admin\AdminPasswordResetsRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Site\BlogRepository::class, \CentralCondo\Repositories\Site\BlogRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Site\TagRepository::class, \CentralCondo\Repositories\Site\TagRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Site\BlogTagsRepository::class, \CentralCondo\Repositories\Site\BlogTagsRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Site\BlogImagesRepository::class, \CentralCondo\Repositories\Site\BlogImagesRepositoryEloquent::class);
+        $this->app->bind(\CentralCondo\Repositories\Site\SeoPageRepository::class, \CentralCondo\Repositories\Site\SeoPageRepositoryEloquent::class);
         //:end-bindings:
     }
 }

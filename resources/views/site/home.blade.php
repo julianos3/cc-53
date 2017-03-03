@@ -4,8 +4,9 @@
 
     <nav class="def-100 m-top-85 main-banner top relative m-top-1024-50 ajust-height">
         <ul class="def-100 def-h-100 cycle-slideshow relative z-index-1" id="slideshow" data-cycle-speed="2000" data-cycle-fx="fade" data-cycle-pager=".pager-banner" data-cycle-next=".next-banner" data-cycle-prev=".prev-banner" data-cycle-timeout="5000">
-            <li class="def-100 def-h-100" style="background: url('{{ asset('upload/banner/main-banner.jpg') }}') no-repeat;background-size: cover;background-attachment: fixed;background-position: center center;"></li>
-            <li class="def-100 def-h-100" style="background: url('{{ asset('upload/banner/banner-mobile.jpg') }}') no-repeat;background-size: cover;background-attachment: fixed;background-position: center center;"></li>
+            <li class="def-100 def-h-100" style="background: url('{{ asset('upload/banner/banner-01.jpg') }}') no-repeat;background-size: cover;background-attachment: fixed;background-position: center center;"></li>
+            <li class="def-100 def-h-100" style="background: url('{{ asset('upload/banner/banner-02.jpg') }}') no-repeat;background-size: cover;background-attachment: fixed;background-position: center center;"></li>
+            <li class="def-100 def-h-100" style="background: url('{{ asset('upload/banner/banner-03.jpg') }}') no-repeat;background-size: cover;background-attachment: fixed;background-position: center center;"></li>
         </ul>
         <a class="absolute z-index-999 left-0 top-50 m-left-5 prev-banner" href="javascript:void(0);" title="ANTERIOR">
             <img class="f-left" src="{{ asset('site/images/icons/prev.png') }}" />
@@ -37,7 +38,7 @@
             </figure>
         </div>
     </div>
-    <div class="def-100 p-top-80 p-bottom-180 bx-image-city p-top-1024-30 p-bottom-1024-30">
+    <div class="def-100 p-top-80 p-bottom-80 p-top-1024-30 p-bottom-1024-30">
         <div class="def-center">
             <h2 class="def-80 m-left-10 t-align-c color-green f-size-28 w-1024-100">
                 A GESTÃO DO SEU CONDOMÍNIO NA <strong class="color-green f-w-600">PALMA DA SUA MÃO</strong>
@@ -108,115 +109,33 @@
                     </div>
                 </ul>
             </nav>
+		</div>
+	</div>
+	<div class="def-100 bx-image-tester" style="background: url('{{ asset('upload/banner/--banner-page.jpg') }}') no-repeat;background-size: cover;background-position: center center;background-attachment: fixed;">
+		<div class="def-100 def-h-100 table">
+			<div class="inline">
+				<div class="def-center">
+					<div class="def-100 t-align-c">
+						<div class="def-100 p-bottom-60 f-w-400 color-white f-size-24">Cadastre-se e veja como é facil organizar seu condomínio!</div>
+						<a class="see-more bx-green f-w-600 color-white f-size-16" href="{{ route('register') }}" title="EXPERIMENTE GRÁTIS">
+							EXPERIMENTE GRÁTIS
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="def-100 p-top-50 p-bottom-180 bx-image-city p-top-1024-30 p-bottom-1024-30">
+        <div class="def-center">
             <h3 class="def-80 m-left-10 m-top-60 t-align-c color-green f-size-28 w-1024-100">
                 COMO PODEMOS <strong class="color-green f-w-600">TE AJUDAR?</strong>
             </h3>
-            <nav class="def-100 m-top-30 list-help">
-                <ul class="def-100 w-1024-102 w-600-100">
-                    <li class="def-24 green-image-1 w-1024-48 m-right-1024-2 w-600-100" data-scroll-reveal="scale up 80%">
-                        <div class="def-80 p-left-7-5 p-top-20 p-bottom-20 w-1024-90 p-left-1024-5">
-                            <figure class="def-100 t-align-c">
-                                <img src="{{ asset('upload/help/icone2.png') }}" />
-                            </figure>
-                            <div class="def-100 m-top-10 f-w-600 l-height-14 t-align-c color-white f-size-2">
-                                Portaria com identificação automática
-                            </div>
-                            <div class="def-100 m-top-10 t-align-c def-text def-text-3">
-                                <p>
-                                    Dê adeus ao controle remoto!
-                                    Pedestres e Veículos serão identificados automaticamente
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="def-25 green-image-2 w-1024-48 m-top-600-20 m-right-1024-2 w-600-100" data-scroll-reveal="move 200px">
-                        <div class="def-80 f-right p-right-7-5 p-top-20 p-bottom-20 w-1024-90 p-left-1024-5">
-                            <figure class="def-100 t-align-c">
-                                <img src="{{ asset('upload/help/icone2.png') }}" />
-                            </figure>
-                            <div class="def-100 m-top-10 f-w-600 l-height-14 t-align-c color-white f-size-2">
-                                Portaria com identificação automática
-                            </div>
-                            <div class="def-100 m-top-10 t-align-c def-text def-text-3">
-                                <p>
-                                    Dê adeus ao controle remoto!
-                                    Pedestres e Veículos serão identificados automaticamente
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="def-25 green-image-3 m-left-2 w-1024-48 m-top-1024-20 m-left-1024-0 m-right-1024-2 w-600-100" data-scroll-reveal="move 400px">
-                        <div class="def-80 p-left-7-5 p-top-20 p-bottom-20 w-1024-90 p-left-1024-5">
-                            <figure class="def-100 t-align-c">
-                                <img src="{{ asset('upload/help/icone2.png') }}" />
-                            </figure>
-                            <div class="def-100 m-top-10 f-w-600 l-height-14 t-align-c color-white f-size-2">
-                                Portaria com identificação automática
-                            </div>
-                            <div class="def-100 m-top-10 t-align-c def-text def-text-3">
-                                <p>
-                                    Dê adeus ao controle remoto!
-                                    Pedestres e Veículos serão identificados automaticamente
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="def-24 green-image-4 f-right f-1024-l w-1024-48 m-top-1024-20 m-right-1024-2 w-600-100" data-scroll-reveal="move 600px over">
-                        <div class="def-80 f-right p-right-7-5 p-top-20 p-bottom-20 w-1024-90 p-left-1024-5 f-1024-l">
-                            <figure class="def-100 t-align-c">
-                                <img src="{{ asset('upload/help/icone2.png') }}" />
-                            </figure>
-                            <div class="def-100 m-top-10 f-w-600 l-height-14 t-align-c color-white f-size-2">
-                                Portaria com identificação automática
-                            </div>
-                            <div class="def-100 m-top-10 t-align-c def-text def-text-3">
-                                <p>
-                                    Dê adeus ao <strong>controle remoto! </strong>
-                                    Pedestres e Veículos serão identificados automaticamente
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-            <?php
-            //$listaBeneficios = UtilObjeto::listar("beneficios", "WHERE ativo = 's' order by ordem asc");
-            $listaBeneficios = '';
-            if(is_array($listaBeneficios)){
-            ?>
-            <nav class="def-100 list-group-beneft" data-scroll-reveal="move 200px">
-                <ul class="def-103 w-1024-102 w-600-100">
-                    <?php
-                    $i = 0;
-                    $i_1024 = 0;
-                    foreach ($listaBeneficios as $idBeneficios => $dadosBeneficios) {
-                    $i++;
-                    $i_1024++;
-                    ?>
-                    <li class="def-30-3 m-top-60 m-right-3 w-1024-48 m-top-1024-30 m-right-1024-2 w-600-100">
-                        <figure class="def-30 relative-480 left-480-50">
-                            <img class="w-480-100" src="{{ asset('upload/beneficios/icone2.png') }}" alt="<?php echo $dadosBeneficios['titulo']; ?>" title="<?php echo $dadosBeneficios['titulo']; ?>" />
-                        </figure>
-                        <div class="def-65 f-right def-text def-text-4 w-480-100 m-top-480-10">
-                            <p class="f-w-600 color-green f-size-2">
-                                <?php echo $dadosBeneficios['titulo']; ?>
-                            </p>
-                            <?php echo $dadosBeneficios['texto']; ?>
-                        </div>
-                    </li>
-                    <?php
-                    if($i == 3){ echo '<span class="def-100 display-1024-none"></span>'; $i=0;}
-                    if($i_1024 == 2){ echo '<span class="def-100 none display-1024-block"></span>'; $i_1024=0;}
-                    }
-                    ?>
-                </ul>
-            </nav>
-            <?php
-            }
-            ?>
+            @include('site.beneficios_list')
+            <!--
             <h4 class="def-80 m-left-10 m-top-60 t-align-c color-green f-size-28 w-1024-100 m-top-1024-30 f-size-1024-25">
                 <strong class="color-green f-w-600">MODERNIZE</strong> A PORTARIA DO SEU <strong class="color-green f-w-600">CONDOMÍNIO</strong>
             </h4>
+            -->
         </div>
     </div>
 

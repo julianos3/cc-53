@@ -5,10 +5,14 @@ namespace CentralCondo\Listeners\Portal\Condominium\User;
 use CentralCondo\Events\Portal\Condominium\User\SendMailNewUser;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\CondominiumRepository;
 use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendMailNewUserFired
+class SendMailNewUserFired implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
      * @var UserCondominiumRepository
      */

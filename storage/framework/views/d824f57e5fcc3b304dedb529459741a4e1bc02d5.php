@@ -11,7 +11,6 @@
         <div class="page-content container-fluid">
             <div class="row" data-plugin="matchHeight" data-by-row="true">
                 <?php echo $__env->make('portal.home.inc.alert_condominium', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                <?php echo $__env->make('portal.home.inc.subscriptions', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 <?php echo $__env->make('portal.home.inc.statistics', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 <?php echo $__env->make('portal.home.inc.called', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 <?php echo $__env->make('portal.home.inc.communication', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

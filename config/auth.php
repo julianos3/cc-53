@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin_user' => [
+            'driver' => 'session',
+            'provider' => 'admin_users',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -69,6 +73,10 @@ return [
             'driver' => 'eloquent',
             'model' => CentralCondo\Entities\Portal\User\User::class,
         ],
+        'admin_users' => [
+            'driver' => 'eloquent',
+            'model' => CentralCondo\Entities\Admin\AdminUsers::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -95,6 +103,11 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'admin_users' => [
+            'provider' => 'admin_users',
+            'table' => 'admin_password_resets',
             'expire' => 60,
         ],
     ],

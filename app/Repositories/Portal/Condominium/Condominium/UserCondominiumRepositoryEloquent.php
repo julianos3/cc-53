@@ -42,11 +42,22 @@ class UserCondominiumRepositoryEloquent extends BaseRepository implements UserCo
         if (isset($condominiumId)) {
             $condominiumId = session()->get('condominium_id');
         }
+        //dd($condominiumId);
+
+        /*
+        $dados = $this->with(['userRoleCondominium'])->findWhere([
+            'userRoleCondominium.admin' => 'y'
+        ]);
+
+        dd($dados);
+        */
+
         $dados = $this->scopeQuery(function ($query) use ($condominiumId) {
             return $query->leftjoin('user_role_condominium', 'user_condominium.user_role_condominium_id', '=', 'user_role_condominium.id')
-                ->where('user_condominium.condominium_id', $condominiumId)
                 ->where('user_condominium.active', 'y')
-                ->where('user_role_condominium.admin', 'y');
+                ->where('user_role_condominium.admin', 'y')
+                ->where('user_condominium.condominium_id', $condominiumId)
+                ->select('user_condominium.id', 'user_condominium.user_id', 'user_condominium.user_role_condominium_id', 'user_condominium.condominium_id');
         })->all();
         /*
         $dados = $this->scopeQuery(function ($query) use ($condominiumId) {

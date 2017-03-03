@@ -25,7 +25,7 @@ use Laravel\Cashier\Billable;
 
 class Condominium extends Model implements Transformable
 {
-    use TransformableTrait, Billable;
+    use TransformableTrait;
 
     protected $table = 'condominium';
 

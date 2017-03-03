@@ -14,9 +14,29 @@ use Prettus\Repository\Traits\CacheableRepository;
  * Class DiaryRepositoryEloquent
  * @package CentralCondo\Repositories\Portal\Condominium\Diary
  */
-class DiaryRepositoryEloquent extends BaseRepository implements DiaryRepository, CacheableInterface
+class DiaryRepositoryEloquent extends BaseRepository implements DiaryRepository
 {
-    use CacheableRepository;
+
+    public function getAllCondominium()
+    {
+        $dados = $this->with(['reserveArea', 'userCondominium'])->orderBy('date', 'desc')
+            ->findWhere([
+                'condominium_id' => session()->get('condominium_id')
+            ]);
+
+        return $dados;
+    }
+
+    public function getDiary($id)
+    {
+        $dados = $this->with(['reserveArea', 'userCondominium'])->orderBy('date', 'desc')
+            ->findWhere([
+                'condominium_id' => session()->get('condominium_id'),
+                'id' => $id
+            ]);
+
+        return $dados[0];
+    }
 
     /**
      * Specify Model class name
@@ -29,10 +49,10 @@ class DiaryRepositoryEloquent extends BaseRepository implements DiaryRepository,
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 

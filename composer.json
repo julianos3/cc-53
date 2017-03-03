@@ -14,8 +14,7 @@
         "barryvdh/laravel-debugbar": "^2.3",
         "barryvdh/laravel-ide-helper": "^2.2",
         "doctrine/dbal": "^2.5",
-        "laravel/cashier": "~7.0",
-        "artistas/laravel-pagseguro": "^1.2"
+        "artesaos/seotools": "^0.10.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -35,7 +35,7 @@
         <a class="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
             <i class="icon md-settings" aria-hidden="true"></i>
         </a>
-        <a href="javascript:void(0)" role="menuitem">
+        <a href="<?php echo e(route('portal.communication.notification.index')); ?>" role="menuitem">
             Todas notificações
         </a>
     </li>

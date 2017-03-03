@@ -24,6 +24,7 @@ class CheckSubscription
     public function handle($request, Closure $next)
     {
 
+        /*
         $condominium = $this->condominiumRepositoy->find(session()->get('condominium_id'));
         if(session()->get('subscription_id')) {
             if ($request->user()->condominium() && !$condominium->subscribed(session()->get('subscription_name'))) {
@@ -41,6 +42,7 @@ class CheckSubscription
             }
         }
 
+        */
         return $next($request);
     }
 }

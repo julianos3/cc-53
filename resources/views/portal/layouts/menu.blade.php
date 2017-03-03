@@ -53,6 +53,11 @@
                                     <span class="site-menu-title">Grupos</span>
                                 </a>
                             </li>
+                            <li class="site-menu-item @if(isset($config['activeMenuN2']) && $config['activeMenuN2'] == 'diary') active @endif">
+                                <a class="animsition-link" href="{{ route('portal.condominium.diary.index') }}">
+                                    <span class="site-menu-title">Agenda</span>
+                                </a>
+                            </li>
                             <li class="site-menu-item @if(isset($config['activeMenuN2']) && $config['activeMenuN2'] == 'security-cam') active @endif">
                                 <a class="animsition-link" href="{{ route('portal.condominium.security-cam.index') }}">
                                     <span class="site-menu-title">Câmeras de Segurança</span>

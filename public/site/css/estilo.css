@@ -14,6 +14,8 @@ header.in-scroll .main-menu, header.page-internal .main-menu{margin-top: 15px;}
 
 .bx-image-city{background-image: url('../images/background/image-city.png');background-repeat: repeat-x;background-position: bottom center;}
 
+.bx-image-tester{height: 400px;}
+
 .def-text *{color: #797979;}
 .def-text p{float:left;width: 100%;margin-top: 20px;line-height: 25px;color: #797979;font-size: 2em;}
 .def-text p:first-of-type{margin-top: 0!important;}

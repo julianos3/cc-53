@@ -4,6 +4,7 @@ namespace CentralCondo\Http\Controllers\Portal\Communication\Notification;
 
 use CentralCondo\Http\Controllers\Controller;
 use CentralCondo\Repositories\Portal\Communication\Notification\NotificationRepository;
+use CentralCondo\Repositories\Portal\Condominium\Condominium\UserCondominiumRepository;
 use CentralCondo\Services\Portal\Communication\Notification\NotificationService;
 use CentralCondo\Services\Util\UtilObjeto;
 

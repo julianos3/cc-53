@@ -272,10 +272,6 @@
         });
     });
 
-    $('.btnDelete').bind('click', function () {
-        var route = $(this).attr("data-route");
-        $('.btnConfirmeDelete').prop("href", route);
-    });
 
     $('.btnComentarMsgPublic').bind('click', function () {
         var id = $(this).attr("data-id");
@@ -374,10 +370,10 @@
     });
 
     /*
-    $(window).load(function () {
-        showNotification();
-    });
-    */
+     $(window).load(function () {
+     showNotification();
+     });
+     */
 
     $('.showNotification').bind('click', function () {
         $.get('/portal/communication/notification/click', function (result) {
@@ -390,7 +386,7 @@
         removalDelay: 500,
         preloader: true,
         callbacks: {
-            beforeOpen: function() {
+            beforeOpen: function () {
                 this.st.image.markup = this.st.image.markup.replace('mfp-figure', 'mfp-figure mfp-with-anim');
                 this.st.mainClass = this.st.el.attr('data-effect');
             }
@@ -400,6 +396,7 @@
     });
 
     //createAjaxProvider();
+    btnDelete();
 
 })(document, window, jQuery);
 
@@ -409,7 +406,7 @@ function showNotification() {
     });
 }
 
-function createAjaxProvider(){
+function createAjaxProvider() {
     $('#createAjaxProvider').submit(function () {
         var data = $(this).serialize();
         $.ajax({
@@ -431,14 +428,21 @@ function getProviderSelect() {
     });
 }
 
+function btnDelete() {
+    $('.btnDelete').bind('click', function () {
+        var route = $(this).attr("data-route");
+        $('.btnConfirmeDelete').prop("href", route);
+    });
+}
+
 $.components.register("input-group-file", {
-    api: function() {
-        $(document).on("change", ".input-group-file [type=file]", function() {
+    api: function () {
+        $(document).on("change", ".input-group-file [type=file]", function () {
             var $this = $(this);
             var $text = $(this).parents('.input-group-file').find('.form-control');
             var value = "";
 
-            $.each($this[0].files, function(i, file) {
+            $.each($this[0].files, function (i, file) {
                 value += file.name + ", ";
             });
             value = value.substring(0, value.length - 2);
@@ -450,14 +454,12 @@ $.components.register("input-group-file", {
 
 $.components.register("card", {
     mode: "init",
-    defaults: {
-
-    },
-    init: function(context) {
+    defaults: {},
+    init: function (context) {
         if (!$.fn.card) return;
         var defaults = $.components.getDefaults("card");
 
-        $('[data-plugin="card"]', context).each(function() {
+        $('[data-plugin="card"]', context).each(function () {
             var options = $.extend({}, defaults, $(this).data());
 
             if (options.target) {

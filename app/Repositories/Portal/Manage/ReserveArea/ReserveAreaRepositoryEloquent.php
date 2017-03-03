@@ -20,10 +20,20 @@ class ReserveAreaRepositoryEloquent extends BaseRepository implements ReserveAre
 
     public function getAllCondominium()
     {
-        $condominiumId = session()->get('condominium_id');
         $dados = $this->orderBy('name', 'asc')
             ->findWhere([
-                'condominium_id' => $condominiumId
+                'condominium_id' => session()->get('condominium_id')
+            ]);
+
+        return $dados;
+    }
+
+    public function getAllCondominiumActive()
+    {
+        $dados = $this->orderBy('name', 'asc')
+            ->findWhere([
+                'condominium_id' => session()->get('condominium_id'),
+                'active' => 'y'
             ]);
 
         return $dados;

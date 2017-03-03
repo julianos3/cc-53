@@ -17,19 +17,36 @@
         <div class="def-center">
             <section class="def-65 w-1024-100">
                 <nav class="def-100">
+                    @if (!$blogs->isEmpty())
                     <ul class="def-100">
-
+                        @foreach($blogs as $blog)
                         <li class="def-100 m-top-30">
                             <div class="def-100 p-bottom-30 bx-white border-grey-2">
+                                <?php
+                                $image = '';
+                                $cover = '';
+                                $urlBlog = route('site.blog.show', ['seoLink' => $blog->seo_link, 'id' => $blog->id]);
+                                if($blog->images){
+                                    foreach($blog->images as $image){
+                                        if($image->cover == 'y'){
+                                            $cover = asset('uploads/blog/'.$image->image);
+                                        }
+                                    }
+                                    if($cover != ''){
+                                        //$image = '<figure class="def-100"><img class="def-100" height="180px" title="'.$new->name.'" alt="'.$new->name.'" src="'.$cover.'" /></figure>';
+                                        $image = '<figure class="def-90 m-top-30 m-left-5 w-800-100 m-top-800-0" style="background: url('.$cover.') center center; background-size: cover; height: 315px;"></figure>';
+                                    }
+                                }
 
-                                <figure class="def-90 m-top-30 m-left-5 w-800-100 m-top-800-0">
-                                    <a class="def-100" href="" title="">
-                                        <img class="def-100" src="{{ asset('upload/blog/4f4ca0caf0763ebaf2d3ef89597f65f6.jpg') }}" alt="" title="" />
-                                    </a>
-                                </figure>
+                                ?>
+                                @if(isset($image))
+                                <a class="def-100" href="{!! $urlBlog !!}" title="{!! $blog->name !!}">
+                                    {!! $image !!}
+                                </a>
+                                @endif
                                 <div class="def-90 m-left-5 m-top-30">
                                     <div class="def-100 f-w-600 color-grey f-size-24">
-                                        Título blog
+                                        {!! $blog->name !!}
                                     </div>
                                     <div class="def-100 m-top-30">
                                         <div class="f-left c-left">
@@ -37,14 +54,14 @@
                                                 <img src="{{ asset('site/images/icons/calendar.png') }}" />
                                             </figure>
                                             <time class="m-top-3 m-left-10-px f-w-400 color-grey f-size-16">
-                                                10/10/2016
+                                                {!! date('d/m/Y', strtotime($blog->date)) !!}
                                             </time>
                                         </div>
                                         <div class="def-100 def-text m-top-30">
-                                            <p>texto aqui</p>
+                                            <p>{!! str_limit(strip_tags($blog->description), 240) !!}</p>
                                         </div>
                                         <div class="def-100 m-top-30">
-                                            <a class="f-right bx-green b-radius-5 f-w-600 color-white f-size-14 see-more" href="" title="LEIA MAIS">
+                                            <a class="f-right bx-green b-radius-5 f-w-600 color-white f-size-14 see-more" href="{!! $urlBlog !!}" title="LEIA MAIS">
                                                 LEIA MAIS
                                             </a>
                                         </div>
@@ -52,9 +69,15 @@
                                 </div>
                             </div>
                         </li>
+                        @endforeach
                     </ul>
+                    @else
+                    <div class="def-100 f-size-3 m-top-40 t-align-c">
+                        Nenhum post cadastrado até o momento
+                    </div>
+                    @endif
                 </nav>
-                <div class="def-100 m-top-60 t-align-c m-top-1024-30">
+                <div class="none def-100 m-top-60 t-align-c m-top-1024-30">
                     <a class="b-radius-5 f-w-600 color-grey f-size-16 border-grey smooth see-more f-1024-l w-600-100" href="" title="CARREGAR MAIS">CARREGAR MAIS</a>
                 </div>
             </section>
@@ -70,51 +93,24 @@
                             </div>
                         </fieldset>
                     </form>
-                    <nav class="def-100 m-top-30 list-group-category">
+                    @if(!$tags->isEmpty())
+                    <nav class="def-100 m-top-30 list-group-category none">
                         <ul class="def-100">
                             <li class="def-100 title-category">
-                                CATEGORIA
+                                TAGS
                             </li>
+                            @foreach($tags as $tag)
                             <li class="def-100">
-                                <a href="" title="CONDOMINOS">
-                                    - Condominos
+                                <a href="{{ route('site.blog.tag', ['tag' => $tag->seo_link]) }}" title="{!! $tag->name !!}">
+                                    - {!! $tag->name !!}
                                 </a>
                             </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Revendores
-                                </a>
-                            </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Síndicos
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
                     </nav>
-                    <nav class="def-100 m-top-30 list-group-category">
-                        <ul class="def-100">
-                            <li class="def-100 title-category">
-                                ÚLTIMOS POSTS
-                            </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Vantagens do sistema Condlink
-                                </a>
-                            </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Vantagens do sistema Condlink
-                                </a>
-                            </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Vantagens do sistema Condlink
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <figure class="def-100 m-top-50">
+                    @endif
+                    <figure class="def-100 m-top-50 none">
+                        banner de anuncio cc
                         <img class="def-100" src="{{ asset('upload/banner/main-banner.jpg') }}" />
                     </figure>
                 </div>

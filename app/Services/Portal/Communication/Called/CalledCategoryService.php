@@ -35,7 +35,6 @@ class CalledCategoryService //regras de negocios
 
     public function create(array $data)
     {
-
         try {
             $data['condominium_id'] = $this->condominium_id;
             $this->validator->with($data)->passesOrFail();

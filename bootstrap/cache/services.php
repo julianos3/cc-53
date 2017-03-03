@@ -27,13 +27,12 @@
     23 => 'Collective\\Html\\HtmlServiceProvider',
     24 => 'Barryvdh\\Debugbar\\ServiceProvider',
     25 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
-    26 => 'Laravel\\Cashier\\CashierServiceProvider',
-    27 => 'Artistas\\PagSeguro\\PagSeguroServiceProvider',
-    28 => 'CentralCondo\\Providers\\AppServiceProvider',
-    29 => 'CentralCondo\\Providers\\AuthServiceProvider',
-    30 => 'CentralCondo\\Providers\\EventServiceProvider',
-    31 => 'CentralCondo\\Providers\\RouteServiceProvider',
-    32 => 'CentralCondo\\Providers\\RepositoryServiceProvider',
+    26 => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
+    27 => 'CentralCondo\\Providers\\AppServiceProvider',
+    28 => 'CentralCondo\\Providers\\AuthServiceProvider',
+    29 => 'CentralCondo\\Providers\\EventServiceProvider',
+    30 => 'CentralCondo\\Providers\\RouteServiceProvider',
+    31 => 'CentralCondo\\Providers\\RepositoryServiceProvider',
   ),
   'eager' => 
   array (
@@ -49,13 +48,11 @@
     9 => 'Illuminate\\View\\ViewServiceProvider',
     10 => 'Prettus\\Repository\\Providers\\RepositoryServiceProvider',
     11 => 'Barryvdh\\Debugbar\\ServiceProvider',
-    12 => 'Laravel\\Cashier\\CashierServiceProvider',
-    13 => 'Artistas\\PagSeguro\\PagSeguroServiceProvider',
-    14 => 'CentralCondo\\Providers\\AppServiceProvider',
-    15 => 'CentralCondo\\Providers\\AuthServiceProvider',
-    16 => 'CentralCondo\\Providers\\EventServiceProvider',
-    17 => 'CentralCondo\\Providers\\RouteServiceProvider',
-    18 => 'CentralCondo\\Providers\\RepositoryServiceProvider',
+    12 => 'CentralCondo\\Providers\\AppServiceProvider',
+    13 => 'CentralCondo\\Providers\\AuthServiceProvider',
+    14 => 'CentralCondo\\Providers\\EventServiceProvider',
+    15 => 'CentralCondo\\Providers\\RouteServiceProvider',
+    16 => 'CentralCondo\\Providers\\RepositoryServiceProvider',
   ),
   'deferred' => 
   array (
@@ -152,6 +149,14 @@
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'command.ide-helper.generate' => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     'command.ide-helper.models' => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
+    'Artesaos\\SEOTools\\Contracts\\SEOTools' => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
+    'Artesaos\\SEOTools\\Contracts\\MetaTags' => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
+    'Artesaos\\SEOTools\\Contracts\\TwitterCards' => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
+    'Artesaos\\SEOTools\\Contracts\\OpenGraph' => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
+    'seotools' => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
+    'seotools.metatags' => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
+    'seotools.opengraph' => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
+    'seotools.twitter' => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
   ),
   'when' => 
   array (
@@ -195,6 +200,9 @@
     array (
     ),
     'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider' => 
+    array (
+    ),
+    'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider' => 
     array (
     ),
   ),

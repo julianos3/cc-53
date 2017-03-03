@@ -5,10 +5,14 @@ namespace CentralCondo\Listeners\Portal\User;
 use CentralCondo\Entities\Portal\Condominium\Condominium\UserCondominium;
 use CentralCondo\Events\Portal\User\SendMailNewUserWellcome;
 use CentralCondo\Events\SomeEvent;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendMailNewUserWellcomeFired
+class SendMailNewUserWellcomeFired implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
      * Create the event listener.
      *

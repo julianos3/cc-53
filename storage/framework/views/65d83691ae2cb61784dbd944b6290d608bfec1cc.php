@@ -15,19 +15,40 @@
         <div class="def-center">
             <section class="def-65 w-1024-100">
                 <nav class="def-100">
+                    <?php if(isset($blogs)): ?>
                     <ul class="def-100">
-
+                        <?php $__currentLoopData = $blogs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $blog): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                         <li class="def-100 m-top-30">
                             <div class="def-100 p-bottom-30 bx-white border-grey-2">
 
-                                <figure class="def-90 m-top-30 m-left-5 w-800-100 m-top-800-0">
-                                    <a class="def-100" href="" title="">
-                                        <img class="def-100" src="<?php echo e(asset('upload/blog/4f4ca0caf0763ebaf2d3ef89597f65f6.jpg')); ?>" alt="" title="" />
-                                    </a>
-                                </figure>
+
+                                <?php
+                                $image = '';
+                                $cover = '';
+                                $urlBlog = route('site.blog.show', ['seoLink' => $blog->seo_link, 'id' => $blog->id]);
+                                if($blog->images){
+                                    foreach($blog->images as $image){
+                                        if($image->cover == 'y'){
+                                            $cover = asset('uploads/blog/'.$image->image);
+                                        }
+                                    }
+                                    if($cover != ''){
+                                        //$image = '<figure class="def-100"><img class="def-100" height="180px" title="'.$new->name.'" alt="'.$new->name.'" src="'.$cover.'" /></figure>';
+                                        $image = '<figure class="def-90 m-top-30 m-left-5 w-800-100 m-top-800-0" style="background: url('.$cover.') center center; background-size: cover; height: 315px;"></figure>';
+                                    }
+                                }
+
+                                ?>
+                                <?php if(isset($image)): ?>
+                                <a class="def-100" href="<?php echo $urlBlog; ?>" title="<?php echo $blog->name; ?>">
+                                    <?php echo $image; ?>
+
+                                </a>
+                                <?php endif; ?>
                                 <div class="def-90 m-left-5 m-top-30">
                                     <div class="def-100 f-w-600 color-grey f-size-24">
-                                        Título blog
+                                        <?php echo $blog->name; ?>
+
                                     </div>
                                     <div class="def-100 m-top-30">
                                         <div class="f-left c-left">
@@ -35,14 +56,15 @@
                                                 <img src="<?php echo e(asset('site/images/icons/calendar.png')); ?>" />
                                             </figure>
                                             <time class="m-top-3 m-left-10-px f-w-400 color-grey f-size-16">
-                                                10/10/2016
+                                                <?php echo date('d/m/Y', strtotime($blog->date)); ?>
+
                                             </time>
                                         </div>
                                         <div class="def-100 def-text m-top-30">
-                                            <p>texto aqui</p>
+                                            <p><?php echo str_limit(strip_tags($blog->description), 240); ?></p>
                                         </div>
                                         <div class="def-100 m-top-30">
-                                            <a class="f-right bx-green b-radius-5 f-w-600 color-white f-size-14 see-more" href="" title="LEIA MAIS">
+                                            <a class="f-right bx-green b-radius-5 f-w-600 color-white f-size-14 see-more" href="<?php echo $urlBlog; ?>" title="LEIA MAIS">
                                                 LEIA MAIS
                                             </a>
                                         </div>
@@ -50,7 +72,11 @@
                                 </div>
                             </div>
                         </li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                     </ul>
+                    <?php else: ?>
+                    Nenhum post cadastrado até o momento
+                    <?php endif; ?>
                 </nav>
                 <div class="def-100 m-top-60 t-align-c m-top-1024-30">
                     <a class="b-radius-5 f-w-600 color-grey f-size-16 border-grey smooth see-more f-1024-l w-600-100" href="" title="CARREGAR MAIS">CARREGAR MAIS</a>
@@ -68,51 +94,25 @@
                             </div>
                         </fieldset>
                     </form>
+                    <?php if(!$tags->isEmpty()): ?>
                     <nav class="def-100 m-top-30 list-group-category">
                         <ul class="def-100">
                             <li class="def-100 title-category">
-                                CATEGORIA
+                                TAGS
                             </li>
+                            <?php $__currentLoopData = $tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                             <li class="def-100">
-                                <a href="" title="CONDOMINOS">
-                                    - Condominos
+                                <a href="<?php echo e(route('site.blog.tag', ['tag' => $tag->seo_link])); ?>" title="<?php echo $tag->name; ?>">
+                                    - <?php echo $tag->name; ?>
+
                                 </a>
                             </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Revendores
-                                </a>
-                            </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Síndicos
-                                </a>
-                            </li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                         </ul>
                     </nav>
-                    <nav class="def-100 m-top-30 list-group-category">
-                        <ul class="def-100">
-                            <li class="def-100 title-category">
-                                ÚLTIMOS POSTS
-                            </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Vantagens do sistema Condlink
-                                </a>
-                            </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Vantagens do sistema Condlink
-                                </a>
-                            </li>
-                            <li class="def-100">
-                                <a href="" title="CONDÃ”MINOS">
-                                    - Vantagens do sistema Condlink
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <?php endif; ?>
                     <figure class="def-100 m-top-50">
+                        banner de anuncio cc
                         <img class="def-100" src="<?php echo e(asset('upload/banner/main-banner.jpg')); ?>" />
                     </figure>
                 </div>
